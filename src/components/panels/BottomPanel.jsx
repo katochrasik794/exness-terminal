@@ -74,7 +74,7 @@ export default function BottomPanel() {
       </div>
 
       {/* Table Header */}
-      <div className="grid grid-cols-[80px_60px_80px_100px_100px_60px_60px_80px_60px_60px] gap-4 px-4 py-2 text-xs text-gray-400 border-b border-gray-700 flex-shrink-0">
+      <div className="grid grid-cols-[10%_8%_12%_15%_15%_8%_8%_12%_6%_6%] gap-2 px-4 py-2 text-xs text-gray-400 border-b border-gray-700 flex-shrink-0 min-w-full">
         <span>Symbol</span>
         <span>Type</span>
         <span>Volume, lot</span>
@@ -92,7 +92,7 @@ export default function BottomPanel() {
         {activeTab === 'Open' && openPositions.map((position, idx) => (
           <div
             key={idx}
-            className="grid grid-cols-[80px_60px_80px_100px_100px_60px_60px_80px_60px_60px] gap-4 px-4 py-3 text-sm border-b border-gray-800 hover:bg-[#1c252f]"
+            className="grid grid-cols-[10%_8%_12%_15%_15%_8%_8%_12%_6%_6%] gap-2 px-4 py-3 text-sm border-b border-gray-800 hover:bg-[#1c252f] min-w-full"
           >
             <div className="flex items-center gap-2">
               <span className="text-orange-400">●</span>
@@ -137,7 +137,7 @@ export default function BottomPanel() {
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between px-4 py-2 bg-[#0f1419] border-t border-gray-700 text-xs text-gray-400 flex-shrink-0">
+      <div className="flex items-center justify-between px-4 py-2 bg-[#0f1419] border-t border-gray-700 text-xs text-gray-400 flex-shrink-0 min-w-full">
         <div className="flex items-center gap-6">
           <span>Equity: <span className="text-white">1,006.71 USD</span></span>
           <span>Free Margin: <span className="text-white">1,002.37 USD</span></span>

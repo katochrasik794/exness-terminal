@@ -44,8 +44,8 @@ export default function OrderPanel() {
           <div className="flex gap-0 mb-2">
             <button 
               className={`flex-1 py-2 px-3 flex flex-col items-center transition-colors ${
-                buyActive ? 'bg-red-600 hover:bg-red-700' : 'bg-red-500/50 hover:bg-red-600'
-              } text-white`}
+                buyActive ? 'bg-gray-900 border-1 border-red-600 rounded-md' : 'bg-gray-900 border-1 border-red-600 rounded-md'
+              } text-red-600`}
               type="button"
               onClick={() => setBuyActive(false)}
             >
@@ -58,8 +58,8 @@ export default function OrderPanel() {
             </button>
             <button 
               className={`flex-1 py-2 px-3 flex flex-col items-center transition-colors ${
-                buyActive ? 'bg-blue-600 hover:bg-blue-700 ring-2 ring-blue-400' : 'bg-blue-500/50 hover:bg-blue-600'
-              } text-white`}
+                buyActive ? 'bg-gray-900 border-1 border-blue-600 rounded-md' : 'bg-gray-900 border-1 border-blue-600 rounded-md'
+              } text-blue-600`}
               type="button"
               onClick={() => setBuyActive(true)}
             >
