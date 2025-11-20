@@ -30,9 +30,9 @@ export default function SettingsPanel() {
   }
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full overflow-hidden">
       {/* Header */}
-      <div className="p-4 border-b border-gray-700">
+      <div className="p-4 border-b border-gray-700 flex-shrink-0">
         <div className="flex items-center justify-between">
           <h2 className="text-white font-medium text-sm">Settings</h2>
           <button className="text-gray-400 hover:text-white">
@@ -44,7 +44,7 @@ export default function SettingsPanel() {
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-6">
+      <div className="flex-1 overflow-y-auto min-h-0 p-4 space-y-6">
         {/* Show on chart */}
         <div>
           <h3 className="text-gray-300 text-xs font-bold mb-3">Show on chart</h3>

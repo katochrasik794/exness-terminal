@@ -101,6 +101,114 @@ export default function WatchlistPanel() {
       pl: '-',
       favorite: true,
       flag: 'usoil'
+    },
+    {
+      symbol: 'TSLA',
+      name: 'Tesla Inc.',
+      bid: '248.50',
+      ask: '248.55',
+      change: '+2.15%',
+      changeColor: 'green',
+      signal: 'up',
+      pl: '-',
+      favorite: true,
+      flag: 'tsla'
+    },
+    {
+      symbol: 'NVDA',
+      name: 'NVIDIA Corporation',
+      bid: '145.20',
+      ask: '145.25',
+      change: '+1.85%',
+      changeColor: 'green',
+      signal: 'up',
+      pl: '-',
+      favorite: true,
+      flag: 'nvda'
+    },
+    {
+      symbol: 'MSFT',
+      name: 'Microsoft Corporation',
+      bid: '415.80',
+      ask: '415.85',
+      change: '+0.45%',
+      changeColor: 'green',
+      signal: 'up',
+      pl: '-',
+      favorite: true,
+      flag: 'msft'
+    },
+    {
+      symbol: 'GOOGL',
+      name: 'Alphabet Inc.',
+      bid: '175.30',
+      ask: '175.35',
+      change: '-0.25%',
+      changeColor: 'red',
+      signal: 'down',
+      pl: '-',
+      favorite: true,
+      flag: 'googl'
+    },
+    {
+      symbol: 'AMZN',
+      name: 'Amazon.com Inc.',
+      bid: '185.90',
+      ask: '185.95',
+      change: '+1.20%',
+      changeColor: 'green',
+      signal: 'up',
+      pl: '-',
+      favorite: true,
+      flag: 'amzn'
+    },
+    {
+      symbol: 'META',
+      name: 'Meta Platforms Inc.',
+      bid: '565.40',
+      ask: '565.45',
+      change: '+0.85%',
+      changeColor: 'green',
+      signal: 'up',
+      pl: '-',
+      favorite: true,
+      flag: 'meta'
+    },
+    {
+      symbol: 'ETH',
+      name: 'Ethereum vs US Dollar',
+      bid: '3,125.50',
+      ask: '3,125.50',
+      change: '-2.15%',
+      changeColor: 'red',
+      signal: 'down',
+      pl: '-',
+      favorite: true,
+      flag: 'eth'
+    },
+    {
+      symbol: 'ADA',
+      name: 'Cardano vs US Dollar',
+      bid: '1.085',
+      ask: '1.085',
+      change: '+5.25%',
+      changeColor: 'green',
+      signal: 'up',
+      pl: '-',
+      favorite: true,
+      flag: 'ada'
+    },
+    {
+      symbol: 'SOL',
+      name: 'Solana vs US Dollar',
+      bid: '245.80',
+      ask: '245.80',
+      change: '+3.45%',
+      changeColor: 'green',
+      signal: 'up',
+      pl: '-',
+      favorite: true,
+      flag: 'sol'
     }
   ]
 
@@ -110,9 +218,9 @@ export default function WatchlistPanel() {
   )
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full overflow-hidden">
       {/* Header */}
-      <header className="flex items-center justify-between p-3 border-b border-gray-700">
+      <header className="flex items-center justify-between p-3 border-b border-gray-700 flex-shrink-0">
         <h2 className="text-gray-300 text-xs font-medium uppercase">Instruments</h2>
         <div className="flex items-center gap-1">
           <button className="p-1 text-gray-400 hover:text-white">
@@ -132,7 +240,7 @@ export default function WatchlistPanel() {
       </header>
 
       {/* Search and Filter */}
-      <div className="p-3 space-y-3">
+      <div className="p-3 space-y-3 flex-shrink-0">
         <div className="relative">
           <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <circle cx="11" cy="11" r="8"/>
@@ -160,7 +268,7 @@ export default function WatchlistPanel() {
       </div>
 
       {/* Table */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto min-h-0">
         <table className="w-full text-xs">
           <thead>
             <tr className="border-b border-gray-700 text-gray-400">

@@ -59,6 +59,87 @@ export default function EconomicCalendarPanel() {
       actual: '-',
       forecast: '-',
       previous: '-'
+    },
+    {
+      time: '2:00 AM',
+      event: 'GDP Growth Rate',
+      country: 'US',
+      impact: 'high',
+      actual: '2.8%',
+      forecast: '2.5%',
+      previous: '2.4%'
+    },
+    {
+      time: '2:30 AM',
+      event: 'Unemployment Rate',
+      country: 'US',
+      impact: 'high',
+      actual: '4.1%',
+      forecast: '4.2%',
+      previous: '4.1%'
+    },
+    {
+      time: '3:00 AM',
+      event: 'Consumer Price Index',
+      country: 'US',
+      impact: 'high',
+      actual: '2.6%',
+      forecast: '2.4%',
+      previous: '2.4%'
+    },
+    {
+      time: '3:30 AM',
+      event: 'Retail Sales',
+      country: 'US',
+      impact: 'medium',
+      actual: '0.4%',
+      forecast: '0.3%',
+      previous: '0.4%'
+    },
+    {
+      time: '4:00 AM',
+      event: 'Industrial Production',
+      country: 'US',
+      impact: 'medium',
+      actual: '0.3%',
+      forecast: '0.2%',
+      previous: '0.1%'
+    },
+    {
+      time: '4:30 AM',
+      event: 'Housing Starts',
+      country: 'US',
+      impact: 'low',
+      actual: '1.31M',
+      forecast: '1.33M',
+      previous: '1.35M'
+    },
+    {
+      time: '5:00 AM',
+      event: 'Building Permits',
+      country: 'US',
+      impact: 'low',
+      actual: '1.42M',
+      forecast: '1.44M',
+      previous: '1.43M'
+    },
+    {
+      time: '5:30 AM',
+      event: 'Durable Goods Orders',
+      country: 'US',
+      impact: 'medium',
+      actual: '0.2%',
+      forecast: '0.5%',
+      previous: '0.8%'
+    },
+    {
+      time: '6:00 AM',
+      event: 'Personal Income',
+      country: 'US',
+      impact: 'medium',
+      actual: '0.6%',
+      forecast: '0.4%',
+      previous: '0.3%'
     }
   ]
 
@@ -81,9 +162,9 @@ export default function EconomicCalendarPanel() {
   }
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full overflow-hidden">
       {/* Header */}
-      <div className="p-4 border-b border-gray-700">
+      <div className="p-4 border-b border-gray-700 flex-shrink-0">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <h2 className="text-white font-medium">ECONOMIC CALENDAR</h2>
@@ -135,7 +216,7 @@ export default function EconomicCalendarPanel() {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-gray-700">
+      <div className="flex border-b border-gray-700 flex-shrink-0">
         {['Actual', 'Forecast', 'Previous'].map(tab => (
           <button
             key={tab}
@@ -152,19 +233,19 @@ export default function EconomicCalendarPanel() {
       </div>
 
       {/* Load Previous Button */}
-      <div className="p-4">
+      <div className="p-4 flex-shrink-0">
         <button className="w-full bg-[#2a3441] hover:bg-[#3a4451] text-white py-2 rounded text-sm transition-colors">
           Load previous
         </button>
       </div>
 
       {/* Date Header */}
-      <div className="px-4 py-2 bg-[#2a3441] text-white font-medium text-sm">
+      <div className="px-4 py-2 bg-[#2a3441] text-white font-medium text-sm flex-shrink-0">
         November 18
       </div>
 
       {/* Events List */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto min-h-0">
         {economicEvents.map((event, index) => (
           <div key={index} className="px-4 py-3 border-b border-gray-800 hover:bg-[#1c252f]">
             <div className="flex items-center justify-between mb-1">

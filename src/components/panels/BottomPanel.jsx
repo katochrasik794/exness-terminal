@@ -31,7 +31,7 @@ export default function BottomPanel() {
   ]
 
   return (
-    <div className="h-64 bg-[#1a1f26] border-t border-gray-700 flex flex-col">
+    <div className="h-64 bg-[#1a1f26] border-t border-gray-700 flex flex-col overflow-hidden">
       {/* Tabs */}
       <div className="flex items-center border-b border-gray-700">
         {tabs.map(tab => (

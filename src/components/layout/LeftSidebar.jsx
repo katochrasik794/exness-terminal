@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import WatchlistPanel from './WatchlistPanel'
-import EconomicCalendarPanel from './EconomicCalendarPanel'
-import SettingsPanel from './SettingsPanel'
-import ResizablePanel from './ResizablePanel'
+import WatchlistPanel from '../panels/WatchlistPanel'
+import EconomicCalendarPanel from '../panels/EconomicCalendarPanel'
+import SettingsPanel from '../panels/SettingsPanel'
+import ResizablePanel from '../panels/ResizablePanel'
 
 export default function LeftSidebar() {
   const [activePanel, setActivePanel] = useState(null)
@@ -12,8 +12,8 @@ export default function LeftSidebar() {
   }
 
   return (
-    <div className="flex">
-      <aside className="bg-[#1a1f26] border-r border-gray-700 w-12 flex flex-col items-center py-4 gap-2">
+    <div className="flex h-full">
+      <aside className="bg-[#1a1f26] border-r border-gray-700 w-12 flex flex-col items-center py-4 gap-2 h-full">
         {/* Instruments Button */}
         <div>
           <button 

@@ -38,7 +38,7 @@ export default function ResizablePanel({ children, minWidth = 200, maxWidth = 60
   return (
     <div 
       ref={panelRef}
-      className="relative bg-[#1a1f26] border-r border-gray-700 flex flex-col"
+      className="relative bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full overflow-hidden"
       style={{ width: `${width}px` }}
     >
       {children}

@@ -1,6 +1,6 @@
 import './App.css'
-import Navbar from './components/Navbar'
-import LeftSidebar from './components/LeftSidebar'
+import Navbar from './components/layout/Navbar'
+import LeftSidebar from './components/layout/LeftSidebar'
 import TradingTerminal from './pages/TradingTerminal'
 
 function App() {
