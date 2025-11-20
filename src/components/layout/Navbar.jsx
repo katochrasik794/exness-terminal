@@ -20,7 +20,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="bg-[#1a1f26] border-b border-gray-700">
+    <header className="bg-[#1a1f26] border-b border-gray-700 flex-shrink-0">
       <nav className="flex items-center h-16">
         {/* Logo */}
         <div className="px-4">

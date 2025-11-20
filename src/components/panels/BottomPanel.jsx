@@ -31,9 +31,9 @@ export default function BottomPanel() {
   ]
 
   return (
-    <div className="h-64 bg-[#1a1f26] border-t border-gray-700 flex flex-col overflow-hidden">
+    <div className="h-full bg-[#1a1f26] border-t border-gray-700 flex flex-col overflow-hidden">
       {/* Tabs */}
-      <div className="flex items-center border-b border-gray-700">
+      <div className="flex items-center border-b border-gray-700 flex-shrink-0">
         {tabs.map(tab => (
           <button
             key={tab}
@@ -74,7 +74,7 @@ export default function BottomPanel() {
       </div>
 
       {/* Table Header */}
-      <div className="grid grid-cols-[80px_60px_80px_100px_100px_60px_60px_80px_60px_60px] gap-4 px-4 py-2 text-xs text-gray-400 border-b border-gray-700">
+      <div className="grid grid-cols-[80px_60px_80px_100px_100px_60px_60px_80px_60px_60px] gap-4 px-4 py-2 text-xs text-gray-400 border-b border-gray-700 flex-shrink-0">
         <span>Symbol</span>
         <span>Type</span>
         <span>Volume, lot</span>
@@ -88,7 +88,7 @@ export default function BottomPanel() {
       </div>
 
       {/* Table Content */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto min-h-0">
         {activeTab === 'Open' && openPositions.map((position, idx) => (
           <div
             key={idx}
@@ -137,7 +137,7 @@ export default function BottomPanel() {
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between px-4 py-2 bg-[#0f1419] border-t border-gray-700 text-xs text-gray-400">
+      <div className="flex items-center justify-between px-4 py-2 bg-[#0f1419] border-t border-gray-700 text-xs text-gray-400 flex-shrink-0">
         <div className="flex items-center gap-6">
           <span>Equity: <span className="text-white">1,006.71 USD</span></span>
           <span>Free Margin: <span className="text-white">1,002.37 USD</span></span>
