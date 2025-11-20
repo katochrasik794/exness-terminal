@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+/* Global styles for full screen height */
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1f26;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* Smooth resize handle styles */
+.resize-handle {
+  transition: background-color 0.15s ease-in-out;
+  position: relative;
+}
+
+.resize-handle:hover {
+  background-color: rgb(59 130 246 / 0.8) !important;
+}
+
+.resize-handle:active {
+  background-color: rgb(59 130 246) !important;
+}
+
+/* Resize handle visual feedback */
+.resize-handle-horizontal::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 3px;
+  height: 20px;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+  border-radius: 1px;
+}
+
+.resize-handle-vertical::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 3px;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+  border-radius: 1px;
+}
+
+.resize-handle:hover::after {
+  opacity: 0.6;
+}
+
+.resize-handle:active::after {
+  opacity: 1;
+}
