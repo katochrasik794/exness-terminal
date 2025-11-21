@@ -40,8 +40,8 @@ export default function OrderPanel() {
         </div>
 
         {/* Order Buttons */}
-        <div className="px-3 py-2 flex-shrink-0">
-          <div className="flex gap-0 mb-2">
+        <div className="px-3 pt-2 flex-shrink-0">
+          <div className="flex gap-0 mb-0">
             <button 
               className={`flex-1 py-2 px-3 flex flex-col items-center transition-colors ${
                 buyActive ? 'bg-gray-900 border-1 border-red-600 rounded-md' : 'bg-gray-900 border-1 border-red-600 rounded-md'
@@ -73,13 +73,13 @@ export default function OrderPanel() {
           </div>
 
           {/* Spread */}
-          <div className="text-center py-1.5 border border-gray-600 rounded mb-2">
+          <div className="text-center border-0 border-gray-600 rounded -mb-2 ">
             <span className="text-gray-400 text-xs">0.00 USD</span>
           </div>
 
           {/* Sentiment */}
           <div className="mb-2">
-            <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center justify-between mb-0">
               <span className="text-red-400 text-xs">39%</span>
               <span className="text-blue-400 text-xs">61%</span>
             </div>

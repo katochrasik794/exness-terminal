@@ -13,12 +13,12 @@ export default function LeftSidebar() {
 
   return (
     <div className="border-r-4 border-gray-600 flex h-full overflow-hidden min-h-0">
-      <aside className="bg-[#141d22] border-r-4 border-gray-600 w-12 flex flex-col items-center py-4 gap-2 flex-shrink-0 h-full">
+      <aside className="bg-[#141d22] border-r-4 border-gray-600 w-12 flex flex-col items-center py-2 gap-2 flex-shrink-0 h-full">
         {/* Instruments Button */}
         <div>
           <button 
-            className={`w-8 h-8 flex items-center justify-center text-gray-300 hover:text-white hover:bg-gray-700 rounded ${
-              activePanel === 'instruments' ? 'bg-gray-600' : ''
+            className={`w-8 h-8 flex items-center border border-gray-700 justify-center text-gray-300 hover:text-white hover:bg-gray-700 rounded ${
+              activePanel === 'instruments' ? 'bg-gray-900' : ''
             }`}
             type="button"
             data-test="aside-panel-watchlist-button"
@@ -36,8 +36,8 @@ export default function LeftSidebar() {
         {/* Economic Calendar Button */}
         <div>
           <button 
-            className={`w-8 h-8 flex items-center justify-center text-gray-300 hover:text-white hover:bg-gray-700 rounded ${
-              activePanel === 'calendar' ? 'bg-gray-600' : ''
+            className={`w-8 h-8 flex items-center border border-gray-700 justify-center text-gray-300 hover:text-white hover:bg-gray-700 rounded ${
+              activePanel === 'calendar' ? 'bg-gray-900' : ''
             }`}
             type="button"
             data-test="aside-panel-calendar-events-button"
@@ -57,8 +57,8 @@ export default function LeftSidebar() {
         {/* Settings Button */}
         <div>
           <button 
-            className={`w-8 h-8 flex items-center justify-center text-gray-300 hover:text-white hover:bg-gray-700 rounded ${
-              activePanel === 'settings' ? 'bg-gray-600' : ''
+            className={`w-8 h-8 flex items-center border border-gray-700 justify-center text-gray-300 hover:text-white hover:bg-gray-700 rounded ${
+              activePanel === 'settings' ? 'bg-gray-900' : ''
             }`}
             type="button"
             data-test="aside-panel-settings-button"

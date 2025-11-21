@@ -62,10 +62,10 @@ function FlagIcon({ type }) {
 function InstrumentTab({ tab, isActive, onClick, onClose }) {
   return (
     <div
-      className={`h-12 relative px-6 py-4 cursor-pointer group ${
+      className={`h-14 relative px-4 py-4 cursor-pointer group ${
         isActive 
-          ? 'bg-[#141d22] text-white' 
-          : 'text-gray-300 hover:text-white'
+          ? 'bg-[#141d22] text-white border-b-4 border-white' 
+          : 'text-gray-300 hover:text-white hover:border-b-2 hover:border-white'
       }`}
       onClick={() => onClick(tab.id)}
       data-test="instrument-tab"
@@ -86,7 +86,7 @@ function InstrumentTab({ tab, isActive, onClick, onClose }) {
       </button>
       
       {/* Tab content */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center justify-center gap-3 h-full">
         <FlagIcon type={tab.flagType} />
         <div className="text-sm font-medium" data-test="instrument-tab-symbol">
           {tab.symbol}
@@ -177,9 +177,9 @@ export default function Navbar() {
               </div>
               
               {/* Add Tab Button */}
-              <div>
+              <div className="flex items-center h-full">
                 <button 
-                  className="px-3 py-4 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition-colors mx-1"
+                  className="px-3 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition-colors mx-1 flex items-center justify-center h-8"
                   data-test="add-tab-button"
                   type="button"
                   onClick={handleAddTab}
