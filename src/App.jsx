@@ -1,6 +1,6 @@
 import './App.css'
 import Navbar from './components/layout/Navbar'
-import LeftSidebar from './components/layout/LeftSidebar'
+// import LeftSidebar from './components/layout/LeftSidebar'
 import TradingTerminal from './pages/TradingTerminal'
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <div className="h-screen flex flex-col bg-[#0f1419] overflow-hidden">
       <Navbar />
       <div className="flex flex-1 min-h-0 overflow-hidden">
-        <LeftSidebar />
+        {/* <LeftSidebar /> */}
         <TradingTerminal />
       </div>
     </div>

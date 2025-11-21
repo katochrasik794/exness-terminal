@@ -1,18 +1,27 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import WatchlistPanel from '../panels/WatchlistPanel'
 import EconomicCalendarPanel from '../panels/EconomicCalendarPanel'
 import SettingsPanel from '../panels/SettingsPanel'
 import ResizablePanel from '../panels/ResizablePanel'
 
-export default function LeftSidebar() {
+export default function LeftSidebar({ onPanelStateChange }) {
   const [activePanel, setActivePanel] = useState(null)
 
   const togglePanel = (panel) => {
     setActivePanel(activePanel === panel ? null : panel)
   }
 
+  const hasActivePanel = activePanel !== null
+
+  // Notify parent component about panel state changes
+  useEffect(() => {
+    if (onPanelStateChange) {
+      onPanelStateChange(hasActivePanel)
+    }
+  }, [hasActivePanel, onPanelStateChange])
+
   return (
-    <div className="border-r-4 border-gray-600 flex h-full overflow-hidden min-h-0">
+    <div className="border-0 border-gray-600 flex h-full overflow-hidden min-h-0">
       <aside className="bg-[#141d22] border-r-4 border-gray-600 w-12 flex flex-col items-center py-2 gap-2 flex-shrink-0 h-full">
         {/* Instruments Button */}
         <div>
@@ -73,21 +82,25 @@ export default function LeftSidebar() {
         </div>
       </aside>
       
-      {/* Panel Content */}
-      {activePanel === 'instruments' && (
-        <ResizablePanel>
-          <WatchlistPanel />
-        </ResizablePanel>
-      )}
-      {activePanel === 'calendar' && (
-        <ResizablePanel>
-          <EconomicCalendarPanel />
-        </ResizablePanel>
-      )}
-      {activePanel === 'settings' && (
-        <ResizablePanel>
-          <SettingsPanel />
-        </ResizablePanel>
+      {/* Panel Content - only show when panel is active */}
+      {hasActivePanel && (
+        <>
+          {activePanel === 'instruments' && (
+            <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden">
+              <WatchlistPanel />
+            </div>
+          )}
+          {activePanel === 'calendar' && (
+            <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden">
+              <EconomicCalendarPanel />
+            </div>
+          )}
+          {activePanel === 'settings' && (
+            <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden">
+              <SettingsPanel />
+            </div>
+          )}
+        </>
       )}
     </div>
   )
