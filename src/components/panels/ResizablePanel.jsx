@@ -1,6 +1,6 @@
 import { usePixelResize } from '../../hooks/useResizable'
 
-export default function ResizablePanel({ children, minWidth = 200, maxWidth = 600, defaultWidth = 295 }) {
+export default function ResizablePanel({ children, minWidth = 200, maxWidth = 600, defaultWidth = 250 }) {
   const { width, containerRef: panelRef } = usePixelResize(defaultWidth, minWidth, maxWidth)
 
   return (

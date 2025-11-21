@@ -83,14 +83,14 @@ export default function EconomicCalendarPanel() {
   }
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-[#1a1f26]">
+    <div className="flex flex-col h-full overflow-hidden bg-[#141d22]">
       {/* Header */}
       <div className="flex items-center justify-between p-3 border-b border-gray-700 flex-shrink-0">
         <div className="flex items-center gap-2">
-          <h2 className="text-gray-300 text-sm font-medium uppercase">ECONOMIC CALENDAR</h2>
-          <div className="bg-green-600 text-white text-[10px] px-2 py-0.5 rounded">
-            CENTRAL BANKS
-          </div>
+          <h2 className="text-gray-400 text-[11px] font-medium uppercase">ECONOMIC CALENDAR</h2>
+          {/* <div className="bg-green-600 text-white text-[7px] px-2 py-0.5 rounded">
+            Trade Centre
+          </div> */}
         </div>
         <button className="text-gray-400 hover:text-white">
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -105,7 +105,7 @@ export default function EconomicCalendarPanel() {
           <select 
             value={selectedImpact}
             onChange={(e) => setSelectedImpact(e.target.value)}
-            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm text-white appearance-none cursor-pointer"
+            className="w-full bg-[#141d22] border border-gray-600 rounded px-3 py-2 text-sm text-white appearance-none cursor-pointer"
           >
             <option>All impacts</option>
             <option>High impact</option>
@@ -121,7 +121,7 @@ export default function EconomicCalendarPanel() {
           <select 
             value={selectedCountry}
             onChange={(e) => setSelectedCountry(e.target.value)}
-            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm text-white appearance-none cursor-pointer"
+            className="w-full bg-[#141d22] border border-gray-600 rounded px-3 py-2 text-sm text-white appearance-none cursor-pointer"
           >
             <option>All countries</option>
             <option>United States</option>
@@ -155,13 +155,13 @@ export default function EconomicCalendarPanel() {
 
       {/* Load Previous Button */}
       <div className="p-3 flex-shrink-0">
-        <button className="w-full bg-[#2a3441] hover:bg-[#3a4451] text-white py-2 rounded text-sm transition-colors">
+        <button className="w-full cursor-pointer bg-gray-700 hover:bg-[#3a4451] text-white py-2 rounded text-xs transition-colors">
           Load previous
         </button>
       </div>
 
       {/* Date Header */}
-      <div className="px-3 py-2 bg-[#2a3441] text-white font-medium text-sm flex-shrink-0">
+      <div className="px-3 py-2 bg-gray-600 text-white font-medium text-sm flex-shrink-0">
         November 20
       </div>
 

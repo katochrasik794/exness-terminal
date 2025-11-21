@@ -62,9 +62,9 @@ function FlagIcon({ type }) {
 function InstrumentTab({ tab, isActive, onClick, onClose }) {
   return (
     <div
-      className={`relative px-6 py-4 cursor-pointer group ${
+      className={`h-12 relative px-6 py-4 cursor-pointer group ${
         isActive 
-          ? 'bg-[#0f1419] text-white' 
+          ? 'bg-[#141d22] text-white' 
           : 'text-gray-300 hover:text-white'
       }`}
       onClick={() => onClick(tab.id)}
@@ -74,7 +74,7 @@ function InstrumentTab({ tab, isActive, onClick, onClose }) {
     >
       {/* Close button in upper right corner */}
       <button
-        className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded text-gray-400 hover:text-white hover:bg-gray-600 z-10"
+        className="cursor-pointer absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded text-gray-400 hover:text-white hover:bg-gray-600 z-10"
         data-test="instrument-tab-close"
         type="button"
         onClick={(e) => {
@@ -149,19 +149,21 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-[#1a1f26] border-b border-gray-700 flex-shrink-0">
-      <div className="flex items-center h-16">
+    <nav className="bg-[#141d22] border-b-4 border-gray-600 flex-shrink-0">
+      <div className="flex items-center h-14 py-2 ">
         {/* Logo */}
         <div className="px-4">
           <div className='flex items-center'>
-            <div className="text-yellow-300 font-semi-bold text-4xl">exness</div>
+            <div className="text-yellow-300 font-semi-bold">
+              <img src="/public/logo_yellow.svg" className='h-9' alt="" />
+            </div>
           </div>
         </div>
 
         {/* Instrument Tabs */}
         <div className="flex-1">
           <div className="flex items-center h-16">
-            <div className="flex items-center h-16">
+            <div className="flex items-center h-16 ">
               <div className="flex">
                 {tabs.map((tab) => (
                   <InstrumentTab
@@ -191,36 +193,36 @@ export default function Navbar() {
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center gap-4 px-4">
+        <div className="flex items-center gap-2 px-4">
           {/* Account Button */}
           <div>
             <button 
-              className="flex items-center px-3 py-2 hover:bg-gray-700 rounded"
+              className="flex h-12 gap-0 items-center px-3 py- hover:bg-gray-700 rounded"
               data-test="account-button-83067517"
               type="button"
             >
               <div>
                 <div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1">
                     <span className="inline-block">
                       <span 
-                        className="px-2 py-1 bg-green-600 text-green-100 text-xs rounded"
+                        className="px-2 bg-green-600 text-green-100 text-[10px] rounded"
                         data-test="account-info-trading-mode"
                       >
                         {accountInfo.type}
                       </span>
                     </span>
                     <span 
-                      className="text-gray-300 text-xs"
+                      className="text-gray-300 text-[10px]"
                       data-test="account-info-identifier"
                     >
                       {accountInfo.identifier}
                     </span>
                   </div>
-                  <div className="flex items-center gap-1 mt-1">
+                  <div className="flex items-center gap-0">
                     <span className="flex items-center">
                       <div>
-                        <span className="text-white font-bold">{balance}</span>
+                        <span className="text-white text-xs font-semi-bold">{balance}</span>
                       </div>
                       <div>
                         <span 
@@ -231,7 +233,7 @@ export default function Navbar() {
                         </span>
                       </div>
                     </span>
-                    <FiChevronDown size={16} className="text-gray-400" />
+                    <FiChevronDown size={10} className="text-gray-400" />
                   </div>
                 </div>
               </div>

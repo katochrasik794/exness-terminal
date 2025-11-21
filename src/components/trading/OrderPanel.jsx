@@ -5,7 +5,7 @@ export default function OrderPanel() {
   const [buyActive, setBuyActive] = useState(true)
 
   return (
-    <div className="bg-[#1a1f26] border-l border-gray-700 flex flex-col h-full w-full overflow-hidden">
+    <div className="bg-[#141d22] border-l-4 border-gray-600 flex flex-col h-full w-full overflow-hidden">
       <form className="flex flex-col h-full overflow-y-auto overflow-x-hidden" tabIndex="0">
         {/* Header */}
         <div className="flex items-center justify-between px-3 py-2 border-b border-gray-700 flex-shrink-0">

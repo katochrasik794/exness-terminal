@@ -30,11 +30,11 @@ export default function SettingsPanel() {
   }
 
   return (
-    <div className="flex flex-col h-full overflow-hidden">
+    <div className="flex flex-col h-full overflow-hidden bg-[#141d22]">
       {/* Header */}
       <div className="p-4 border-b border-gray-700 flex-shrink-0">
         <div className="flex items-center justify-between">
-          <h2 className="text-white font-medium text-sm">Settings</h2>
+          <h2 className="text-gray-400 font-medium text-[12px]">Settings</h2>
           <button className="text-gray-400 hover:text-white">
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />

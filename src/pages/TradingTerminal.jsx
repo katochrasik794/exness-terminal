@@ -36,7 +36,7 @@ export default function TradingTerminal() {
           </div>
           
           {/* Right sidebar - Order Panel with full height */}
-          <div className="w-70 h-full flex-shrink-0 overflow-hidden">
+          <div className="w-62 h-full flex-shrink-0 overflow-hidden">
             <OrderPanel />
           </div>
         </div>

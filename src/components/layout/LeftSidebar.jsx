@@ -12,8 +12,8 @@ export default function LeftSidebar() {
   }
 
   return (
-    <div className="flex h-full overflow-hidden min-h-0">
-      <aside className="bg-[#1a1f26] border-r border-gray-700 w-12 flex flex-col items-center py-4 gap-2 flex-shrink-0 h-full">
+    <div className="border-r-4 border-gray-600 flex h-full overflow-hidden min-h-0">
+      <aside className="bg-[#141d22] border-r-4 border-gray-600 w-12 flex flex-col items-center py-4 gap-2 flex-shrink-0 h-full">
         {/* Instruments Button */}
         <div>
           <button 

@@ -110,10 +110,10 @@ export default function WatchlistPanel() {
   )
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-[#1a1f26]">
+    <div className="flex flex-col h-full overflow-hidden bg-[#141d22]">
       {/* Header */}
       <header className="flex items-center justify-between p-3 border-b border-gray-700 flex-shrink-0">
-        <h2 className="text-gray-300 text-sm font-medium uppercase">INSTRUMENTS</h2>
+        <h2 className="text-gray-400 text-[11px] font-medium uppercase">INSTRUMENTS</h2>
         <div className="flex items-center gap-1">
           <button className="p-1 text-gray-400 hover:text-white">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
@@ -143,14 +143,14 @@ export default function WatchlistPanel() {
             placeholder="Search"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-3 py-2 bg-[#2a3441] border border-gray-600 rounded text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+            className="w-full pl-10 pr-3 py-2 bg-[#141d22] border border-gray-600 rounded text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
           />
         </div>
         
         <select
           value={selectedWatchlist}
           onChange={(e) => setSelectedWatchlist(e.target.value)}
-          className="w-full px-3 py-2 bg-[#2a3441] border border-gray-600 rounded text-sm text-white focus:outline-none focus:border-blue-500"
+          className="w-full px-3 py-2 bg-[#141d22] border border-gray-600 rounded text-sm text-white focus:outline-none focus:border-blue-500"
         >
           <option value="favorites">Favorites</option>
           <option value="forex">Forex</option>
@@ -177,7 +177,7 @@ export default function WatchlistPanel() {
             {filteredInstruments.map((item, idx) => (
               <tr
                 key={`${item.symbol}-${idx}`}
-                className="border-b border-gray-800 hover:bg-[#1c252f] cursor-pointer"
+                className="border-b-2 border-gray-700 hover:bg-[#1c252f] cursor-pointer"
               >
                 <td className="px-1 py-1">
                   <div className="flex items-center gap-1">
