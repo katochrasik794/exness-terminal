@@ -30,7 +30,7 @@ export default function SettingsPanel() {
   }
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-[#141d22]">
+    <div className="w-full min-w-[540px] flex flex-col h-full overflow-hidden bg-[#141d22]">
       {/* Header */}
       <div className="p-4 border-b border-gray-700 flex-shrink-0">
         <div className="flex items-center justify-between">
@@ -44,13 +44,13 @@ export default function SettingsPanel() {
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto min-h-0 p-4 space-y-6">
+      <div className="flex-1 overflow-y-auto min-h-0 p-3 lg:p-4 space-y-4 lg:space-y-6">
         {/* Show on chart */}
         <div>
-          <h3 className="text-gray-300 text-xs font-bold mb-3">Show on chart</h3>
-          <div className="space-y-3">
+          <h3 className="text-gray-300 text-xs lg:text-sm font-bold mb-3 lg:mb-4">Show on chart</h3>
+          <div className="space-y-3 lg:space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-white text-sm">Signals</span>
+              <span className="text-white text-sm lg:text-base">Signals</span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -62,7 +62,7 @@ export default function SettingsPanel() {
               </label>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-white text-sm">HMR periods</span>
+              <span className="text-white text-sm lg:text-base">HMR periods</span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -74,7 +74,7 @@ export default function SettingsPanel() {
               </label>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-white text-sm">Price alerts</span>
+              <span className="text-white text-sm lg:text-base">Price alerts</span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -86,7 +86,7 @@ export default function SettingsPanel() {
               </label>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-white text-sm">Open positions</span>
+              <span className="text-white text-sm lg:text-base">Open positions</span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -98,7 +98,7 @@ export default function SettingsPanel() {
               </label>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-white text-sm">TP / SL / Stop / Limit</span>
+              <span className="text-white text-sm lg:text-base">TP / SL / Stop / Limit</span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -112,8 +112,8 @@ export default function SettingsPanel() {
             
             {/* Economic Calendar */}
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-white text-sm">Economic calendar</span>
+              <div className="flex items-center justify-between mb-2 lg:mb-3">
+                <span className="text-white text-sm lg:text-base">Economic calendar</span>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
@@ -125,42 +125,42 @@ export default function SettingsPanel() {
                 </label>
               </div>
               {settings.economicCalendar && (
-                <div className="ml-4 space-y-2">
-                  <div className="flex items-center gap-2">
+                <div className="ml-4 lg:ml-6 space-y-2 lg:space-y-3">
+                  <div className="flex items-center gap-2 lg:gap-3">
                     <input
                       type="checkbox"
                       checked={settings.highImpact}
                       onChange={() => handleToggle('highImpact')}
                       className="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
                     />
-                    <span className="text-white text-sm">High impact</span>
+                    <span className="text-white text-sm lg:text-base">High impact</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 lg:gap-3">
                     <input
                       type="checkbox"
                       checked={settings.middleImpact}
                       onChange={() => handleToggle('middleImpact')}
                       className="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
                     />
-                    <span className="text-white text-sm">Middle impact</span>
+                    <span className="text-white text-sm lg:text-base">Middle impact</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 lg:gap-3">
                     <input
                       type="checkbox"
                       checked={settings.lowImpact}
                       onChange={() => handleToggle('lowImpact')}
                       className="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
                     />
-                    <span className="text-white text-sm">Low impact</span>
+                    <span className="text-white text-sm lg:text-base">Low impact</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 lg:gap-3">
                     <input
                       type="checkbox"
                       checked={settings.lowestImpact}
                       onChange={() => handleToggle('lowestImpact')}
                       className="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
                     />
-                    <span className="text-white text-sm">Lowest impact</span>
+                    <span className="text-white text-sm lg:text-base">Lowest impact</span>
                   </div>
                 </div>
               )}
@@ -170,10 +170,10 @@ export default function SettingsPanel() {
 
         {/* Sound effects */}
         <div>
-          <h3 className="text-gray-300 text-xs font-bold mb-3">Sound effects</h3>
-          <div className="space-y-3">
+          <h3 className="text-gray-300 text-xs lg:text-sm font-bold mb-3 lg:mb-4">Sound effects</h3>
+          <div className="space-y-3 lg:space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-white text-sm">Price alerts</span>
+              <span className="text-white text-sm lg:text-base">Price alerts</span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -185,7 +185,7 @@ export default function SettingsPanel() {
               </label>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-white text-sm">Closing by TP / SL / SO</span>
+              <span className="text-white text-sm lg:text-base">Closing by TP / SL / SO</span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -201,9 +201,9 @@ export default function SettingsPanel() {
 
         {/* Trading settings */}
         <div>
-          <h3 className="text-gray-300 text-xs font-bold mb-3">Trading settings</h3>
+          <h3 className="text-gray-300 text-xs lg:text-sm font-bold mb-3 lg:mb-4">Trading settings</h3>
           <div className="flex items-center justify-between">
-            <span className="text-white text-sm">Set TP/SL automatically</span>
+            <span className="text-white text-sm lg:text-base">Set TP/SL automatically</span>
             <label className="relative inline-flex items-center cursor-pointer">
               <input
                 type="checkbox"
@@ -218,11 +218,11 @@ export default function SettingsPanel() {
 
         {/* Open order mode */}
         <div>
-          <h3 className="text-gray-300 text-xs font-bold mb-3">Open order mode</h3>
+          <h3 className="text-gray-300 text-xs lg:text-sm font-bold mb-3 lg:mb-4">Open order mode</h3>
           <select
             value={settings.orderMode}
             onChange={(e) => handleSelect('orderMode', e.target.value)}
-            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm text-white"
+            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm lg:text-base text-white"
           >
             <option value="regular">Regular form</option>
             <option value="quick">Quick form</option>
@@ -231,11 +231,11 @@ export default function SettingsPanel() {
 
         {/* Price source */}
         <div>
-          <h3 className="text-gray-300 text-xs font-bold mb-3">Price source</h3>
+          <h3 className="text-gray-300 text-xs lg:text-sm font-bold mb-3 lg:mb-4">Price source</h3>
           <select
             value={settings.priceSource}
             onChange={(e) => handleSelect('priceSource', e.target.value)}
-            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm text-white"
+            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm lg:text-base text-white"
           >
             <option value="bid">Bid</option>
             <option value="ask">Ask</option>
@@ -245,11 +245,11 @@ export default function SettingsPanel() {
 
         {/* Appearance */}
         <div>
-          <h3 className="text-gray-300 text-xs font-bold mb-3">Appearance</h3>
+          <h3 className="text-gray-300 text-xs lg:text-sm font-bold mb-3 lg:mb-4">Appearance</h3>
           <select
             value={settings.theme}
             onChange={(e) => handleSelect('theme', e.target.value)}
-            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm text-white"
+            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm lg:text-base text-white"
           >
             <option value="dark">Always dark</option>
             <option value="light">Always light</option>
@@ -259,11 +259,11 @@ export default function SettingsPanel() {
 
         {/* Time zone */}
         <div>
-          <h3 className="text-gray-300 text-xs font-bold mb-3">Time zone</h3>
+          <h3 className="text-gray-300 text-xs lg:text-sm font-bold mb-3 lg:mb-4">Time zone</h3>
           <select
             value={settings.timezone}
             onChange={(e) => handleSelect('timezone', e.target.value)}
-            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm text-white"
+            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm lg:text-base text-white"
           >
             <option value="Etc/UTC">UTC</option>
             <option value="America/New_York">New York</option>

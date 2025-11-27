@@ -20,7 +20,7 @@ export default function BottomPanel() {
   ]
 
   return (
-    <div className="h-64 bg-[#141d22]  border-t border-gray-700 flex flex-col overflow-hidden">
+    <div className="h-96 bg-[#141d22]  border-t border-gray-700 flex flex-col overflow-hidden">
       {/* Tabs */}
       <div className="flex items-center border-b border-gray-700">
         {tabs.map(tab => (
@@ -146,7 +146,7 @@ export default function BottomPanel() {
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between px-3 py-1 bg-[#0f1419] border-t border-gray-700 text-[10px] text-gray-400">
+      {/* <div className="flex items-center justify-between px-3 py-1 bg-[#0f1419] border-t border-gray-700 text-[10px] text-gray-400">
         <div className="flex items-center gap-4">
           <span>Equity: <span className="text-white">1,006.71 USD</span></span>
           <span>Free Margin: <span className="text-white">1,002.37 USD</span></span>
@@ -158,7 +158,7 @@ export default function BottomPanel() {
         <button className="px-2 py-1 bg-gray-700 hover:bg-gray-600 text-white rounded text-[10px]">
           Close all
         </button>
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -166,31 +166,33 @@ export default function EconomicCalendarPanel() {
       </div>
 
       {/* Events List */}
-      <div className="flex-1 overflow-y-auto min-h-0">
-        {economicEvents.map((event, index) => (
-          <div key={index} className="px-3 py-2 border-b border-gray-800 hover:bg-[#1c252f] cursor-pointer">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-gray-400 text-xs font-mono">{event.time}</span>
-                  <span className="text-sm">{getCountryFlag(event.country)}</span>
-                  <div className={`w-1 h-3 ${getImpactColor(event.impact)} rounded-full`}></div>
+      <div className="flex-1 overflow-auto min-h-0">
+        <div className="min-w-[400px]">
+          {economicEvents.map((event, index) => (
+            <div key={index} className="px-3 py-2 border-b border-gray-800 hover:bg-[#1c252f] cursor-pointer transition-colors">
+              <div className="flex items-start justify-between">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-gray-400 text-xs font-mono flex-shrink-0">{event.time}</span>
+                    <span className="text-sm">{getCountryFlag(event.country)}</span>
+                    <div className={`w-1 h-3 ${getImpactColor(event.impact)} rounded-full flex-shrink-0`}></div>
+                  </div>
+                  <div className="text-white text-xs mb-1 leading-tight">{event.event}</div>
+                  <div className="flex items-center gap-4 text-[10px]">
+                    <span className="text-gray-400">{event.actual}</span>
+                    <span className="text-gray-400">{event.forecast}</span>
+                    <span className="text-gray-400">{event.previous}</span>
+                  </div>
                 </div>
-                <div className="text-white text-xs mb-1">{event.event}</div>
-                <div className="flex items-center gap-4 text-[10px]">
-                  <span className="text-gray-400">{event.actual}</span>
-                  <span className="text-gray-400">{event.forecast}</span>
-                  <span className="text-gray-400">{event.previous}</span>
-                </div>
+                <button className="text-gray-400 hover:text-white ml-2 flex-shrink-0">
+                  <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </button>
               </div>
-              <button className="text-gray-400 hover:text-white ml-2">
-                <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </button>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   )

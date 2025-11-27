@@ -1,61 +1,62 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import LeftSidebar from '../components/layout/LeftSidebar'
 import ChartSection from '../components/layout/ChartSection'
 import OrderPanel from '../components/trading/OrderPanel'
 import BottomPanel from '../components/panels/BottomPanel'
 import StatusBar from '../components/layout/StatusBar'
-import { useVerticalResize, useHorizontalResize } from '../hooks/useResizable'
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '../components/ui/resizable'
 
 export default function TradingTerminal() {
-  const { height: topHeight, containerRef: verticalContainerRef, startResize: startVerticalResize } = useVerticalResize(70, 40, 85)
-  const { width: leftWidth, containerRef: terminalContainerRef, startResize: startHorizontalResize } = useHorizontalResize(20, 15, 70)
   const [isPanelExpanded, setIsPanelExpanded] = useState(false)
+  const leftPanelRef = useRef(null)
+
+  // Resize the left panel when it expands or collapses
+  useEffect(() => {
+    if (leftPanelRef.current) {
+      if (isPanelExpanded) {
+        leftPanelRef.current.resize(20)
+      } else {
+        leftPanelRef.current.resize(3)
+      }
+    }
+  }, [isPanelExpanded])
 
   return (
-    <div ref={terminalContainerRef} className="flex flex-1 overflow-hidden min-h-0">
+    <ResizablePanelGroup direction="horizontal" className="flex-1 overflow-hidden min-h-0">
       {/* Left sidebar with panels */}
-      <div style={{ width: isPanelExpanded ? `min(${leftWidth}%, 70%)` : '48px' }} className="min-h-0 h-full transition-all duration-200">
+      <ResizablePanel 
+        ref={leftPanelRef}
+        defaultSize={3}
+        minSize={3}
+        maxSize={40}
+        className="min-h-0 h-full"
+        collapsible={false}
+      >
         <LeftSidebar onPanelStateChange={setIsPanelExpanded} />
-      </div>
+      </ResizablePanel>
       
       {/* Horizontal resize handle - only show when panel is expanded */}
-      {isPanelExpanded && (
-        <div
-          className="w-1 bg-blue-500 hover:bg-blue-400 cursor-col-resize flex-shrink-0 resize-handle resize-handle-horizontal"
-          onMouseDown={startHorizontalResize}
-          style={{ width: '4px' }}
-        />
-      )}
+      {isPanelExpanded && <ResizableHandle withHandle />}
       
       {/* Main content area with status bar */}
-      <div 
-        style={{ 
-          width: isPanelExpanded ? 
-            `max(${100 - leftWidth}%,)` : 
-            'calc(100% - 48px)'
-        }} 
-        className="flex flex-col h-full transition-all duration-200"
-      >
+      <ResizablePanel defaultSize={97} className="flex flex-col h-full">
         {/* Top content area */}
         <div className="flex flex-1 overflow-hidden">
-          {/* Center resizable area */}
-          <div ref={verticalContainerRef} className="flex-1 flex flex-col h-full min-h-0">
-            {/* Chart section with vertical resizing */}
-            <div style={{ height: `${topHeight}%` }} className="min-h-0 overflow-hidden">
+          {/* Center resizable area with vertical panels */}
+          <ResizablePanelGroup direction="vertical" className="flex-1">
+            {/* Chart section */}
+            <ResizablePanel defaultSize={70} minSize={40} maxSize={85} className="min-h-0 overflow-hidden">
               <ChartSection />
-            </div>
+            </ResizablePanel>
             
             {/* Vertical resize handle */}
-            <div
-              className="h-1 bg-gray-600 cursor-row-resize flex-shrink-0 z-10 resize-handle resize-handle-vertical"
-              onMouseDown={startVerticalResize}
-            />
+            <ResizableHandle />
             
             {/* Bottom panel */}
-            <div style={{ height: `${100 - topHeight}%` }} className="min-h-0 overflow-hidden">
+            <ResizablePanel defaultSize={30} minSize={15} maxSize={60} className="min-h-0 overflow-hidden">
               <BottomPanel />
-            </div>
-          </div>
+            </ResizablePanel>
+          </ResizablePanelGroup>
           
           {/* Right sidebar - Order Panel with full height */}
           <div className="w-62 h-full flex-shrink-0 overflow-hidden">
@@ -65,7 +66,7 @@ export default function TradingTerminal() {
         
         {/* Status bar only for center and right areas */}
         <StatusBar />
-      </div>
-    </div>
+      </ResizablePanel>
+    </ResizablePanelGroup>
   )
 }

@@ -86,17 +86,17 @@ export default function LeftSidebar({ onPanelStateChange }) {
       {hasActivePanel && (
         <>
           {activePanel === 'instruments' && (
-            <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden">
+            <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden flex-1">
               <WatchlistPanel />
             </div>
           )}
           {activePanel === 'calendar' && (
-            <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden">
+            <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden flex-1">
               <EconomicCalendarPanel />
             </div>
           )}
           {activePanel === 'settings' && (
-            <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden">
+            <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden flex-1">
               <SettingsPanel />
             </div>
           )}
