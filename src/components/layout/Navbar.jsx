@@ -19,8 +19,8 @@ import FlagIcon from '../ui/FlagIcon'
 // InstrumentTab Component
 const InstrumentTab = ({ tab, isActive, onClick, onClose }) => {
   const tabClasses = `
-    relative flex text-gray-300 text-lg items-center h-14 px-4 cursor-pointer group
-    ${isActive ? 'border-b-4 border-white' : ''}
+    relative flex text-gray-400 font-semibold items-center h-16 px-5 cursor-pointer group hover:border-b-2 hover:border-white 
+    ${isActive ? 'border-b-4 border-white text-white' : ''}
   `
 
   return (
@@ -31,7 +31,7 @@ const InstrumentTab = ({ tab, isActive, onClick, onClose }) => {
     >
       {/* Close button in upper right corner */}
       <button
-        className="cursor-pointer absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded text-gray-400 hover:text-white hover:bg-gray-600 z-10"
+        className="cursor-pointer absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded text-yellow-400 hover:border hover:border-yellow-400 hover:bg-gray-800 z-1"
         data-test="instrument-tab-close"
         type="button"
         onClick={(e) => {
@@ -43,9 +43,9 @@ const InstrumentTab = ({ tab, isActive, onClick, onClose }) => {
       </button>
       
       {/* Tab content */}
-      <div className="flex items-center justify-center gap-3 h-full">
+      <div className="flex items-center justify-center gap-2 h-full">
         <FlagIcon type={tab.flagType} />
-        <div className="text-sm font-medium" data-test="instrument-tab-symbol">
+        <div className="text-md font-medium" data-test="instrument-tab-symbol">
           {tab.symbol}
         </div>
       </div>
@@ -129,10 +129,10 @@ export default function Navbar() {
         </div>
 
         {/* Instrument Tabs */}
-        <div className="flex-1">
+        <div className="flex-1 ml-2">
           <div className="flex items-center">
             <div className="flex items-center ">
-              <div className="flex gap-4">
+              <div className="flex gap-0">
                 {tabs.map((tab) => (
                   <InstrumentTab
                     key={tab.id}
@@ -147,13 +147,13 @@ export default function Navbar() {
               {/* Add Tab Button */}
               <div className="flex items-center h-full relative">
                 <button 
-                  className="px-3 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition-colors mx-1 flex items-center justify-center h-8"
+                  className="cursor-pointer px-[10px] py-[20px] text-gray-400 hover:text-white hover:bg-gray-800 rounded-md transition-colors mx-2 flex items-center justify-center h-8 hover:border hover:border-gray-400 "
                   data-test="add-tab-button"
                   type="button"
                   onClick={handleAddTab}
                   title="Add New Instrument"
                 >
-                  <FiPlus size={18} className="stroke-current fill-none" />
+                  <FiPlus size={22} className="stroke-current fill-white text-white cursor-pointer" />
                 </button>
 
                 {/* Symbol Search Popup */}
@@ -168,11 +168,11 @@ export default function Navbar() {
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center gap-4 px-4">
+        <div className="flex items-center gap-2 pr-4">
           {/* Account Button */}
           <div className="relative">
             <button 
-              className="flex h-12 gap-0 items-center px-3 py- hover:bg-gray-700 rounded"
+              className="cursor-pointer flex h-12 gap-0 items-center p-[13px] hover:bg-gray-800 hover:border hover:border-gray-400 rounded"
               data-test="account-button-83067517"
               type="button"
               onClick={() => setIsAccountDropdownOpen(!isAccountDropdownOpen)}
@@ -182,14 +182,14 @@ export default function Navbar() {
                   <div className="flex items-center gap-1">
                     <span className="inline-block">
                       <span 
-                        className="px-2 bg-green-600 text-green-100 text-[10px] rounded"
+                        className="px-2 bg-[#1c3931] text-green-300 py-1 rounded text-[12px]"
                         data-test="account-info-trading-mode"
                       >
                         {accountInfo.type}
                       </span>
                     </span>
                     <span 
-                      className="text-gray-300 text-[10px]"
+                      className="text-gray-400 text-[13px]"
                       data-test="account-info-identifier"
                     >
                       {accountInfo.identifier}
@@ -198,18 +198,18 @@ export default function Navbar() {
                   <div className="flex items-center gap-0">
                     <span className="flex items-center">
                       <div>
-                        <span className="text-white text-xs font-semi-bold">{balance}</span>
+                        <span className="text-white text-[15px] font-semi-bold">{balance}</span>
                       </div>
                       <div>
                         <span 
-                          className="text-gray-300 text-sm ml-1"
+                          className="text-gray-300 text-[14px] ml-1"
                           data-test="account-info-currency"
                         >
                           {accountInfo.currency}
                         </span>
                       </div>
                     </span>
-                    <FiChevronDown size={10} className="text-gray-400" />
+                    <FiChevronDown size={12} className="text-gray-300 ml-2" />
                   </div>
                 </div>
               </div>
@@ -225,7 +225,7 @@ export default function Navbar() {
           {/* Alert Button */}
           <div data-test="alerts-header-button" className="relative">
             <button 
-              className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
+              className="cursor-pointer p-[13px] text-white hover:border hover:border-gray-400 hover:bg-gray-800 rounded-md transition-colors"
               type="button"
               title="Alerts"
               onClick={() => setIsPriceAlertsOpen(!isPriceAlertsOpen)}
@@ -240,12 +240,10 @@ export default function Navbar() {
             />
           </div>
 
-          <div className="mx-1"></div>
-
           {/* Apps Button */}
-          <div data-test="apps-header-button" className="relative">
+          <div data-test="apps-header-button" className="relative ">
             <button 
-              className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
+              className="cursor-pointer p-[13px] text-white hover:border hover:border-gray-400 hover:bg-gray-800 rounded-md transition-colors"
               type="button"
               title="Applications"
               onClick={() => setIsAppsDropdownOpen(!isAppsDropdownOpen)}
@@ -260,12 +258,10 @@ export default function Navbar() {
             />
           </div>
 
-          <div className=" mx-1"></div>
-
           {/* User Button */}
           <div data-test="apps-menu-button" className="relative">
             <button 
-              className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
+              className="cursor-pointer p-[13px] text-white hover:border hover:border-gray-400 hover:bg-gray-800 rounded-md transition-colors"
               type="button"
               title="Account Menu"
               onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
@@ -283,7 +279,7 @@ export default function Navbar() {
           {/* Deposit Button */}
           <div>
             <button 
-              className="flex items-center gap-2 px-8 py-2 border border-gray-600 text-white hover:bg-gray-700 rounded transition-colors"
+              className="cursor-pointer flex items-center gap-2 px-16 py-2 text-white hover:border hover:border-gray-400 bg-gray-800 rounded transition-colors"
               data-test="deposit-button"
               type="button"
               onClick={() => setIsDepositPopupOpen(true)}
