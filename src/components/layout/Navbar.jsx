@@ -8,73 +8,30 @@ import {
   FiChevronDown,
   FiDollarSign
 } from 'react-icons/fi'
+import SymbolSearchPopup from '../panels/SymbolSearchPopup'
+import AccountDropdown from '../panels/AccountDropdown'
+import PriceAlertsDropdown from '../panels/PriceAlertsDropdown'
+import ApplicationsDropdown from '../panels/ApplicationsDropdown'
+import ProfileDropdown from '../panels/ProfileDropdown'
+import DepositPopup from '../panels/DepositPopup'
+import FlagIcon from '../ui/FlagIcon'
 
-// Flag Icon Component - realistic flag representations
-function FlagIcon({ type }) {
-  switch (type) {
-    case 'xauusd':
-      return (
-        <div className="relative w-8 h-8">
-          <div className="absolute top-0 left-0 w-5.5 h-5.5 rounded-full bg-yellow-400 border-2 border-yellow-300 z-10 flex items-center justify-center">
-            <div className="w-3 h-3 bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-full"></div>
-          </div>
-          <div className="absolute bottom-0 right-0 w-5.5 h-5.5 rounded-full bg-blue-600 border-2 border-blue-500 z-20 flex items-center justify-center">
-            <div className="w-2.5 h-2.5 bg-blue-700 rounded-full"></div>
-          </div>
-        </div>
-      )
-    case 'us500':
-      return (
-        <div className="w-8 h-8 rounded-full bg-blue-900 border-2 border-blue-800 overflow-hidden relative">
-          {/* US Flag pattern */}
-          <div className="absolute inset-0 bg-[repeating-linear-gradient(180deg,#dc2626_0,#dc2626_1px,#ffffff_1px,#ffffff_3px)]"></div>
-          <div className="absolute top-0 left-0 w-3 h-3 bg-blue-700">
-            <div className="absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,#3b82f6_0deg_25%,#1e40af_25deg_50%,#1e3a8a_50deg_75%,#1e40af_75deg_100%)]"></div>
-          </div>
-        </div>
-      )
-    case 'btc':
-      return (
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 border-2 border-orange-500 flex items-center justify-center text-white font-bold text-xs">
-          ₿
-        </div>
-      )
-    case 'usdjpy':
-      return (
-        <div className="relative w-8 h-8">
-          {/* US Flag (left) */}
-          <div className="absolute top-0 left-0 w-5.5 h-5.5 rounded-full bg-blue-900 border-2 border-blue-800 overflow-hidden z-10">
-            <div className="absolute inset-0 bg-[repeating-linear-gradient(180deg,#dc2626_0,#dc2626_1px,#ffffff_1px,#ffffff_2.5px)]"></div>
-            <div className="absolute top-0 left-0 w-2.5 h-2.5 bg-blue-700 rounded-tl-full"></div>
-          </div>
-          {/* JPY Flag (right) */}
-          <div className="absolute bottom-0 right-0 w-5.5 h-5.5 rounded-full bg-white border-2 border-gray-300 z-20 flex items-center justify-center">
-            <div className="w-2.5 h-2.5 bg-red-600 rounded-full"></div>
-          </div>
-        </div>
-      )
-    default:
-      return <div className="w-8 h-8 bg-gray-600 rounded-full border-2 border-gray-500"></div>
-  }
-}
+// InstrumentTab Component
+const InstrumentTab = ({ tab, isActive, onClick, onClose }) => {
+  const tabClasses = `
+    relative flex text-gray-300 text-lg items-center h-14 px-4 cursor-pointer group
+    ${isActive ? 'border-b-4 border-white' : ''}
+  `
 
-// Individual Tab Component
-function InstrumentTab({ tab, isActive, onClick, onClose }) {
   return (
-    <div
-      className={`h-14 relative px-4 py-4 cursor-pointer group ${
-        isActive 
-          ? 'bg-[#141d22] text-white border-b-4 border-white' 
-          : 'text-gray-300 hover:text-white hover:border-b-2 hover:border-white'
-      }`}
+    <div 
+      className={tabClasses}
       onClick={() => onClick(tab.id)}
-      data-test="instrument-tab"
-      role="button"
-      tabIndex="0"
+      data-test={`instrument-tab-${tab.symbol}`}
     >
       {/* Close button in upper right corner */}
       <button
-        className="cursor-pointer absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded text-gray-400 hover:text-white hover:bg-gray-600 z-10"
+        className="cursor-pointer absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded text-gray-400 hover:text-white hover:bg-gray-600 z-10"
         data-test="instrument-tab-close"
         type="button"
         onClick={(e) => {
@@ -111,6 +68,13 @@ export default function Navbar() {
     currency: 'USD'
   })
 
+  const [isSymbolSearchOpen, setIsSymbolSearchOpen] = useState(false)
+  const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false)
+  const [isPriceAlertsOpen, setIsPriceAlertsOpen] = useState(false)
+  const [isAppsDropdownOpen, setIsAppsDropdownOpen] = useState(false)
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false)
+  const [isDepositPopupOpen, setIsDepositPopupOpen] = useState(false)
+
   const handleTabClick = (tabId) => {
     setTabs(prevTabs => 
       prevTabs.map(tab => ({
@@ -135,11 +99,15 @@ export default function Navbar() {
   }
 
   const handleAddTab = () => {
+    setIsSymbolSearchOpen(true)
+  }
+
+  const handleSelectSymbol = (symbolData) => {
     const newId = Date.now().toString()
     const newTab = {
       id: newId,
-      symbol: 'NEW',
-      flagType: 'btc',
+      symbol: symbolData.symbol,
+      flagType: symbolData.symbol.toLowerCase().replace('/', ''),
       isActive: true
     }
     
@@ -150,21 +118,21 @@ export default function Navbar() {
 
   return (
     <nav className="bg-[#141d22] border-b-4 border-gray-600 flex-shrink-0">
-      <div className="flex items-center h-14 py-2 ">
+      <div className="flex items-center h-16 py-2 ">
         {/* Logo */}
         <div className="px-4">
           <div className='flex items-center'>
             <div className="text-yellow-300 font-semi-bold">
-              <img src="/public/logo_yellow.svg" className='h-9' alt="" />
+              <img src="/public/logo_yellow.svg" className='h-10' alt="" />
             </div>
           </div>
         </div>
 
         {/* Instrument Tabs */}
         <div className="flex-1">
-          <div className="flex items-center h-16">
-            <div className="flex items-center h-16 ">
-              <div className="flex">
+          <div className="flex items-center">
+            <div className="flex items-center ">
+              <div className="flex gap-4">
                 {tabs.map((tab) => (
                   <InstrumentTab
                     key={tab.id}
@@ -177,7 +145,7 @@ export default function Navbar() {
               </div>
               
               {/* Add Tab Button */}
-              <div className="flex items-center h-full">
+              <div className="flex items-center h-full relative">
                 <button 
                   className="px-3 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition-colors mx-1 flex items-center justify-center h-8"
                   data-test="add-tab-button"
@@ -187,19 +155,27 @@ export default function Navbar() {
                 >
                   <FiPlus size={18} className="stroke-current fill-none" />
                 </button>
+
+                {/* Symbol Search Popup */}
+                <SymbolSearchPopup 
+                  isOpen={isSymbolSearchOpen}
+                  onClose={() => setIsSymbolSearchOpen(false)}
+                  onSelectSymbol={handleSelectSymbol}
+                />
               </div>
             </div>
           </div>
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center gap-2 px-4">
+        <div className="flex items-center gap-4 px-4">
           {/* Account Button */}
-          <div>
+          <div className="relative">
             <button 
               className="flex h-12 gap-0 items-center px-3 py- hover:bg-gray-700 rounded"
               data-test="account-button-83067517"
               type="button"
+              onClick={() => setIsAccountDropdownOpen(!isAccountDropdownOpen)}
             >
               <div>
                 <div>
@@ -238,43 +214,70 @@ export default function Navbar() {
                 </div>
               </div>
             </button>
+
+            {/* Account Dropdown */}
+            <AccountDropdown 
+              isOpen={isAccountDropdownOpen}
+              onClose={() => setIsAccountDropdownOpen(false)}
+            />
           </div>
 
           {/* Alert Button */}
-          <div data-test="alerts-header-button">
+          <div data-test="alerts-header-button" className="relative">
             <button 
               className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
               type="button"
               title="Alerts"
+              onClick={() => setIsPriceAlertsOpen(!isPriceAlertsOpen)}
             >
               <FiBell size={20} />
             </button>
+            
+            {/* Price Alerts Dropdown */}
+            <PriceAlertsDropdown 
+              isOpen={isPriceAlertsOpen}
+              onClose={() => setIsPriceAlertsOpen(false)}
+            />
           </div>
 
           <div className="mx-1"></div>
 
           {/* Apps Button */}
-          <div data-test="apps-header-button">
+          <div data-test="apps-header-button" className="relative">
             <button 
               className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
               type="button"
               title="Applications"
+              onClick={() => setIsAppsDropdownOpen(!isAppsDropdownOpen)}
             >
               <FiGrid size={20} />
             </button>
+
+            {/* Applications Dropdown */}
+            <ApplicationsDropdown 
+              isOpen={isAppsDropdownOpen}
+              onClose={() => setIsAppsDropdownOpen(false)}
+            />
           </div>
 
           <div className=" mx-1"></div>
 
           {/* User Button */}
-          <div data-test="apps-menu-button">
+          <div data-test="apps-menu-button" className="relative">
             <button 
               className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
               type="button"
               title="Account Menu"
+              onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
             >
               <FiUser size={20} />
             </button>
+
+            {/* Profile Dropdown */}
+            <ProfileDropdown 
+              isOpen={isProfileDropdownOpen}
+              onClose={() => setIsProfileDropdownOpen(false)}
+            />
           </div>
 
           {/* Deposit Button */}
@@ -283,10 +286,17 @@ export default function Navbar() {
               className="flex items-center gap-2 px-8 py-2 border border-gray-600 text-white hover:bg-gray-700 rounded transition-colors"
               data-test="deposit-button"
               type="button"
+              onClick={() => setIsDepositPopupOpen(true)}
             >
               {/* <FiDollarSign size={16} /> */}
               Deposit
             </button>
+
+            {/* Deposit Popup */}
+            <DepositPopup 
+              isOpen={isDepositPopupOpen}
+              onClose={() => setIsDepositPopupOpen(false)}
+            />
           </div>
         </div>
       </div>

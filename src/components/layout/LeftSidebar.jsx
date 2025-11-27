@@ -26,12 +26,12 @@ export default function LeftSidebar({ onPanelStateChange }) {
 
   return (
     <div className="border-0 border-gray-600 flex h-full overflow-hidden min-h-0">
-      <aside className="bg-[#141d22] border-r-4 border-gray-600 w-12 flex flex-col items-center py-2 gap-2 flex-shrink-0 h-full">
+      <aside className="bg-[#141d22] border-r-4 border-gray-600 w-14 flex flex-col items-center py-2 gap-4 flex-shrink-0 h-full">
         {/* Instruments Button */}
         <div>
           <button 
-            className={`w-8 h-8 flex items-center border border-gray-700 justify-center text-gray-300 hover:text-white hover:bg-gray-700 rounded ${
-              activePanel === 'instruments' ? 'bg-gray-900' : ''
+            className={`w-8 h-8 flex items-center border border-gray-600 justify-center text-gray-300 hover:text-white hover:bg-gray-700 rounded ${
+              activePanel === 'instruments' ? 'bg-gray-600' : ''
             }`}
             type="button"
             data-test="aside-panel-watchlist-button"
@@ -50,7 +50,7 @@ export default function LeftSidebar({ onPanelStateChange }) {
         <div>
           <button 
             className={`w-8 h-8 flex items-center border border-gray-700 justify-center text-gray-300 hover:text-white hover:bg-gray-700 rounded ${
-              activePanel === 'calendar' ? 'bg-gray-900' : ''
+              activePanel === 'calendar' ? 'bg-gray-600' : ''
             }`}
             type="button"
             data-test="aside-panel-calendar-events-button"
@@ -71,7 +71,7 @@ export default function LeftSidebar({ onPanelStateChange }) {
         <div>
           <button 
             className={`w-8 h-8 flex items-center border border-gray-700 justify-center text-gray-300 hover:text-white hover:bg-gray-700 rounded ${
-              activePanel === 'settings' ? 'bg-gray-900' : ''
+              activePanel === 'settings' ? 'bg-gray-600' : ''
             }`}
             type="button"
             data-test="aside-panel-settings-button"
