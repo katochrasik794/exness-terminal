@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function WatchlistPanel() {
+export default function WatchlistPanel({ onClose }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedWatchlist, setSelectedWatchlist] = useState('favorites')
 
@@ -122,7 +122,7 @@ export default function WatchlistPanel() {
               <circle cx="13" cy="8" r="1"/>
             </svg>
           </button>
-          <button className="p-1 text-gray-400 hover:text-white">
+          <button className="p-1 text-gray-400 hover:text-white" onClick={onClose}>
             <svg width="16" height="16" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="2">
               <line x1="12" y1="4" x2="4" y2="12"/>
               <line x1="4" y1="4" x2="12" y2="12"/>

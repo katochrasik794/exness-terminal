@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function EconomicCalendarPanel() {
+export default function EconomicCalendarPanel({ onClose }) {
   const [selectedImpact, setSelectedImpact] = useState('All impacts')
   const [selectedCountry, setSelectedCountry] = useState('All countries')
   const [activeTab, setActiveTab] = useState('Actual')
@@ -88,11 +88,8 @@ export default function EconomicCalendarPanel() {
       <div className="flex items-center justify-between p-3 border-b border-gray-700 flex-shrink-0">
         <div className="flex items-center gap-2">
           <h2 className="text-gray-400 text-[11px] font-medium uppercase">ECONOMIC CALENDAR</h2>
-          {/* <div className="bg-green-600 text-white text-[7px] px-2 py-0.5 rounded">
-            Trade Centre
-          </div> */}
         </div>
-        <button className="text-gray-400 hover:text-white">
+        <button className="text-gray-400 hover:text-white" onClick={onClose}>
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
           </svg>

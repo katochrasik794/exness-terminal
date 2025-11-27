@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import Toggle from '../ui/Toggle'
 
-export default function SettingsPanel() {
+export default function SettingsPanel({ onClose }) {
   const [settings, setSettings] = useState({
     signals: false,
     hmrPeriods: true,
@@ -30,12 +31,12 @@ export default function SettingsPanel() {
   }
 
   return (
-    <div className="w-full min-w-[540px] flex flex-col h-full overflow-hidden bg-[#141d22]">
+    <div className="w-full min-w-[240px] flex flex-col h-full overflow-hidden bg-[#141d22]">
       {/* Header */}
       <div className="p-4 border-b border-gray-700 flex-shrink-0">
         <div className="flex items-center justify-between">
           <h2 className="text-gray-400 font-medium text-[12px]">Settings</h2>
-          <button className="text-gray-400 hover:text-white">
+          <button className="text-gray-400 hover:text-white" onClick={onClose}>
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
@@ -51,78 +52,30 @@ export default function SettingsPanel() {
           <div className="space-y-3 lg:space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-white text-sm lg:text-base">Signals</span>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={settings.signals}
-                  onChange={() => handleToggle('signals')}
-                  className="sr-only peer"
-                />
-                <div className="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
-              </label>
+              <Toggle checked={settings.signals} onChange={() => handleToggle('signals')} />
             </div>
             <div className="flex items-center justify-between">
               <span className="text-white text-sm lg:text-base">HMR periods</span>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={settings.hmrPeriods}
-                  onChange={() => handleToggle('hmrPeriods')}
-                  className="sr-only peer"
-                />
-                <div className="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
-              </label>
+              <Toggle checked={settings.hmrPeriods} onChange={() => handleToggle('hmrPeriods')} />
             </div>
             <div className="flex items-center justify-between">
               <span className="text-white text-sm lg:text-base">Price alerts</span>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={settings.priceAlerts}
-                  onChange={() => handleToggle('priceAlerts')}
-                  className="sr-only peer"
-                />
-                <div className="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
-              </label>
+              <Toggle checked={settings.priceAlerts} onChange={() => handleToggle('priceAlerts')} />
             </div>
             <div className="flex items-center justify-between">
               <span className="text-white text-sm lg:text-base">Open positions</span>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={settings.openPositions}
-                  onChange={() => handleToggle('openPositions')}
-                  className="sr-only peer"
-                />
-                <div className="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
-              </label>
+              <Toggle checked={settings.openPositions} onChange={() => handleToggle('openPositions')} />
             </div>
             <div className="flex items-center justify-between">
               <span className="text-white text-sm lg:text-base">TP / SL / Stop / Limit</span>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={settings.tpsl}
-                  onChange={() => handleToggle('tpsl')}
-                  className="sr-only peer"
-                />
-                <div className="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
-              </label>
+              <Toggle checked={settings.tpsl} onChange={() => handleToggle('tpsl')} />
             </div>
             
             {/* Economic Calendar */}
             <div>
               <div className="flex items-center justify-between mb-2 lg:mb-3">
                 <span className="text-white text-sm lg:text-base">Economic calendar</span>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={settings.economicCalendar}
-                    onChange={() => handleToggle('economicCalendar')}
-                    className="sr-only peer"
-                  />
-                  <div className="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
-                </label>
+                <Toggle checked={settings.economicCalendar} onChange={() => handleToggle('economicCalendar')} />
               </div>
               {settings.economicCalendar && (
                 <div className="ml-4 lg:ml-6 space-y-2 lg:space-y-3">
@@ -174,27 +127,11 @@ export default function SettingsPanel() {
           <div className="space-y-3 lg:space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-white text-sm lg:text-base">Price alerts</span>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={settings.soundPriceAlerts}
-                  onChange={() => handleToggle('soundPriceAlerts')}
-                  className="sr-only peer"
-                />
-                <div className="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
-              </label>
+              <Toggle checked={settings.soundPriceAlerts} onChange={() => handleToggle('soundPriceAlerts')} />
             </div>
             <div className="flex items-center justify-between">
               <span className="text-white text-sm lg:text-base">Closing by TP / SL / SO</span>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={settings.soundClosing}
-                  onChange={() => handleToggle('soundClosing')}
-                  className="sr-only peer"
-                />
-                <div className="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
-              </label>
+              <Toggle checked={settings.soundClosing} onChange={() => handleToggle('soundClosing')} />
             </div>
           </div>
         </div>
@@ -204,15 +141,7 @@ export default function SettingsPanel() {
           <h3 className="text-gray-300 text-xs lg:text-sm font-bold mb-3 lg:mb-4">Trading settings</h3>
           <div className="flex items-center justify-between">
             <span className="text-white text-sm lg:text-base">Set TP/SL automatically</span>
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                checked={settings.autoTPSL}
-                onChange={() => handleToggle('autoTPSL')}
-                className="sr-only peer"
-              />
-              <div className="w-9 h-5 bg-gray-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
-            </label>
+            <Toggle checked={settings.autoTPSL} onChange={() => handleToggle('autoTPSL')} />
           </div>
         </div>
 

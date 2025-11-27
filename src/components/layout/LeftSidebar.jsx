@@ -11,6 +11,10 @@ export default function LeftSidebar({ onPanelStateChange }) {
     setActivePanel(activePanel === panel ? null : panel)
   }
 
+  const closePanel = () => {
+    setActivePanel(null)
+  }
+
   const hasActivePanel = activePanel !== null
 
   // Notify parent component about panel state changes
@@ -87,17 +91,17 @@ export default function LeftSidebar({ onPanelStateChange }) {
         <>
           {activePanel === 'instruments' && (
             <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden flex-1">
-              <WatchlistPanel />
+              <WatchlistPanel onClose={closePanel} />
             </div>
           )}
           {activePanel === 'calendar' && (
             <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden flex-1">
-              <EconomicCalendarPanel />
+              <EconomicCalendarPanel onClose={closePanel} />
             </div>
           )}
           {activePanel === 'settings' && (
             <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden flex-1">
-              <SettingsPanel />
+              <SettingsPanel onClose={closePanel} />
             </div>
           )}
         </>
