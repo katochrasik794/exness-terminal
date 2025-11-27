@@ -5,7 +5,7 @@ export default function OrderPanel() {
   const [buyActive, setBuyActive] = useState(true)
 
   return (
-    <div className="bg-[#1a1f26] border-l border-gray-700 flex flex-col h-full w-full overflow-hidden">
+    <div className="bg-[#141d22] border-l-4 border-gray-600 flex flex-col h-full w-full overflow-hidden">
       <form className="flex flex-col h-full overflow-y-auto overflow-x-hidden" tabIndex="0">
         {/* Header */}
         <div className="flex items-center justify-between px-3 py-2 border-b border-gray-700 flex-shrink-0">
@@ -40,12 +40,12 @@ export default function OrderPanel() {
         </div>
 
         {/* Order Buttons */}
-        <div className="px-3 py-2 flex-shrink-0">
-          <div className="flex gap-0 mb-2">
+        <div className="px-3 pt-2 flex-shrink-0">
+          <div className="flex gap-0 mb-0">
             <button 
               className={`flex-1 py-2 px-3 flex flex-col items-center transition-colors ${
-                buyActive ? 'bg-red-600 hover:bg-red-700' : 'bg-red-500/50 hover:bg-red-600'
-              } text-white`}
+                buyActive ? 'bg-gray-900 border-1 border-red-600 rounded-md' : 'bg-gray-900 border-1 border-red-600 rounded-md'
+              } text-red-600`}
               type="button"
               onClick={() => setBuyActive(false)}
             >
@@ -58,8 +58,8 @@ export default function OrderPanel() {
             </button>
             <button 
               className={`flex-1 py-2 px-3 flex flex-col items-center transition-colors ${
-                buyActive ? 'bg-blue-600 hover:bg-blue-700 ring-2 ring-blue-400' : 'bg-blue-500/50 hover:bg-blue-600'
-              } text-white`}
+                buyActive ? 'bg-gray-900 border-1 border-blue-600 rounded-md' : 'bg-gray-900 border-1 border-blue-600 rounded-md'
+              } text-blue-600`}
               type="button"
               onClick={() => setBuyActive(true)}
             >
@@ -73,13 +73,13 @@ export default function OrderPanel() {
           </div>
 
           {/* Spread */}
-          <div className="text-center py-1.5 border border-gray-600 rounded mb-2">
+          <div className="text-center border-0 border-gray-600 rounded -mb-2 ">
             <span className="text-gray-400 text-xs">0.00 USD</span>
           </div>
 
           {/* Sentiment */}
           <div className="mb-2">
-            <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center justify-between mb-0">
               <span className="text-red-400 text-xs">39%</span>
               <span className="text-blue-400 text-xs">61%</span>
             </div>

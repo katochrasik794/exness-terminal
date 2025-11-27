@@ -1,102 +1,191 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { 
+  FiBell, 
+  FiGrid, 
+  FiUser, 
+  FiX, 
+  FiPlus, 
+  FiChevronDown,
+  FiDollarSign
+} from 'react-icons/fi'
+
+// Flag Icon Component - realistic flag representations
+function FlagIcon({ type }) {
+  switch (type) {
+    case 'xauusd':
+      return (
+        <div className="relative w-8 h-8">
+          <div className="absolute top-0 left-0 w-5.5 h-5.5 rounded-full bg-yellow-400 border-2 border-yellow-300 z-10 flex items-center justify-center">
+            <div className="w-3 h-3 bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-full"></div>
+          </div>
+          <div className="absolute bottom-0 right-0 w-5.5 h-5.5 rounded-full bg-blue-600 border-2 border-blue-500 z-20 flex items-center justify-center">
+            <div className="w-2.5 h-2.5 bg-blue-700 rounded-full"></div>
+          </div>
+        </div>
+      )
+    case 'us500':
+      return (
+        <div className="w-8 h-8 rounded-full bg-blue-900 border-2 border-blue-800 overflow-hidden relative">
+          {/* US Flag pattern */}
+          <div className="absolute inset-0 bg-[repeating-linear-gradient(180deg,#dc2626_0,#dc2626_1px,#ffffff_1px,#ffffff_3px)]"></div>
+          <div className="absolute top-0 left-0 w-3 h-3 bg-blue-700">
+            <div className="absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,#3b82f6_0deg_25%,#1e40af_25deg_50%,#1e3a8a_50deg_75%,#1e40af_75deg_100%)]"></div>
+          </div>
+        </div>
+      )
+    case 'btc':
+      return (
+        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 border-2 border-orange-500 flex items-center justify-center text-white font-bold text-xs">
+          ₿
+        </div>
+      )
+    case 'usdjpy':
+      return (
+        <div className="relative w-8 h-8">
+          {/* US Flag (left) */}
+          <div className="absolute top-0 left-0 w-5.5 h-5.5 rounded-full bg-blue-900 border-2 border-blue-800 overflow-hidden z-10">
+            <div className="absolute inset-0 bg-[repeating-linear-gradient(180deg,#dc2626_0,#dc2626_1px,#ffffff_1px,#ffffff_2.5px)]"></div>
+            <div className="absolute top-0 left-0 w-2.5 h-2.5 bg-blue-700 rounded-tl-full"></div>
+          </div>
+          {/* JPY Flag (right) */}
+          <div className="absolute bottom-0 right-0 w-5.5 h-5.5 rounded-full bg-white border-2 border-gray-300 z-20 flex items-center justify-center">
+            <div className="w-2.5 h-2.5 bg-red-600 rounded-full"></div>
+          </div>
+        </div>
+      )
+    default:
+      return <div className="w-8 h-8 bg-gray-600 rounded-full border-2 border-gray-500"></div>
+  }
+}
+
+// Individual Tab Component
+function InstrumentTab({ tab, isActive, onClick, onClose }) {
+  return (
+    <div
+      className={`h-14 relative px-4 py-4 cursor-pointer group ${
+        isActive 
+          ? 'bg-[#141d22] text-white border-b-4 border-white' 
+          : 'text-gray-300 hover:text-white hover:border-b-2 hover:border-white'
+      }`}
+      onClick={() => onClick(tab.id)}
+      data-test="instrument-tab"
+      role="button"
+      tabIndex="0"
+    >
+      {/* Close button in upper right corner */}
+      <button
+        className="cursor-pointer absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded text-gray-400 hover:text-white hover:bg-gray-600 z-10"
+        data-test="instrument-tab-close"
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation()
+          onClose(tab.id)
+        }}
+      >
+        <FiX size={14} className="stroke-current fill-none" />
+      </button>
+      
+      {/* Tab content */}
+      <div className="flex items-center justify-center gap-3 h-full">
+        <FlagIcon type={tab.flagType} />
+        <div className="text-sm font-medium" data-test="instrument-tab-symbol">
+          {tab.symbol}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function Navbar() {
-  const [activeTab, setActiveTab] = useState('XAU/USD')
+  const [tabs, setTabs] = useState([
+    { id: '1', symbol: 'XAU/USD', flagType: 'xauusd', isActive: true },
+    { id: '2', symbol: 'US500', flagType: 'us500', isActive: false },
+    { id: '3', symbol: 'BTC', flagType: 'btc', isActive: false },
+    { id: '4', symbol: 'USD/JPY', flagType: 'usdjpy', isActive: false }
+  ])
 
-  const tabs = [
-    { id: '1', symbol: 'XAU/USD', hasHMR: true, isActive: true },
-    { id: '2', symbol: 'US500', hasHMR: false, isActive: false },
-    { id: '3', symbol: 'BTC', hasHMR: false, isActive: false },
-    { id: '4', symbol: 'USD/JPY', hasHMR: true, isActive: false }
-  ]
+  const [balance] = useState('997.67')
+  const [accountInfo] = useState({
+    type: 'Demo',
+    identifier: 'Zero',
+    currency: 'USD'
+  })
 
-  const handleTabClick = (symbol) => {
-    setActiveTab(symbol)
+  const handleTabClick = (tabId) => {
+    setTabs(prevTabs => 
+      prevTabs.map(tab => ({
+        ...tab,
+        isActive: tab.id === tabId
+      }))
+    )
   }
 
-  const handleCloseTab = (e, id) => {
-    e.stopPropagation()
-    // Close tab logic
+  const handleCloseTab = (tabId) => {
+    const tabIndex = tabs.findIndex(tab => tab.id === tabId)
+    const isActiveTab = tabs[tabIndex]?.isActive
+    
+    const newTabs = tabs.filter(tab => tab.id !== tabId)
+    
+    // If we closed the active tab, make the first remaining tab active
+    if (isActiveTab && newTabs.length > 0) {
+      newTabs[0].isActive = true
+    }
+    
+    setTabs(newTabs)
+  }
+
+  const handleAddTab = () => {
+    const newId = Date.now().toString()
+    const newTab = {
+      id: newId,
+      symbol: 'NEW',
+      flagType: 'btc',
+      isActive: true
+    }
+    
+    setTabs(prevTabs => 
+      prevTabs.map(tab => ({ ...tab, isActive: false })).concat([newTab])
+    )
   }
 
   return (
-    <header className="bg-[#1a1f26] border-b border-gray-700 flex-shrink-0">
-      <nav className="flex items-center h-16">
+    <nav className="bg-[#141d22] border-b-4 border-gray-600 flex-shrink-0">
+      <div className="flex items-center h-14 py-2 ">
         {/* Logo */}
         <div className="px-4">
-          <div>
-            <div className="text-yellow-400 font-bold text-lg">exness</div>
+          <div className='flex items-center'>
+            <div className="text-yellow-300 font-semi-bold">
+              <img src="/public/logo_yellow.svg" className='h-9' alt="" />
+            </div>
           </div>
         </div>
 
         {/* Instrument Tabs */}
         <div className="flex-1">
           <div className="flex items-center h-16">
-            <div className="flex items-center h-16">
+            <div className="flex items-center h-16 ">
               <div className="flex">
                 {tabs.map((tab) => (
-                  <div
+                  <InstrumentTab
                     key={tab.id}
-                    className={`flex items-center px-6 py-4 cursor-pointer relative ${
-                      activeTab === tab.symbol 
-                        ? 'bg-[#0f1419] text-white' 
-                        : 'text-gray-300 hover:text-white'
-                    }`}
-                    onClick={() => handleTabClick(tab.symbol)}
-                    data-test="instrument-tab"
-                    role="button"
-                    tabIndex="0"
-                  >
-                    <div className="flex items-center gap-3">
-                      {/* Flag Icon */}
-                      <div className="w-8 h-8 flex items-center justify-center">
-                        <div className="w-6 h-6 bg-gray-600 rounded-full"></div>
-                      </div>
-                      
-                      {/* Symbol */}
-                      <div className="text-sm font-medium" data-test="instrument-tab-symbol">
-                        {tab.symbol}
-                      </div>
-                      
-                      {/* HMR Icon */}
-                      {tab.hasHMR && (
-                        <div className="text-orange-400" data-test="instrument-tab-hmr">
-                          <div title="9:45 AM - 10:01 AM Period of High Margin Requirements Max leverage 1:200">
-                            <svg width="16" height="16" className="fill-current">
-                              <rect y="2" width="4" height="12"></rect>
-                              <rect x="6" y="2" width="4" height="12"></rect>
-                              <rect x="12" y="2" width="4" height="12"></rect>
-                            </svg>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                    
-                    {/* Close Button */}
-                    <button
-                      className="ml-3 opacity-0 hover:opacity-100 transition-opacity"
-                      data-test="instrument-tab-close"
-                      type="button"
-                      onClick={(e) => handleCloseTab(e, tab.id)}
-                    >
-                      <svg width="16" height="16" className="text-gray-400">
-                        <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                      </svg>
-                    </button>
-                  </div>
+                    tab={tab}
+                    isActive={tab.isActive}
+                    onClick={handleTabClick}
+                    onClose={handleCloseTab}
+                  />
                 ))}
               </div>
               
               {/* Add Tab Button */}
-              <div>
+              <div className="flex items-center h-full">
                 <button 
-                  className="px-4 py-4 text-gray-400 hover:text-white"
+                  className="px-3 py-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition-colors mx-1 flex items-center justify-center h-8"
                   data-test="add-tab-button"
                   type="button"
+                  onClick={handleAddTab}
+                  title="Add New Instrument"
                 >
-                  <svg width="24" height="24">
-                    <path d="M12 4v16m8-8H4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
+                  <FiPlus size={18} className="stroke-current fill-none" />
                 </button>
               </div>
             </div>
@@ -108,45 +197,43 @@ export default function Navbar() {
           {/* Account Button */}
           <div>
             <button 
-              className="flex items-center px-3 py-2 hover:bg-gray-700 rounded"
+              className="flex h-12 gap-0 items-center px-3 py- hover:bg-gray-700 rounded"
               data-test="account-button-83067517"
               type="button"
             >
               <div>
                 <div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1">
                     <span className="inline-block">
                       <span 
-                        className="px-2 py-1 bg-green-600 text-green-100 text-xs rounded"
+                        className="px-2 bg-green-600 text-green-100 text-[10px] rounded"
                         data-test="account-info-trading-mode"
                       >
-                        Demo
+                        {accountInfo.type}
                       </span>
                     </span>
                     <span 
-                      className="text-gray-300 text-xs"
+                      className="text-gray-300 text-[10px]"
                       data-test="account-info-identifier"
                     >
-                      Zero
+                      {accountInfo.identifier}
                     </span>
                   </div>
-                  <div className="flex items-center gap-1 mt-1">
+                  <div className="flex items-center gap-0">
                     <span className="flex items-center">
                       <div>
-                        <span className="text-white font-bold">1,022.21</span>
+                        <span className="text-white text-xs font-semi-bold">{balance}</span>
                       </div>
                       <div>
                         <span 
                           className="text-gray-300 text-sm ml-1"
                           data-test="account-info-currency"
                         >
-                          USD
+                          {accountInfo.currency}
                         </span>
                       </div>
                     </span>
-                    <svg width="16" height="16" className="text-gray-400">
-                      <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                    <FiChevronDown size={10} className="text-gray-400" />
                   </div>
                 </div>
               </div>
@@ -156,55 +243,53 @@ export default function Navbar() {
           {/* Alert Button */}
           <div data-test="alerts-header-button">
             <button 
-              className="p-3 text-gray-400 hover:text-white"
+              className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
               type="button"
+              title="Alerts"
             >
-              <svg width="24" height="24">
-                <path d="M6 2v6h.01M6 18H5a2 2 0 01-2-2V7a2 2 0 012-2h14a2 2 0 012 2v9a2 2 0 01-2 2h-1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              <FiBell size={20} />
             </button>
           </div>
+
+          <div className="mx-1"></div>
 
           {/* Apps Button */}
           <div data-test="apps-header-button">
             <button 
-              className="p-3 text-gray-400 hover:text-white"
+              className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
               type="button"
+              title="Applications"
             >
-              <svg width="24" height="24">
-                <rect x="3" y="3" width="6" height="6" stroke="currentColor" strokeWidth="2"/>
-                <rect x="15" y="3" width="6" height="6" stroke="currentColor" strokeWidth="2"/>
-                <rect x="3" y="15" width="6" height="6" stroke="currentColor" strokeWidth="2"/>
-                <rect x="15" y="15" width="6" height="6" stroke="currentColor" strokeWidth="2"/>
-              </svg>
+              <FiGrid size={20} />
             </button>
           </div>
+
+          <div className=" mx-1"></div>
 
           {/* User Button */}
           <div data-test="apps-menu-button">
             <button 
-              className="p-3 text-gray-400 hover:text-white"
+              className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
               type="button"
+              title="Account Menu"
             >
-              <svg width="24" height="24">
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="2"/>
-              </svg>
+              <FiUser size={20} />
             </button>
           </div>
 
           {/* Deposit Button */}
           <div>
             <button 
-              className="px-4 py-2 border border-gray-600 text-white hover:bg-gray-700 rounded"
+              className="flex items-center gap-2 px-8 py-2 border border-gray-600 text-white hover:bg-gray-700 rounded transition-colors"
               data-test="deposit-button"
               type="button"
             >
+              {/* <FiDollarSign size={16} /> */}
               Deposit
             </button>
           </div>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
   )
 }
