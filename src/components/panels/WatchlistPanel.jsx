@@ -186,7 +186,7 @@ export default function WatchlistPanel({ onClose }) {
                       <rect x="1.5" y="1" width="1" height="6"/>
                       <rect x="3" y="1" width="1" height="6"/>
                     </svg>
-                    <div className="w-3 h-3 rounded-full flex items-center justify-center text-[8px] font-bold" style={{
+                    <div className="w-3 h-3 rounded-full flex items-center justify-center text-[15px] font-bold" style={{
                       backgroundColor: item.symbol === 'BTC' ? '#f7931a' : 
                                      item.symbol === 'XAU/USD' ? '#ffd700' :
                                      item.symbol === 'AAPL' ? '#000000' :
@@ -206,7 +206,7 @@ export default function WatchlistPanel({ onClose }) {
                        item.symbol === 'USOIL' ? '🛢️' : '💰'}
                     </div>
                     <div>
-                      <div className="text-white font-medium text-xs">{item.symbol}</div>
+                      <div className="text-white font-medium text-sm">{item.symbol}</div>
                       {item.marketClosed && (
                         <svg width="8" height="8" className="text-red-400" fill="currentColor">
                           <circle cx="4" cy="4" r="3" stroke="currentColor" strokeWidth="1" fill="none"/>
