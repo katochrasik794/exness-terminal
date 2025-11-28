@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import { 
-  FiBell, 
-  FiGrid, 
-  FiUser, 
   FiX, 
   FiPlus, 
   FiChevronDown,
   FiDollarSign
 } from 'react-icons/fi'
+import { MdOutlineAccessAlarms, MdApps } from "react-icons/md"
+import { BiUserCircle } from "react-icons/bi"
 import SymbolSearchPopup from '../panels/SymbolSearchPopup'
 import AccountDropdown from '../panels/AccountDropdown'
 import PriceAlertsDropdown from '../panels/PriceAlertsDropdown'
@@ -230,7 +229,7 @@ export default function Navbar() {
               title="Alerts"
               onClick={() => setIsPriceAlertsOpen(!isPriceAlertsOpen)}
             >
-              <FiBell size={20} />
+              <MdOutlineAccessAlarms size={22} />
             </button>
             
             {/* Price Alerts Dropdown */}
@@ -248,7 +247,7 @@ export default function Navbar() {
               title="Applications"
               onClick={() => setIsAppsDropdownOpen(!isAppsDropdownOpen)}
             >
-              <FiGrid size={20} />
+              <MdApps size={22} />
             </button>
 
             {/* Applications Dropdown */}
@@ -266,7 +265,7 @@ export default function Navbar() {
               title="Account Menu"
               onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
             >
-              <FiUser size={20} />
+              <BiUserCircle size={22} />
             </button>
 
             {/* Profile Dropdown */}
@@ -279,7 +278,7 @@ export default function Navbar() {
           {/* Deposit Button */}
           <div>
             <button 
-              className="cursor-pointer flex items-center gap-2 px-16 py-2 text-white hover:border hover:border-gray-400 bg-gray-800 rounded transition-colors"
+              className="cursor-pointer flex items-center gap-2 px-17 py-2 text-white hover:border hover:border-gray-400 bg-[#222d35] rounded transition-colors"
               data-test="deposit-button"
               type="button"
               onClick={() => setIsDepositPopupOpen(true)}

@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: aktiv-grotesk, sans-serif;
+}
+
 /* Global font-family configuration with Aktiv-Grotesk */
 html:lang(en), body:lang(en), 
 html:lang(es), body:lang(es), 
@@ -8,14 +12,12 @@ html:lang(id), body:lang(id),
 html:lang(pt), body:lang(pt), 
 html:lang(sw), body:lang(sw), 
 html:lang(uz), body:lang(uz) {
-  font-family: 'Aktiv-Grotesk', 'Aktiv Grotesk', 'Aktiv-Grotesk-Regular', 
-              'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: aktiv-grotesk, sans-serif;
 }
 
 /* Apply Aktiv-Grotesk to all elements */
 * {
-  font-family: 'Aktiv-Grotesk', 'Aktiv Grotesk', 'Aktiv-Grotesk-Regular', 
-               'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: aktiv-grotesk, sans-serif;
 }
 
 /* Global styles for full screen height */
