@@ -1,100 +1,139 @@
 import { useState } from 'react'
+import { ChevronDown, ChevronUp, X, Info, Minus, Plus, HelpCircle } from 'lucide-react'
 
 export default function OrderPanel() {
-  const [isPending, setIsPending] = useState(true)
-  const [buyActive, setBuyActive] = useState(true)
+  const [isPending, setIsPending] = useState(false)
+  const [orderSide, setOrderSide] = useState('sell') // 'buy' or 'sell'
+  const [volume, setVolume] = useState('0.01')
+  const [isModeDropdownOpen, setIsModeDropdownOpen] = useState(false)
+  const [selectedMode, setSelectedMode] = useState('Regular form')
 
   return (
-    <div className="bg-[#141d22] border-l-4 border-gray-600 flex flex-col h-full w-full overflow-hidden">
-      <form className="flex flex-col h-full overflow-y-auto overflow-x-hidden" tabIndex="0">
+    <div className="bg-[#141d22] flex flex-col h-full w-full overflow-hidden text-[#c0c0c0] font-sans border-l-4 border-gray-600">
+      <form className="flex flex-col h-full overflow-y-auto overflow-x-hidden custom-scrollbar" onSubmit={(e) => e.preventDefault()}>
+        
         {/* Header */}
-        <div className="flex items-center justify-between px-3 py-2 border-b border-gray-700 flex-shrink-0">
-          <div className="flex items-center gap-2" aria-label="Gold vs US Dollar">
-            <div className="flex items-center gap-1">
-              <div className="w-4 h-4 relative">
-                <div className="w-3 h-3 bg-yellow-500 rounded-full absolute"></div>
-                <div className="w-3 h-3 bg-green-500 rounded-full absolute right-0"></div>
+        <div className="px-4 py-3 flex-shrink-0 border-b border-[#2a2f36]">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="flex items-center relative">
+                {/* Overlapping Flags */}
+                <div className="w-5 h-5 rounded-full overflow-hidden border border-[#2a2f36] z-10">
+                   <img src="https://flagcdn.com/svg/us.svg" alt="USD" className="w-full h-full object-cover" />
+                </div>
+                <div className="w-6 h-6 rounded-full overflow-hidden border border-[#2a2f36] -ml-2 z-0">
+                  <div className="w-full h-full bg-yellow-500 flex items-center justify-center text-[8px] text-black font-bold">G</div>
+                </div>
               </div>
-              <span className="text-white font-medium text-sm">XAU/USD</span>
+              <span className="text-white font-medium text-xs">XAU/USD</span>
             </div>
+            <button className="text-gray-400 hover:text-white transition-colors" type="button">
+              <X size={15} />
+            </button>
           </div>
-          <button className="p-1 text-gray-400 hover:text-white" type="button">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M18 6L6 18M6 6l12 12"/>
-            </svg>
-          </button>
         </div>
 
         {/* Mode Select */}
-        <div className="px-3 py-2 border-b border-gray-700 flex-shrink-0">
+        <div className="px-3 py-2 flex-shrink-0 relative z-50">
           <div className="relative">
-            <select className="w-full bg-[#2a2f36] border border-gray-600 rounded px-2 py-1.5 text-white text-xs appearance-none">
-              <option value="regular">Regular form</option>
-            </select>
-            <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M6 9l6 6l6-6"/>
-              </svg>
-            </div>
+            <button 
+              type="button" 
+              onClick={() => setIsModeDropdownOpen(!isModeDropdownOpen)}
+              className={`w-full bg-[#1e2329] border ${isModeDropdownOpen ? 'border-[#2a2f36]' : 'border-[#2a2f36]'} rounded px-3 py-2 text-white text-sm flex items-center justify-between hover:border-gray-500 transition-colors`}
+            >
+              <span>{selectedMode}</span>
+              {isModeDropdownOpen ? <ChevronUp size={16} className="text-gray-400" /> : <ChevronDown size={16} className="text-gray-400" />}
+            </button>
+            
+            {isModeDropdownOpen && (
+              <div className="absolute top-full left-0 w-full mt-1 bg-[#2a2f36] border border-[#3b4148] rounded-md shadow-xl overflow-hidden py-1">
+                {['Regular form', 'One-click form', 'Risk calculator form'].map((mode) => (
+                  <button
+                    key={mode}
+                    type="button"
+                    onClick={() => {
+                      setSelectedMode(mode)
+                      setIsModeDropdownOpen(false)
+                    }}
+                    className={`w-full text-left px-3 py-2 text-sm text-[#c0c0c0] hover:bg-[#3b4148] hover:text-white transition-colors ${selectedMode === mode ? 'bg-[#3b4148] text-white' : ''}`}
+                  >
+                    {mode}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
         {/* Order Buttons */}
-        <div className="px-3 pt-2 flex-shrink-0">
-          <div className="flex gap-0 mb-0">
+        <div className="px-3 flex-shrink-0">
+          <div className="flex gap-1 mb-1 relative">
+            {/* Sell Button */}
             <button 
-              className={`flex-1 py-2 px-3 flex flex-col items-center transition-colors ${
-                buyActive ? 'bg-gray-900 border-1 border-red-600 rounded-md' : 'bg-gray-900 border-1 border-red-600 rounded-md'
-              } text-red-600`}
+              className={`flex-1 rounded-l-md p-2 pb-4 flex flex-col items-start transition-colors relative overflow-hidden group ${
+                orderSide === 'sell' 
+                  ? 'bg-[#ff444f] hover:bg-[#eb3b46]' 
+                  : 'bg-transparent border border-[#ff444f] hover:bg-[#ff444f]/10'
+              }`}
               type="button"
-              onClick={() => setBuyActive(false)}
+              onClick={() => setOrderSide('sell')}
             >
-              <span className="text-xs mb-0.5">Sell</span>
-              <div className="text-xs">
-                <span>4,068.</span>
-                <span className="font-bold text-sm">20</span>
-                <span className="text-xs">5</span>
+              <span className={`text-[10px] font-medium mb-0.5 ${orderSide === 'sell' ? 'text-red-100 opacity-90' : 'text-[#ff444f]'}`}>Sell</span>
+              <div className={`flex items-baseline ${orderSide === 'sell' ? 'text-white' : 'text-[#ff444f]'}`}>
+                <span className="text-sm">4,172.</span>
+                <span className="text-lg font-bold">61</span>
+                <span className="text-[9px] align-top ml-0.5 -mt-1">5</span>
               </div>
             </button>
+
+            {/* Buy Button */}
             <button 
-              className={`flex-1 py-2 px-3 flex flex-col items-center transition-colors ${
-                buyActive ? 'bg-gray-900 border-1 border-blue-600 rounded-md' : 'bg-gray-900 border-1 border-blue-600 rounded-md'
-              } text-blue-600`}
+              className={`flex-1 rounded-r-md p-2 pb-4 flex flex-col items-end transition-colors relative overflow-hidden group ${
+                orderSide === 'buy' 
+                  ? 'bg-[#007bff] hover:bg-[#0069d9]' 
+                  : 'bg-transparent border border-[#007bff] hover:bg-[#007bff]/10'
+              }`}
               type="button"
-              onClick={() => setBuyActive(true)}
+              onClick={() => setOrderSide('buy')}
             >
-              <span className="text-xs mb-0.5">Buy</span>
-              <div className="text-xs">
-                <span>4,068.</span>
-                <span className="font-bold text-sm">20</span>
-                <span className="text-xs">5</span>
+              <span className={`text-[10px] font-medium mb-0.5 ${orderSide === 'buy' ? 'text-blue-100 opacity-90' : 'text-[#007bff]'}`}>Buy</span>
+              <div className={`flex items-baseline ${orderSide === 'buy' ? 'text-white' : 'text-[#007bff]'}`}>
+                <span className="text-sm">4,172.</span>
+                <span className="text-lg font-bold">61</span>
+                <span className="text-[9px] align-top ml-0.5 -mt-1">5</span>
               </div>
             </button>
-          </div>
 
-          {/* Spread */}
-          <div className="text-center border-0 border-gray-600 rounded -mb-2 ">
-            <span className="text-gray-400 text-xs">0.00 USD</span>
-          </div>
-
-          {/* Sentiment */}
-          <div className="mb-2">
-            <div className="flex items-center justify-between mb-0">
-              <span className="text-red-400 text-xs">39%</span>
-              <span className="text-blue-400 text-xs">61%</span>
+            {/* Spread Badge - Absolute positioned to overlap */}
+            <div className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-10">
+               <div className="bg-[#2a2f36] text-white text-[9px] px-1.5 py-0.5 rounded border border-[#141d22]">
+                 0.00 USD
+               </div>
             </div>
-            <div className="h-1 rounded" style={{
-              background: 'linear-gradient(to right, #ef4444 0%, #ef4444 36%, #3b82f6 39%, #3b82f6 100%)'
-            }}></div>
+          </div>
+
+          {/* Spacer for the overlapping badge */}
+          <div className="h-2"></div>
+
+          {/* Sentiment Bar */}
+          <div className="mt-1 mb-2">
+            <div className="flex items-center justify-between mb-0.5">
+              <span className="text-[#ff444f] text-[9px] font-medium">29%</span>
+              <span className="text-[#007bff] text-[9px] font-medium">71%</span>
+            </div>
+            <div className="h-0.5 w-full bg-[#2a2f36] rounded-full overflow-hidden flex">
+              <div className="h-full bg-[#ff444f] w-[29%]"></div>
+              <div className="h-full bg-[#007bff] w-[71%]"></div>
+            </div>
           </div>
         </div>
 
-        {/* Market/Pending Toggle */}
-        <div className="px-3 mb-2 flex-shrink-0">
-          <div className="flex bg-[#2a2f36] rounded overflow-hidden">
+        {/* Tabs (Market / Pending) */}
+        <div className="px-3 mb-3 flex-shrink-0">
+          <div className="bg-[#1e2329] p-1 rounded-md flex border border-[#2a2f36]">
             <button 
-              className={`flex-1 py-1.5 px-3 text-xs transition-colors ${
-                !isPending ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'
+              className={`flex-1 py-1.5 text-xs font-medium rounded transition-colors ${
+                !isPending ? 'bg-[#2a2f36] text-white shadow-sm' : 'text-gray-400 hover:text-white'
               }`}
               type="button"
               onClick={() => setIsPending(false)}
@@ -102,8 +141,8 @@ export default function OrderPanel() {
               Market
             </button>
             <button 
-              className={`flex-1 py-1.5 px-3 text-xs transition-colors ${
-                isPending ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'
+              className={`flex-1 py-1.5 text-xs font-medium rounded transition-colors ${
+                isPending ? 'bg-[#2a2f36] text-white shadow-sm' : 'text-gray-400 hover:text-white'
               }`}
               type="button"
               onClick={() => setIsPending(true)}
@@ -114,200 +153,165 @@ export default function OrderPanel() {
         </div>
 
         {/* Input Fields */}
-        <div className="px-3 space-y-2 flex-shrink-0">
+        <div className="px-3 space-y-3 flex-shrink-0">
+          
           {/* Open Price (only for pending orders) */}
           {isPending && (
             <div>
               <div className="flex items-center gap-1 mb-1">
-                <label className="text-gray-400 text-xs">Open price</label>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="text-gray-400">
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="currentColor" strokeWidth="2"/>
-                  <path d="M12 17h.01" stroke="currentColor" strokeWidth="2"/>
-                </svg>
+                <label className="text-[#c0c0c0] text-xs">Open price</label>
+                <HelpCircle size={12} className="text-gray-500" />
               </div>
-              <div className="relative">
-                <input 
-                  type="text" 
-                  value="4068.515"
-                  className="w-full bg-[#2a2f36] border border-gray-600 rounded px-2 py-1.5 text-white text-xs pr-20"
-                  placeholder="Not set"
-                />
-                <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center gap-0.5">
-                  <div className="bg-gray-600 text-white text-xs px-1.5 py-0.5 rounded mr-1">
-                    Stop
+              <div className="flex items-center">
+                <div className="relative flex-1">
+                  <input 
+                    type="text" 
+                    defaultValue="4068.515"
+                    className="w-full bg-[#1e2329] border border-[#2a2f36] rounded-l px-3 py-2 text-white text-sm focus:border-gray-500 focus:outline-none transition-colors"
+                  />
+                  <div className="absolute right-0 top-0 h-full flex items-center pr-2 gap-1">
+                    <span className="bg-gray-700 text-[10px] px-1.5 py-0.5 rounded text-white">Stop</span>
                   </div>
-                  <button className="p-0.5 text-gray-400 hover:text-white" type="button">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M19 13H5v-2h14v2z"/>
-                    </svg>
-                  </button>
-                  <button className="p-0.5 text-gray-400 hover:text-white" type="button">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                    </svg>
-                  </button>
                 </div>
+                <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors">
+                  <Minus size={14} />
+                </button>
+                <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] rounded-r h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors">
+                  <Plus size={14} />
+                </button>
               </div>
-              <div className="text-xs text-gray-400 mt-0.5">
+              <div className="text-[10px] text-gray-500 mt-1 text-right">
                 +31.0 pips
               </div>
             </div>
           )}
 
-          {/* Volume */}
+          {/* Volume Input */}
           <div>
-            <label className="block text-gray-400 text-xs mb-1">Volume</label>
-            <div className="relative">
-              <input 
-                type="text" 
-                value="0.01" 
-                className="w-full bg-[#2a2f36] border border-gray-600 rounded px-2 py-1.5 text-white text-xs pr-16"
-                placeholder="Not set"
-              />
-              <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center gap-0.5">
-                <span className="text-gray-400 text-xs mr-1">Lots</span>
-                <button className="p-0.5 text-gray-400 hover:text-white" type="button">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 13H5v-2h14v2z"/>
-                  </svg>
-                </button>
-                <button className="p-0.5 text-gray-400 hover:text-white" type="button">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                  </svg>
-                </button>
+            <label className="block text-[#c0c0c0] text-xs mb-1">Volume</label>
+            <div className="flex items-center">
+              <div className="relative flex-1">
+                <input 
+                  type="text" 
+                  value={volume}
+                  onChange={(e) => setVolume(e.target.value)}
+                  className="w-full bg-[#1e2329] border border-[#2a2f36] rounded-l px-3 py-2 text-white text-sm focus:border-gray-500 focus:outline-none transition-colors"
+                />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs">Lots</span>
               </div>
+              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors">
+                <Minus size={14} />
+              </button>
+              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] rounded-r h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors">
+                <Plus size={14} />
+              </button>
             </div>
           </div>
 
           {/* Take Profit */}
           <div>
-            <div className="flex items-center gap-1 mb-1">
-              <label className="text-gray-400 text-xs">Take Profit</label>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="text-gray-400">
-                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="currentColor" strokeWidth="2"/>
-                <path d="M12 17h.01" stroke="currentColor" strokeWidth="2"/>
-              </svg>
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-[#c0c0c0] text-xs">Take Profit</label>
+              <HelpCircle size={12} className="text-gray-500" />
             </div>
-            <div className="relative">
-              <input 
-                type="text" 
-                className="w-full bg-[#2a2f36] border border-gray-600 rounded px-2 py-1.5 text-white text-xs pr-20"
-                placeholder="Not set"
-              />
-              <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center gap-0.5">
-                <button className="text-gray-400 text-xs mr-1 flex items-center gap-0.5" type="button">
-                  Price
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M7 10l5 5 5-5z"/>
-                  </svg>
-                </button>
-                <button className="p-0.5 text-gray-400 hover:text-white" type="button">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 13H5v-2h14v2z"/>
-                  </svg>
-                </button>
-                <button className="p-0.5 text-gray-400 hover:text-white" type="button">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                  </svg>
-                </button>
+            <div className="flex items-center">
+               <div className="relative flex-1">
+                <input 
+                  type="text" 
+                  placeholder="Not set"
+                  className="w-full bg-[#1e2329] border border-[#2a2f36] rounded-l px-3 py-2 text-white text-sm focus:border-gray-500 focus:outline-none transition-colors placeholder-gray-600"
+                />
+                <div className="absolute right-0 top-0 h-full flex items-center pr-2">
+                   <button className="text-gray-500 text-xs flex items-center gap-1 hover:text-white">
+                     Price <ChevronDown size={12} />
+                   </button>
+                </div>
               </div>
+              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors">
+                <Minus size={14} />
+              </button>
+              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] rounded-r h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors">
+                <Plus size={14} />
+              </button>
             </div>
           </div>
 
           {/* Stop Loss */}
           <div>
-            <div className="flex items-center gap-1 mb-1">
-              <label className="text-gray-400 text-xs">Stop Loss</label>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="text-gray-400">
-                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="currentColor" strokeWidth="2"/>
-                <path d="M12 17h.01" stroke="currentColor" strokeWidth="2"/>
-              </svg>
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-[#c0c0c0] text-xs">Stop Loss</label>
+              <HelpCircle size={12} className="text-gray-500" />
             </div>
-            <div className="relative">
-              <input 
-                type="text" 
-                className="w-full bg-[#2a2f36] border border-gray-600 rounded px-2 py-1.5 text-white text-xs pr-20"
-                placeholder="Not set"
-              />
-              <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center gap-0.5">
-                <button className="text-gray-400 text-xs mr-1 flex items-center gap-0.5" type="button">
-                  Price
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M7 10l5 5 5-5z"/>
-                  </svg>
-                </button>
-                <button className="p-0.5 text-gray-400 hover:text-white" type="button">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 13H5v-2h14v2z"/>
-                  </svg>
-                </button>
-                <button className="p-0.5 text-gray-400 hover:text-white" type="button">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                  </svg>
-                </button>
+            <div className="flex items-center">
+               <div className="relative flex-1">
+                <input 
+                  type="text" 
+                  placeholder="Not set"
+                  className="w-full bg-[#1e2329] border border-[#2a2f36] rounded-l px-3 py-2 text-white text-sm focus:border-gray-500 focus:outline-none transition-colors placeholder-gray-600"
+                />
+                 <div className="absolute right-0 top-0 h-full flex items-center pr-2">
+                   <button className="text-gray-500 text-xs flex items-center gap-1 hover:text-white">
+                     Price <ChevronDown size={12} />
+                   </button>
+                </div>
               </div>
+              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors">
+                <Minus size={14} />
+              </button>
+              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] rounded-r h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors">
+                <Plus size={14} />
+              </button>
             </div>
           </div>
+
         </div>
 
-        {/* Action Buttons */}
-        <div className="px-3 py-2 space-y-2 border-t border-gray-700 flex-shrink-0 mt-2">
+        {/* Confirmation Button */}
+        <div className="px-3 mt-3 flex-shrink-0">
           <button 
-            className={`w-full py-2 px-3 rounded font-medium text-xs transition-colors ${
-              buyActive 
-                ? 'bg-blue-600 hover:bg-blue-700 text-white' 
-                : 'bg-red-600 hover:bg-red-700 text-white'
+            className={`w-full text-white font-medium py-2 rounded text-[13px] transition-colors shadow-lg ${
+              orderSide === 'sell' 
+                ? 'bg-[#ff444f] hover:bg-[#eb3b46] shadow-red-900/20' 
+                : 'bg-[#007bff] hover:bg-[#0069d9] shadow-blue-900/20'
             }`}
             type="submit"
           >
-            Confirm {buyActive ? 'Buy' : 'Sell'} {isPending ? 'Stop' : ''} 0.01 lots
+            Confirm {orderSide === 'sell' ? 'Sell' : 'Buy'} {volume} lots
           </button>
+          
           <button 
-            className="w-full py-1.5 px-3 border border-gray-600 text-gray-400 hover:text-white hover:border-gray-500 rounded text-xs transition-colors"
+            className="w-full mt-2 py-1.5 text-[#c0c0c0] hover:text-white text-[11px] transition-colors bg-[#1e2329] border border-[#2a2f36] rounded hover:bg-[#2a2f36]"
             type="button"
           >
             Cancel
           </button>
         </div>
 
-        {/* Details */}
-        <div className="px-3 py-2 border-t border-gray-700 space-y-1.5 flex-shrink-0">
+        {/* Footer Details */}
+        <div className="px-3 py-3 border-t border-[#2a2f36] space-y-2 flex-shrink-0 mt-2">
           <div className="flex items-center justify-between text-xs">
             <div className="flex items-center gap-1">
-              <span className="text-gray-400">Fees:</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="text-gray-400">
-                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="currentColor" strokeWidth="2"/>
-                <path d="M12 17h.01" stroke="currentColor" strokeWidth="2"/>
-              </svg>
+              <span className="text-gray-500">Fees:</span>
+              <HelpCircle size={12} className="text-gray-600" />
             </div>
             <span className="text-white">≈ 0.11 USD</span>
           </div>
           <div className="flex items-center justify-between text-xs">
             <div className="flex items-center gap-1">
-              <span className="text-gray-400">Leverage:</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="text-gray-400">
-                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="currentColor" strokeWidth="2"/>
-                <path d="M12 17h.01" stroke="currentColor" strokeWidth="2"/>
-              </svg>
+              <span className="text-gray-500">Leverage:</span>
+              <HelpCircle size={12} className="text-gray-600" />
             </div>
             <span className="text-white">1:2000</span>
           </div>
           <div className="flex items-center justify-between text-xs">
-            <span className="text-gray-400">Margin:</span>
+            <span className="text-gray-500">Margin:</span>
             <span className="text-white">2.03 USD</span>
           </div>
-          <button className="text-gray-400 hover:text-white text-xs" type="button">
+          <button className="text-gray-500 hover:text-white text-xs" type="button">
             More
           </button>
         </div>
+        
       </form>
     </div>
   )

@@ -14,7 +14,7 @@ export default function TradingTerminal() {
   useEffect(() => {
     if (leftPanelRef.current) {
       if (isPanelExpanded) {
-        leftPanelRef.current.resize(25) // 15% ≈ 290px on 1920px screen
+        leftPanelRef.current.resize(22) // 15% ≈ 290px on 1920px screen
       } else {
         leftPanelRef.current.resize(3)
       }
