@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import FlagIcon from '../ui/FlagIcon'
 
 export default function BottomPanel() {
   const [activeTab, setActiveTab] = useState('Open')
+  const [isGrouped, setIsGrouped] = useState(true)
 
   const tabs = ['Open', 'Pending', 'Closed']
 
@@ -9,117 +11,152 @@ export default function BottomPanel() {
     {
       symbol: 'XAU/USD',
       type: 'Buy',
-      volume: '0.01',
-      openPrice: '4,072.786',
-      currentPrice: '4,035.345',
+      volume: '0.03',
+      openPrice: '≈ 4,157.977',
+      currentPrice: '4,174.225',
       tp: 'Add',
       sl: 'Add',
-      pl: '-37.44',
-      plColor: 'text-red-400'
+      ticket: '', // Position column
+      openTime: 'Nov 26, 11:04:32 AM',
+      swap: '0',
+      commission: '-0.33',
+      pl: '+48.74',
+      plColor: 'text-[#00ffaa]', // Bright green for profit
     }
   ]
 
   return (
-    <div className="h-96 bg-[#141d22] border-t-4 border-gray-500 flex flex-col overflow-hidden">
-      {/* Tabs */}
-      <div className="flex items-center border-b border-gray-700">
-        {tabs.map(tab => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`px-3 py-2 text-xs font-medium border-r border-gray-700 ${
-              activeTab === tab
-                ? 'bg-[#0f1419] text-white border-b-2 border-blue-500'
-                : 'text-gray-400 hover:text-white'
-            }`}
-          >
-            {tab} {tab === 'Open' && <span className="ml-1 text-[10px] bg-blue-600 px-1 rounded">1</span>}
-          </button>
-        ))}
-        
-        <div className="flex-1" />
-        
+    <div className="h-full bg-[#141d22] flex flex-col overflow-hidden font-sans">
+      {/* Header Section */}
+      <div className="flex items-center justify-between px-1 border-b border-[#2a3038] bg-[#141d22] h-[40px] min-h-[40px]">
+        {/* Tabs */}
+        <div className="flex items-center h-full">
+          {tabs.map(tab => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`relative h-full px-5 text-[14px] font-medium transition-colors flex items-center gap-1.5 ${
+                activeTab === tab
+                  ? 'text-white after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white'
+                  : 'text-[#8b9096] hover:text-white'
+              }`}
+            >
+              {tab}
+              {tab === 'Open' && (
+                <span className={`text-[11px] px-1.5 py-0.5 rounded-[3px] leading-none ${
+                  activeTab === 'Open' ? 'bg-[#2a3038] text-white' : 'bg-[#2a3038] text-[#8b9096]'
+                }`}>3</span>
+              )}
+            </button>
+          ))}
+        </div>
+
         {/* Actions */}
-        <div className="flex items-center gap-1 px-3">
-          <button className="text-gray-400 hover:text-white p-1" title="Group positions">
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        <div className="flex items-center gap-1">
+          {/* Group/Ungroup Toggle */}
+          <div className="flex items-center bg-[#1e252b] rounded p-0.5 mr-2">
+            <button 
+              onClick={() => setIsGrouped(true)}
+              className={`p-1.5 rounded ${isGrouped ? 'bg-[#2a3038] text-white' : 'text-[#8b9096] hover:text-white'}`}
+              title="Group positions"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+            <button 
+              onClick={() => setIsGrouped(false)}
+              className={`p-1.5 rounded ${!isGrouped ? 'bg-[#2a3038] text-white' : 'text-[#8b9096] hover:text-white'}`}
+              title="Ungroup positions"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+
+          <button className="p-2 text-[#8b9096] hover:text-white transition-colors" title="Settings">
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
             </svg>
           </button>
-          <button className="text-gray-400 hover:text-white p-1" title="Ungroup positions">
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-          </button>
-          <button className="text-gray-400 hover:text-white p-1" title="More options">
-            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-            </svg>
-          </button>
-          <button className="text-gray-400 hover:text-white p-1" title="Close panel">
-            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+          <button className="p-2 text-[#8b9096] hover:text-white transition-colors" title="Hide panel">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
       </div>
 
       {/* Table */}
-      <div className="flex-1 overflow-auto">
-        <table className="w-full text-[10px]">
-          <thead className="sticky top-0 bg-[#1a1f26] border-b border-gray-700">
-            <tr className="text-gray-400">
-              <th className="px-2 py-1 text-left font-normal">Symbol</th>
-              <th className="px-2 py-1 text-left font-normal">Type</th>
-              <th className="px-2 py-1 text-right font-normal">Volume, lot</th>
-              <th className="px-2 py-1 text-right font-normal">Open price</th>
-              <th className="px-2 py-1 text-right font-normal">Current price</th>
-              <th className="px-2 py-1 text-center font-normal">T/P</th>
-              <th className="px-2 py-1 text-right font-normal">P/L, USD</th>
-              <th className="px-2 py-1 text-center font-normal w-8"></th>
-              <th className="px-2 py-1 text-center font-normal w-8"></th>
+      <div className="flex-1 overflow-auto bg-[#141d22]">
+        <table className="w-full text-[14px] border-collapse min-w-max">
+          <thead className="sticky top-0 bg-[#141d22] z-20">
+            <tr className="text-[12px] text-gray-100 border-b border-[#2a3038]">
+              <th className="px-4 text-left font-normal w-[220px] whitespace-nowrap">Symbol</th>
+              <th className="px-4 text-left font-normal whitespace-nowrap">Type</th>
+              <th className="px-4 text-right font-normal whitespace-nowrap">Volume, lot</th>
+              <th className="px-4 text-right font-normal whitespace-nowrap">Open price</th>
+              <th className="px-4 text-right font-normal whitespace-nowrap">Current price</th>
+              <th className="px-4 text-center font-normal text-[#8b9096] whitespace-nowrap">T/P</th>
+              <th className="px-4 text-center font-normal text-[#8b9096] whitespace-nowrap">S/L</th>
+              <th className="px-4 text-left font-normal whitespace-nowrap">Position</th>
+              <th className="px-4 text-left font-normal whitespace-nowrap">Open time</th>
+              <th className="px-4 text-left font-normal whitespace-nowrap">Swap, USD</th>
+              <th className="px-4 text-left font-normal whitespace-nowrap">Commission, USD</th>
+              
+              {/* Sticky Columns Header */}
+              <th className="px-4 text-right font-normal whitespace-nowrap sticky right-[50px] bg-[#141d22] z-30 shadow-[-10px_0_10px_-5px_rgba(0,0,0,0.3)] border-b border-[#2a3038]">P/L, USD</th>
+              <th className="px-4 text-center font-normal w-[55px] sticky right-0 bg-[#141d22] z-30 border-b border-[#2a3038]"></th>
             </tr>
           </thead>
           <tbody>
             {activeTab === 'Open' && openPositions.map((position, idx) => (
               <tr
                 key={idx}
-                className="border-b border-gray-800 hover:bg-[#1c252f]"
+                className="border-b border-[#2a3038] hover:bg-[#1c252f] group"
               >
-                <td className="px-2 py-2">
-                  <div className="flex items-center gap-1">
-                    <div className="w-3 h-3 rounded-full flex items-center justify-center text-[8px] font-bold bg-yellow-500">
-                      🥇
+                <td className="px-4 py-3 whitespace-nowrap">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 relative">
+                      <FlagIcon type="xauusd" />
                     </div>
-                    <span className="text-white font-medium text-sm">{position.symbol}</span>
+                    <span className="text-white font-medium">{position.symbol}</span>
+                    <span className="ml-1 text-[12px] bg-[#2a3038] text-[#8b9096] px-1.5 rounded">3</span>
                   </div>
                 </td>
-                <td className="px-2 py-2">
-                  <div className="flex items-center gap-1">
-                    <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                    <span className="text-white text-sm">{position.type}</span>
+                <td className="px-4 py-3 whitespace-nowrap">
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-2 h-2 rounded-full bg-[#0099ff]"></div>
+                    <span className="text-white">{position.type}</span>
                   </div>
                 </td>
-                <td className="px-2 py-2 text-right text-white text-sm">{position.volume}</td>
-                <td className="px-2 py-2 text-right text-white text-sm font-mono">{position.openPrice}</td>
-                <td className="px-2 py-2 text-right text-white text-sm font-mono">{position.currentPrice}</td>
-                <td className="px-2 py-2 text-center">
-                  <button className="text-gray-400 hover:text-blue-400 text-sm">{position.tp}</button>
-                </td>
-                <td className="px-2 py-2 text-right">
-                  <span className={`font-medium text-sm ${position.plColor}`}>{position.pl}</span>
-                </td>
-                <td className="px-2 py-2 text-center">
-                  <button className="text-gray-400 hover:text-white" title="Edit position">
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                    </svg>
+                <td className="px-4 py-3 text-right text-white whitespace-nowrap">{position.volume}</td>
+                <td className="px-4 py-3 text-right text-white whitespace-nowrap">{position.openPrice}</td>
+                <td className="px-4 py-3 text-right text-white whitespace-nowrap">{position.currentPrice}</td>
+                <td className="px-4 py-3 text-center whitespace-nowrap">
+                  <button className="text-[#8b9096] hover:text-[#0099ff] border-b border-dashed border-[#8b9096] hover:border-[#0099ff] leading-none pb-px">
+                    {position.tp}
                   </button>
                 </td>
-                <td className="px-2 py-2 text-center">
-                  <button className="text-gray-400 hover:text-white" title="Close position">
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <td className="px-4 py-3 text-center whitespace-nowrap">
+                  <button className="text-[#8b9096] hover:text-[#0099ff] border-b border-dashed border-[#8b9096] hover:border-[#0099ff] leading-none pb-px">
+                    {position.sl}
+                  </button>
+                </td>
+                <td className="px-4 py-3 text-left text-white whitespace-nowrap">{position.ticket}</td>
+                <td className="px-4 py-3 text-left text-white whitespace-nowrap">{position.openTime}</td>
+                <td className="px-4 py-3 text-left text-white whitespace-nowrap">{position.swap}</td>
+                <td className="px-4 py-3 text-left text-white whitespace-nowrap">{position.commission}</td>
+                
+                {/* Sticky Columns Data */}
+                <td className="px-4 py-3 text-right whitespace-nowrap sticky right-[50px] bg-[#141d22] group-hover:bg-[#1c252f] z-20 shadow-[-10px_0_10px_-5px_rgba(0,0,0,0.3)] border-b border-[#2a3038]">
+                  <span className={`font-medium ${position.plColor}`}>{position.pl}</span>
+                </td>
+                <td className="px-4 py-3 text-center whitespace-nowrap sticky right-0 bg-[#141d22] group-hover:bg-[#1c252f] z-20 border-b border-[#2a3038]">
+                  <button className="text-[#8b9096] hover:text-white transition-colors" title="Close position">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </button>
                 </td>
@@ -128,7 +165,7 @@ export default function BottomPanel() {
 
             {activeTab === 'Pending' && (
               <tr>
-                <td colSpan="9" className="text-center py-8 text-gray-400 text-sm">
+                <td colSpan="13" className="text-center py-16 text-[#8b9096]">
                   No pending orders
                 </td>
               </tr>
@@ -136,7 +173,7 @@ export default function BottomPanel() {
 
             {activeTab === 'Closed' && (
               <tr>
-                <td colSpan="9" className="text-center py-8 text-gray-400 text-sm">
+                <td colSpan="13" className="text-center py-16 text-[#8b9096]">
                   No closed positions
                 </td>
               </tr>
@@ -144,21 +181,6 @@ export default function BottomPanel() {
           </tbody>
         </table>
       </div>
-
-      {/* Footer */}
-      {/* <div className="flex items-center justify-between px-3 py-1 bg-[#0f1419] border-t border-gray-700 text-[10px] text-gray-400">
-        <div className="flex items-center gap-4">
-          <span>Equity: <span className="text-white">1,006.71 USD</span></span>
-          <span>Free Margin: <span className="text-white">1,002.37 USD</span></span>
-          <span>Balance: <span className="text-white">999.73 USD</span></span>
-          <span>Margin: <span className="text-white">4.34 USD</span></span>
-          <span>Margin level: <span className="text-white">23,196.08%</span></span>
-          <span>Total P/L, USD: <span className="text-red-400">-37.44</span></span>
-        </div>
-        <button className="px-2 py-1 bg-gray-700 hover:bg-gray-600 text-white rounded text-[10px]">
-          Close all
-        </button>
-      </div> */}
     </div>
   )
 }

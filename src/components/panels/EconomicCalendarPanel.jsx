@@ -3,93 +3,68 @@ import { useState } from 'react'
 export default function EconomicCalendarPanel({ onClose }) {
   const [selectedImpact, setSelectedImpact] = useState('All impacts')
   const [selectedCountry, setSelectedCountry] = useState('All countries')
-  const [activeTab, setActiveTab] = useState('Actual')
 
   const economicEvents = [
     {
-      time: '1:15 AM',
-      event: 'Loan Prime Rate 1Y',
-      country: 'CN',
-      impact: 'medium',
-      actual: '3%',
-      forecast: '3%',
-      previous: '3%'
+      time: '12:00',
+      ampm: 'AM',
+      event: 'ANZ Business Confidence',
+      country: 'NZ',
+      impact: 2, // Medium
+      actual: '67',
+      forecast: '58',
+      previous: '58'
     },
     {
-      time: '1:15 AM',
-      event: 'Loan Prime Rate 5Y',
-      country: 'CN',
-      impact: 'medium',
-      actual: '3.5%',
-      forecast: '3.5%',
-      previous: '3.5%'
-    },
-    {
-      time: '1:30 AM',
-      event: 'BoJ Koeda Speech',
-      country: 'JP',
-      impact: 'medium',
-      actual: '-',
-      forecast: '-',
-      previous: '-'
-    },
-    {
-      time: '2:00 AM',
-      event: 'RBA Hunter Speech',
-      country: 'AU',
-      impact: 'medium',
-      actual: '-',
-      forecast: '-',
-      previous: '-'
-    },
-    {
-      time: '3:00 AM',
-      event: 'Current Account',
-      country: 'DE',
-      impact: 'low',
-      actual: '$ 4B',
-      forecast: '$ 800M',
-      previous: '-$ 2.7B'
-    },
-    {
-      time: '5:15 AM',
-      event: '6-Month T-Bill Auction',
+      time: '12:00',
+      ampm: 'AM',
+      event: 'Thanksgiving Day',
       country: 'US',
-      impact: 'low',
+      impact: 1, // Low
       actual: '-',
       forecast: '-',
       previous: '-'
+    },
+    {
+      time: '12:30',
+      ampm: 'AM',
+      event: 'Building Capital Expenditure QoQ',
+      country: 'NZ',
+      impact: 1,
+      actual: '2.1%',
+      forecast: '0.4%',
+      previous: '0.3%'
+    },
+    {
+      time: '12:30',
+      ampm: 'AM',
+      event: 'Plant Machinery Capital Expenditure QoQ',
+      country: 'NZ',
+      impact: 1,
+      actual: '12%',
+      forecast: '0.4%',
+      previous: '0.7%'
     }
   ]
 
-  const getImpactColor = (impact) => {
-    switch (impact) {
-      case 'high': return 'bg-red-500'
-      case 'medium': return 'bg-orange-500'
-      case 'low': return 'bg-yellow-500'
-      default: return 'bg-gray-500'
-    }
-  }
-
   const getCountryFlag = (country) => {
     const flags = {
+      'NZ': '🇳🇿',
+      'US': '🇺🇸',
       'CN': '🇨🇳',
       'JP': '🇯🇵',
       'AU': '🇦🇺',
       'DE': '🇩🇪',
-      'US': '🇺🇸'
     }
     return flags[country] || '🏳️'
   }
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-[#141d22]">
+    <div className="flex flex-col h-full overflow-hidden bg-[#141d22] text-[#b2b5be]">
       {/* Header */}
-      <div className="flex items-center justify-between p-3 border-b border-gray-700 flex-shrink-0">
-        <div className="flex items-center gap-2">
-          <h2 className="text-gray-400 text-[11px] font-medium uppercase">ECONOMIC CALENDAR</h2>
-        </div>
-        <button className="text-gray-400 hover:text-white" onClick={onClose}>
+      <div className="flex items-center justify-between p-4 border-b border-[#2a353e] flex-shrink-0">
+        <h2 className="text-[#b2b5be] text-sm font-medium uppercase tracking-wider">ECONOMIC CALENDAR</h2>
+        <button className="text-[#b2b5be] hover:text-white transition-colors" onClick={onClose}>
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
           </svg>
@@ -97,19 +72,19 @@ export default function EconomicCalendarPanel({ onClose }) {
       </div>
 
       {/* Filters */}
-      <div className="p-3 space-y-3 flex-shrink-0">
+      <div className="p-4 space-y-4 flex-shrink-0 border-b border-[#2a353e]">
         <div className="relative">
           <select 
             value={selectedImpact}
             onChange={(e) => setSelectedImpact(e.target.value)}
-            className="w-full bg-[#141d22] border border-gray-600 rounded px-3 py-2 text-sm text-white appearance-none cursor-pointer"
+            className="w-full bg-[#141d22] border border-[#2a353e] rounded px-3 py-2.5 text-sm text-[#e1e2e5] appearance-none cursor-pointer focus:outline-none focus:border-[#4a5568]"
           >
             <option>All impacts</option>
             <option>High impact</option>
             <option>Medium impact</option>
             <option>Low impact</option>
           </select>
-          <svg className="absolute right-3 top-2.5 w-4 h-4 text-gray-400 pointer-events-none" fill="currentColor" viewBox="0 0 20 20">
+          <svg className="absolute right-3 top-3 w-4 h-4 text-[#6f7682] pointer-events-none" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
           </svg>
         </div>
@@ -118,7 +93,7 @@ export default function EconomicCalendarPanel({ onClose }) {
           <select 
             value={selectedCountry}
             onChange={(e) => setSelectedCountry(e.target.value)}
-            className="w-full bg-[#141d22] border border-gray-600 rounded px-3 py-2 text-sm text-white appearance-none cursor-pointer"
+            className="w-full bg-[#141d22] border border-[#2a353e] rounded px-3 py-2.5 text-sm text-[#e1e2e5] appearance-none cursor-pointer focus:outline-none focus:border-[#4a5568]"
           >
             <option>All countries</option>
             <option>United States</option>
@@ -126,66 +101,54 @@ export default function EconomicCalendarPanel({ onClose }) {
             <option>Japan</option>
             <option>Australia</option>
             <option>Germany</option>
+            <option>New Zealand</option>
           </select>
-          <svg className="absolute right-3 top-2.5 w-4 h-4 text-gray-400 pointer-events-none" fill="currentColor" viewBox="0 0 20 20">
+          <svg className="absolute right-3 top-3 w-4 h-4 text-[#6f7682] pointer-events-none" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
           </svg>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex border-b border-gray-700 flex-shrink-0 text-gray-400 text-xs">
-        {['Actual', 'Forecast', 'Previous'].map(tab => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`flex-1 py-2 font-medium ${
-              activeTab === tab 
-                ? 'text-white border-b-2 border-blue-500' 
-                : 'hover:text-white'
-            }`}
-          >
-            {tab}
-          </button>
-        ))}
-      </div>
-
-      {/* Load Previous Button */}
-      <div className="p-3 flex-shrink-0">
-        <button className="w-full cursor-pointer bg-gray-700 hover:bg-[#3a4451] text-white py-2 rounded text-xs transition-colors">
-          Load previous
-        </button>
-      </div>
-
-      {/* Date Header */}
-      <div className="px-3 py-2 bg-gray-600 text-white font-medium text-sm flex-shrink-0">
-        November 20
-      </div>
-
       {/* Events List */}
-      <div className="flex-1 overflow-auto min-h-0">
-        <div className="min-w-[400px]">
-          {economicEvents.map((event, index) => (
-            <div key={index} className="px-3 py-2 border-b border-gray-800 hover:bg-[#1c252f] cursor-pointer transition-colors">
-              <div className="flex items-start justify-between">
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-gray-400 text-xs font-mono flex-shrink-0">{event.time}</span>
-                    <span className="text-sm">{getCountryFlag(event.country)}</span>
-                    <div className={`w-1 h-3 ${getImpactColor(event.impact)} rounded-full flex-shrink-0`}></div>
+      <div className="flex-1 overflow-y-auto custom-scrollbar">
+        <div className="bg-[#1e2830] px-4 py-2.5 text-[13px] font-bold text-[#e1e2e5] sticky top-0 z-10 border-b border-[#2a353e]">
+          November 27
+        </div>
+        <div>
+          {economicEvents.map((item, index) => (
+            <div key={index} className="flex border-b border-[#2a353e] py-3 px-4 hover:bg-[#1c252f] transition-colors cursor-pointer group">
+              {/* Left Column: Time & Flag/Impact */}
+              <div className="w-[70px] flex flex-col gap-2.5 flex-shrink-0">
+                 <div className="flex flex-col leading-none">
+                    <span className="text-[13px] text-[#b2b5be] font-medium">{item.time}</span>
+                    <span className="text-[11px] text-[#6f7682] mt-0.5">{item.ampm}</span>
+                 </div>
+                 <div className="flex items-center gap-2">
+                    <span className="text-sm leading-none">{getCountryFlag(item.country)}</span>
+                    <div className="flex gap-[2px] items-end h-3">
+                      {[1, 2, 3].map(bar => (
+                          <div 
+                            key={bar} 
+                            className={`w-[3px] rounded-[1px] ${bar <= item.impact ? 'bg-[#eab308]' : 'bg-[#2a353e]'} ${bar === 1 ? 'h-1.5' : bar === 2 ? 'h-2.5' : 'h-3.5'}`} 
+                          />
+                      ))}
+                    </div>
+                 </div>
+              </div>
+
+              {/* Right Column: Event & Values */}
+              <div className="flex-1 min-w-0 pl-1">
+                  <div className="flex justify-between items-start mb-2">
+                      <span className="text-[#e1e2e5] text-[13px] font-normal leading-tight pr-2">{item.event}</span>
+                      <svg className="w-4 h-4 text-[#6f7682] group-hover:text-[#b2b5be] transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
                   </div>
-                  <div className="text-white text-xs mb-1 leading-tight">{event.event}</div>
-                  <div className="flex items-center gap-4 text-[10px]">
-                    <span className="text-gray-400">{event.actual}</span>
-                    <span className="text-gray-400">{event.forecast}</span>
-                    <span className="text-gray-400">{event.previous}</span>
+                  <div className="flex justify-between text-[13px] pr-6">
+                      <span className={`font-medium w-1/3 text-left ${item.actual !== '-' ? 'text-[#e1e2e5]' : 'text-[#6f7682]'}`}>{item.actual}</span>
+                      <span className="text-[#6f7682] w-1/3 text-center">{item.forecast}</span>
+                      <span className="text-[#6f7682] w-1/3 text-right">{item.previous}</span>
                   </div>
-                </div>
-                <button className="text-gray-400 hover:text-white ml-2 flex-shrink-0">
-                  <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
-                </button>
               </div>
             </div>
           ))}
