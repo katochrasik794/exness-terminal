@@ -16,7 +16,7 @@ export default function TradingTerminal() {
       if (isPanelExpanded) {
         leftPanelRef.current.resize(21) // 15% ≈ 290px on 1920px screen
       } else {
-        leftPanelRef.current.resize(1)
+        leftPanelRef.current.resize(3)
       }
     }
   }, [isPanelExpanded])
