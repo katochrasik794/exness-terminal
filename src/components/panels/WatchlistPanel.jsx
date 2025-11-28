@@ -1,287 +1,395 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import FlagIcon from '../ui/FlagIcon'
 
 export default function WatchlistPanel({ onClose }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedWatchlist, setSelectedWatchlist] = useState('favorites')
+  
+  const dragItem = useRef(null)
+  const dragOverItem = useRef(null)
 
-  const instruments = [
+  const initialInstruments = [
     {
       symbol: 'BTC',
       name: 'Bitcoin vs US Dollar',
-      bid: '85,787.56',
-      ask: '85,787.56',
-      change: '-1.67%',
-      changeColor: 'red',
-      signal: 'down',
+      bid: '91,419.25',
+      ask: '91,419.25',
+      change: '+0.10%',
+      changeColor: 'green',
+      signal: 'up',
       pl: '-',
       favorite: true,
-      flag: 'btc'
+      flag: 'btc',
+      chartData: [91200, 91300, 91250, 91350, 91321, 91419]
     },
     {
       symbol: 'XAU/USD',
       name: 'Gold vs US Dollar',
-      bid: '4,048.162',
-      ask: '4,048.162',
-      change: '+0.92%',
+      bid: '4,185.245',
+      ask: '4,185.245',
+      change: '+0.52%',
       changeColor: 'green',
       signal: 'up',
-      pl: '+41.47',
+      pl: '+81.80',
       favorite: true,
-      flag: 'xau-usd'
+      flag: 'xauusd',
+      chartData: [4160, 4170, 4175, 4180, 4184, 4185]
     },
     {
       symbol: 'AAPL',
       name: 'Apple Inc.',
-      bid: '266.56',
-      ask: '266.56',
+      bid: '278.17',
+      ask: '278.22',
       change: '-',
       changeColor: 'gray',
-      signal: 'up',
+      signal: 'down',
       pl: '-',
       favorite: true,
       flag: 'aapl',
-      marketClosed: true
+      marketClosed: true,
+      chartData: []
     },
     {
       symbol: 'EUR/USD',
       name: 'Euro vs US Dollar',
-      bid: '1.15389',
-      ask: '1.15389',
-      change: '-0.09%',
+      bid: '1.15844',
+      ask: '1.15847',
+      change: '-0.13%',
       changeColor: 'red',
-      signal: 'down',
+      signal: 'up',
       pl: '-',
       favorite: true,
-      flag: 'eur-usd'
+      flag: 'eurusd',
+      chartData: [1.1600, 1.1590, 1.1595, 1.1580, 1.1584]
     },
     {
       symbol: 'GBP/USD',
       name: 'Great Britain Pound vs US Dollar',
-      bid: '1.30924',
-      ask: '1.30924',
-      change: '-0.21%',
+      bid: '1.32197',
+      ask: '1.32197',
+      change: '-0.15%',
       changeColor: 'red',
-      signal: 'down',
+      signal: 'up',
       pl: '-',
       favorite: true,
-      flag: 'gbp-usd'
+      flag: 'gbpusd',
+      chartData: [1.3240, 1.3230, 1.3235, 1.3220, 1.3219]
     },
     {
       symbol: 'USD/JPY',
       name: 'US Dollar vs Japanese Yen',
-      bid: '157.185',
-      ask: '157.185',
-      change: '+0.32%',
+      bid: '156.388',
+      ask: '156.390',
+      change: '+0.06%',
       changeColor: 'green',
-      signal: 'up',
+      signal: 'down',
       pl: '-',
       favorite: true,
-      flag: 'usd-jpy'
+      flag: 'usdjpy',
+      chartData: [156.20, 156.30, 156.25, 156.35, 156.38]
     },
     {
       symbol: 'USTEC',
       name: 'US Tech 100 Index',
-      bid: '24,091.83',
-      ask: '24,091.83',
-      change: '+0.41%',
+      bid: '25,319.41',
+      ask: '25,319.41',
+      change: '+0.07%',
       changeColor: 'green',
       signal: null,
       pl: '-',
       favorite: true,
-      flag: 'ustec'
+      flag: 'ustec',
+      chartData: [25200, 25250, 25280, 25300, 25319]
     },
     {
       symbol: 'USOIL',
       name: 'Crude Oil',
-      bid: '58.164',
-      ask: '58.164',
-      change: '-0.73%',
-      changeColor: 'red',
+      bid: '58.964',
+      ask: '58.964',
+      change: '+0.13%',
+      changeColor: 'green',
       signal: 'up',
       pl: '-',
       favorite: true,
-      flag: 'usoil'
+      flag: 'usoil',
+      chartData: [58.80, 58.90, 58.85, 58.95, 58.96]
     }
   ]
 
-  const filteredInstruments = instruments.filter(item =>
+  const [items, setItems] = useState(initialInstruments)
+
+  const handleDragStart = (e, position) => {
+    dragItem.current = position
+    e.dataTransfer.effectAllowed = 'move'
+    e.target.classList.add('opacity-50')
+  }
+
+  const handleDragEnter = (e, position) => {
+    dragOverItem.current = position
+    e.preventDefault()
+  }
+
+  const handleDragEnd = (e) => {
+    e.target.classList.remove('opacity-50')
+    const copyListItems = [...items]
+    const dragItemContent = copyListItems[dragItem.current]
+    copyListItems.splice(dragItem.current, 1)
+    copyListItems.splice(dragOverItem.current, 0, dragItemContent)
+    dragItem.current = null
+    dragOverItem.current = null
+    setItems(copyListItems)
+  }
+
+  const handleDragOver = (e) => {
+    e.preventDefault()
+  }
+
+  const filteredInstruments = items.filter(item =>
     item.symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
+  // Helper to draw a simple SVG path from data
+  const getChartPath = (data, width, height, color) => {
+    if (!data || data.length === 0) return ''
+    const min = Math.min(...data)
+    const max = Math.max(...data)
+    const range = max - min || 1
+    
+    // Points for the line
+    const points = data.map((val, i) => {
+      const x = (i / (data.length - 1)) * width
+      const y = height - ((val - min) / range) * height
+      return `${x},${y}`
+    }).join(' ')
+
+    return (
+      <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none">
+        <defs>
+          <linearGradient id={`gradient-${color.replace('#', '')}`} x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor={color} stopOpacity="0.5" />
+            <stop offset="100%" stopColor={color} stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path d={`M0,${height} ${points} L${width},${height} Z`} fill={`url(#gradient-${color.replace('#', '')})`} />
+        <path d={`M${points}`} fill="none" stroke={color} strokeWidth="1" />
+      </svg>
+    )
+  }
+
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-[#141d22]">
+    <div className="flex flex-col h-full overflow-hidden bg-[#141d22] text-[#b2b5be] font-sans">
       {/* Header */}
-      <header className="flex items-center justify-between p-3 border-b border-gray-700 flex-shrink-0">
-        <h2 className="text-gray-400 text-[11px] font-medium uppercase">INSTRUMENTS</h2>
+      <header className="flex items-center justify-between px-3 pt-3 flex-shrink-0 min-h-[40px]">
+        <h2 className="text-[13px] font-medium text-[#b2b5be] uppercase tracking-wide">Instruments</h2>
         <div className="flex items-center gap-1">
-          <button className="p-1 text-gray-400 hover:text-white">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-              <circle cx="3" cy="8" r="1"/>
-              <circle cx="8" cy="8" r="1"/>
-              <circle cx="13" cy="8" r="1"/>
+          <button className="p-1 text-[#b2b5be] hover:text-white transition-colors">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="1" />
+              <circle cx="12" cy="5" r="1" />
+              <circle cx="12" cy="19" r="1" />
             </svg>
           </button>
-          <button className="p-1 text-gray-400 hover:text-white" onClick={onClose}>
-            <svg width="16" height="16" viewBox="0 0 16 16" stroke="currentColor" strokeWidth="2">
-              <line x1="12" y1="4" x2="4" y2="12"/>
-              <line x1="4" y1="4" x2="12" y2="12"/>
+          <button className="p-1 text-[#b2b5be] hover:text-white transition-colors" onClick={onClose}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
         </div>
       </header>
 
       {/* Search and Filter */}
-      <div className="p-3 space-y-3 flex-shrink-0">
+      <div className="p-3 space-y-2 flex-shrink-0">
         <div className="relative">
-          <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="8"/>
-            <path d="m21 21-4.35-4.35"/>
-          </svg>
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#6e757c]">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </div>
           <input
             type="text"
             placeholder="Search"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-3 py-2 bg-[#141d22] border border-gray-600 rounded text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+            className="w-full pl-9 pr-3 py-1.5 bg-[#141d22] border border-[#2a3038] rounded text-sm text-white placeholder-[#6e757c] focus:outline-none focus:border-[#2962ff]"
           />
         </div>
         
-        <select
-          value={selectedWatchlist}
-          onChange={(e) => setSelectedWatchlist(e.target.value)}
-          className="w-full px-3 py-2 bg-[#141d22] border border-gray-600 rounded text-sm text-white focus:outline-none focus:border-blue-500"
-        >
-          <option value="favorites">Favorites</option>
-          <option value="forex">Forex</option>
-          <option value="crypto">Crypto</option>
-          <option value="indices">Indices</option>
-        </select>
+        <div className="relative">
+          <select
+            value={selectedWatchlist}
+            onChange={(e) => setSelectedWatchlist(e.target.value)}
+            className="w-full px-3 py-1.5 bg-[#141d22] border border-[#2a3038] rounded text-sm text-white appearance-none focus:outline-none focus:border-[#2962ff] cursor-pointer"
+          >
+            <option value="favorites">Favorites</option>
+            <option value="forex">Forex</option>
+            <option value="crypto">Crypto</option>
+            <option value="indices">Indices</option>
+          </select>
+          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#6e757c] pointer-events-none">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </div>
+        </div>
       </div>
 
-      {/* Table Container with synchronized scrolling */}
-      <div className="flex-1 overflow-auto min-h-0">
-        <table className="w-full min-w-[540px] text-[10px]">
-          <thead className="sticky top-0 bg-[#1a1f26] border-b border-gray-700">
-            <tr className="text-gray-400">
-              <th className="px-1 py-1 text-left font-normal w-[120px]">Symbol</th>
-              <th className="px-1 py-1 text-center font-normal w-[40px]">Signal</th>
-              <th className="px-1 py-1 text-right font-normal w-[80px]">Bid</th>
-              <th className="px-1 py-1 text-right font-normal w-[80px]">Ask</th>
-              <th className="px-1 py-1 text-center font-normal w-[100px]">1D change</th>
-              <th className="px-1 py-1 text-right font-normal w-[80px]">P/L, USD</th>
-              <th className="px-1 py-1 text-center font-normal w-[40px]"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredInstruments.map((item, idx) => (
-              <tr
-                key={`${item.symbol}-${idx}`}
-                className="border-b-2 border-gray-700 hover:bg-[#1c252f] cursor-pointer"
-              >
-                <td className="px-1 py-1">
-                  <div className="flex items-center gap-1">
-                    <svg width="4" height="8" className="text-gray-500" fill="currentColor">
-                      <rect x="0" y="1" width="1" height="6"/>
-                      <rect x="1.5" y="1" width="1" height="6"/>
-                      <rect x="3" y="1" width="1" height="6"/>
-                    </svg>
-                    <div className="w-3 h-3 rounded-full flex items-center justify-center text-[15px] font-bold" style={{
-                      backgroundColor: item.symbol === 'BTC' ? '#f7931a' : 
-                                     item.symbol === 'XAU/USD' ? '#ffd700' :
-                                     item.symbol === 'AAPL' ? '#000000' :
-                                     item.symbol === 'EUR/USD' ? '#003399' :
-                                     item.symbol === 'GBP/USD' ? '#012169' :
-                                     item.symbol === 'USD/JPY' ? '#bc002d' :
-                                     item.symbol === 'USTEC' ? '#0066cc' :
-                                     item.symbol === 'USOIL' ? '#000000' : '#666'
-                    }}>
-                      {item.symbol === 'BTC' ? '₿' : 
-                       item.symbol === 'XAU/USD' ? '🥇' :
-                       item.symbol === 'AAPL' ? '🍎' :
-                       item.symbol === 'EUR/USD' ? '🇪🇺' :
-                       item.symbol === 'GBP/USD' ? '🇬🇧' :
-                       item.symbol === 'USD/JPY' ? '🇯🇵' :
-                       item.symbol === 'USTEC' ? '📈' :
-                       item.symbol === 'USOIL' ? '🛢️' : '💰'}
-                    </div>
-                    <div>
-                      <div className="text-white font-medium text-sm">{item.symbol}</div>
-                      {item.marketClosed && (
-                        <svg width="8" height="8" className="text-red-400" fill="currentColor">
-                          <circle cx="4" cy="4" r="3" stroke="currentColor" strokeWidth="1" fill="none"/>
-                          <line x1="2" y1="2" x2="6" y2="6" stroke="currentColor" strokeWidth="1"/>
-                        </svg>
-                      )}
-                    </div>
-                  </div>
-                </td>
-                
-                <td className="px-1 py-1 text-center">
-                  {item.signal === 'up' && (
-                    <div className="w-4 h-4 bg-green-600 rounded flex items-center justify-center mx-auto">
-                      <svg width="4" height="6" fill="white">
-                        <path d="M2 1l1.5 2H3v3H1V3H0.5l1.5-2z"/>
-                      </svg>
-                    </div>
-                  )}
-                  {item.signal === 'down' && (
-                    <div className="w-4 h-4 bg-red-600 rounded flex items-center justify-center mx-auto">
-                      <svg width="4" height="6" fill="white">
-                        <path d="M2 5L0.5 3H1V0h2v3h0.5l-1.5 2z"/>
-                      </svg>
-                    </div>
-                  )}
-                  {!item.signal && <span className="text-gray-500">-</span>}
-                </td>
-                
-                <td className="px-1 py-1 text-right">
-                  <span className={`font-mono text-xs ${item.changeColor === 'red' ? 'text-red-400' : item.changeColor === 'green' ? 'text-green-400' : 'text-white'}`}>
-                    {item.bid}
-                  </span>
-                </td>
-                
-                <td className="px-1 py-1 text-right">
-                  <span className={`font-mono text-xs ${item.changeColor === 'red' ? 'text-red-400' : item.changeColor === 'green' ? 'text-green-400' : 'text-white'}`}>
-                    {item.ask}
-                  </span>
-                </td>
-                
-                <td className="px-1 py-1 text-center">
-                  <div className="flex flex-col items-center">
-                    <span className={`font-mono text-[10px] ${item.changeColor === 'red' ? 'text-red-400' : item.changeColor === 'green' ? 'text-green-400' : 'text-white'}`}>
-                      {item.change !== '-' && (
-                        <svg width="4" height="6" className="inline mr-0.5" fill="currentColor">
-                          {item.changeColor === 'green' ? (
-                            <path d="M2 1l1.5 2H3v3H1V3H0.5l1.5-2z"/>
-                          ) : item.changeColor === 'red' ? (
-                            <path d="M2 5L0.5 3H1V0h2v3h0.5l-1.5 2z"/>
-                          ) : null}
-                        </svg>
-                      )}
-                      {item.change}
-                    </span>
-                    <div className="w-8 h-0.5 bg-gray-800 rounded-sm mt-0.5"></div>
-                  </div>
-                </td>
-                
-                <td className="px-1 py-1 text-right">
-                  <span className={`font-mono text-[10px] ${item.pl.startsWith('+') ? 'text-green-400' : 'text-gray-400'}`}>
-                    {item.pl}
-                  </span>
-                </td>
-                
-                <td className="px-1 py-1 text-center">
-                  {item.favorite && (
-                    <svg width="8" height="8" fill="#ffde02" stroke="#ffde02">
-                      <path d="M4 1l0.8 1.6h1.6l-1.2 1.2L5.6 6l-1.6-0.8L2.4 6l0.4-1.2L1.6 3.6h1.6L4 1z"/>
-                    </svg>
-                  )}
-                </td>
+      {/* Table Container */}
+      <div className="flex-1 min-h-0 px-2 pb-2">
+        <div className="h-full overflow-auto custom-scrollbar">
+          <table className="w-full min-w-[500px] text-[12px] border-collapse">
+            <thead className="sticky top-0 bg-[#141d22] z-20">
+              <tr className="text-[#6e757c] border-b border-gray-600 h-[32px]">
+                <th className="px-2 text-gray-400 py-2 text-left font-medium w-[182px] sticky left-0 bg-[#141d22] z-30">Symbol</th>
+                <th className="px-1 text-gray-400 py-2 text-center font-medium w-[50px]">Signal</th>
+                <th className="px-1 text-gray-400 py-2 text-right font-medium w-[70px]">Bid</th>
+                <th className="px-1 text-gray-400 py-2 text-right font-medium w-[70px]">Ask</th>
+                <th className="px-1 text-gray-400 py-2 text-center font-medium w-[100px]">1D change</th>
+                <th className="px-1 text-gray-400 py-2 text-right font-medium w-[70px]">P/L, USD</th>
+                <th className="px-1 text-gray-400 py-2 text-center font-normal w-[30px]"></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filteredInstruments.map((item, idx) => (
+                <tr
+                  key={`${item.symbol}-${idx}`}
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, idx)}
+                  onDragEnter={(e) => handleDragEnter(e, idx)}
+                  onDragEnd={handleDragEnd}
+                  onDragOver={handleDragOver}
+                  className="border-b border-gray-600 hover:bg-[#1c252f] cursor-pointer group transition-colors py-0 h-[32px]"
+                >
+                  {/* Symbol */}
+                  <td className="px-2 py-1 sticky left-0 bg-[#141d22] group-hover:bg-[#1c252f] z-10 border-r border-gray-600">
+                    <div className="flex items-center gap-2">
+                      <div className="text-[#2a3038] group-hover:text-[#6e757c] cursor-grab active:cursor-grabbing">
+                        <svg width="10" height="14" viewBox="0 0 10 14" fill="currentColor">
+                           <circle cx="2" cy="2" r="1.5" />
+                           <circle cx="2" cy="7" r="1.5" />
+                           <circle cx="2" cy="12" r="1.5" />
+                           <circle cx="8" cy="2" r="1.5" />
+                           <circle cx="8" cy="7" r="1.5" />
+                           <circle cx="8" cy="12" r="1.5" />
+                        </svg>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 overflow-hidden rounded-sm flex-shrink-0">
+                           <FlagIcon type={item.flag} />
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-white font-medium text-[13px] leading-none">{item.symbol}</span>
+                          {item.marketClosed && (
+                            <span className="text-[#ef5350] text-[10px] mt-0.5 flex items-center gap-0.5">
+                               <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                 <circle cx="12" cy="12" r="10" />
+                                 <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                               </svg>
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  
+                  {/* Signal */}
+                  <td className="px-1 py-1 text-center">
+                    {item.signal === 'up' && (
+                      <button className="w-5 h-5 bg-[#2ebd85] rounded flex items-center justify-center mx-auto transition-colors">
+                        <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+                          <line x1="12" y1="19" x2="12" y2="5" />
+                          <polyline points="5 12 12 5 19 12" />
+                        </svg>
+                      </button>
+                    )}
+                    {item.signal === 'down' && (
+                      <button className="w-5 h-5 bg-[#f6465d] rounded flex items-center justify-center mx-auto transition-colors">
+                        <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+                          <line x1="12" y1="5" x2="12" y2="19" />
+                          <polyline points="19 12 12 19 5 12" />
+                        </svg>
+                      </button>
+                    )}
+                    {!item.signal && <span className="text-[#6e757c]">-</span>}
+                  </td>
+                  
+                  {/* Bid */}
+                  <td className="px-1 py-1 text-right">
+                    <span className={`font-mono text-[13px] px-1 rounded-sm ${
+                      item.symbol === 'EUR/USD' || item.symbol === 'GBP/USD' 
+                        ? 'bg-[#2e4c48] text-white' 
+                        : item.symbol === 'USD/JPY' 
+                          ? 'bg-[#3b2528] text-white' 
+                          : 'text-white'
+                    }`}>
+                      {item.bid}
+                    </span>
+                  </td>
+                  
+                  {/* Ask */}
+                  <td className="px-1 py-1 text-right">
+                    <span className={`font-mono text-[13px] px-1 rounded-sm ${
+                      item.symbol === 'EUR/USD' || item.symbol === 'GBP/USD' 
+                        ? 'bg-[#2e4c48] text-white' 
+                        : item.symbol === 'USD/JPY' 
+                          ? 'bg-[#3b2528] text-white' 
+                          : 'text-white'
+                    }`}>
+                      {item.ask}
+                    </span>
+                  </td>
+                  
+                  {/* 1D Change */}
+                  <td className="px-1 py-1 text-center">
+                    <div className="flex flex-col items-center w-full">
+                      <div className={`flex items-center gap-1 font-mono text-[11px] ${item.changeColor === 'red' ? 'text-[#f6465d]' : item.changeColor === 'green' ? 'text-[#2ebd85]' : 'text-[#6e757c]'}`}>
+                        {item.change !== '-' && (
+                           <svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+                             {item.changeColor === 'green' ? (
+                               <>
+                                 <line x1="12" y1="19" x2="12" y2="5" />
+                                 <polyline points="5 12 12 5 19 12" />
+                               </>
+                             ) : (
+                               <>
+                                 <line x1="12" y1="5" x2="12" y2="19" />
+                                 <polyline points="19 12 12 19 5 12" />
+                               </>
+                             )}
+                           </svg>
+                        )}
+                        {item.change}
+                      </div>
+                      <div className="w-full h-[15px] mt-0.5">
+                        {item.change !== '-' && getChartPath(item.chartData, 50, 15, item.changeColor === 'green' ? '#2ebd85' : '#f6465d')}
+                      </div>
+                    </div>
+                  </td>
+                  
+                  {/* P/L */}
+                  <td className="px-1 py-1 text-right">
+                    <span className={`font-mono text-[13px] ${item.pl.startsWith('+') ? 'text-[#2ebd85]' : 'text-[#6e757c]'}`}>
+                      {item.pl}
+                    </span>
+                  </td>
+                  
+                  {/* Favorite */}
+                  <td className="px-1 py-1 text-center">
+                    {item.favorite && (
+                      <button className="text-[#fcd535] hover:text-[#ffe54f]">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="1">
+                          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg>
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   )

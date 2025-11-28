@@ -14,7 +14,7 @@ export default function TradingTerminal() {
   useEffect(() => {
     if (leftPanelRef.current) {
       if (isPanelExpanded) {
-        leftPanelRef.current.resize(21) // 15% ≈ 290px on 1920px screen
+        leftPanelRef.current.resize(25) // 15% ≈ 290px on 1920px screen
       } else {
         leftPanelRef.current.resize(3)
       }
@@ -59,7 +59,7 @@ export default function TradingTerminal() {
           </ResizablePanelGroup>
           
           {/* Right sidebar - Order Panel with full height */}
-          <div className="w-62 h-full flex-shrink-0 overflow-hidden">
+          <div className="w-[270px] h-full flex-shrink-0 overflow-hidden">
             <OrderPanel />
           </div>
         </div>

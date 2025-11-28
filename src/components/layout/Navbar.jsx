@@ -43,7 +43,9 @@ const InstrumentTab = ({ tab, isActive, onClick, onClose }) => {
       
       {/* Tab content */}
       <div className="flex items-center justify-center gap-2 h-full">
-        <FlagIcon type={tab.flagType} />
+        <div className="w-8 h-8">
+          <FlagIcon type={tab.flagType} />
+        </div>
         <div className="text-md font-medium" data-test="instrument-tab-symbol">
           {tab.symbol}
         </div>
