@@ -15,7 +15,7 @@ export default function StatusBar() {
       <div className="flex items-center gap-4">
         <span>Total P/L, USD: <span className="text-emerald-400 font-mono">+306.00</span></span>
         
-        <button className="px-3 mr-20 py-1 bg-[#2a3038] hover:bg-[#363c45] text-gray-200 rounded text-sm flex items-center gap-2 transition-colors">
+        <button className="px-3 mr-20 py-1 bg-[#2a3038] hover:bg-[#363c45] text-gray-200 rounded text-sm flex items-center gap-2 transition-colors cursor-pointer">
           Close all
           <svg className="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />

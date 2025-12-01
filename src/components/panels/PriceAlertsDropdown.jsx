@@ -19,7 +19,7 @@ export default function PriceAlertsDropdown({ isOpen, onClose }) {
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
           <span className="text-gray-200 text-base font-medium">Price alerts</span>
           <button 
-            className="text-gray-400 hover:text-white transition-colors"
+            className="text-gray-400 hover:text-white transition-colors cursor-pointer"
             title="Add alert"
           >
             <FiPlus size={20} />
@@ -32,7 +32,7 @@ export default function PriceAlertsDropdown({ isOpen, onClose }) {
             Get notified instantly about price movements
           </p>
           
-          <button className="flex items-center gap-2 px-4 py-2 bg-[#2d3a45] hover:bg-[#384652] text-white rounded text-sm font-medium transition-colors">
+          <button className="flex items-center gap-2 px-4 py-2 bg-[#2d3a45] hover:bg-[#384652] text-white rounded text-sm font-medium transition-colors cursor-pointer">
             <FiPlus size={16} />
             New alert
           </button>

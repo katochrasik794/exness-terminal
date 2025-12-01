@@ -27,7 +27,7 @@ export default function OrderPanel() {
               </div>
               <span className="text-white font-medium text-xs">XAU/USD</span>
             </div>
-            <button className="text-gray-400 hover:text-white transition-colors" type="button">
+            <button className="text-gray-400 hover:text-white transition-colors cursor-pointer" type="button">
               <X size={15} />
             </button>
           </div>
@@ -39,7 +39,7 @@ export default function OrderPanel() {
             <button 
               type="button" 
               onClick={() => setIsModeDropdownOpen(!isModeDropdownOpen)}
-              className={`w-full bg-[#1e2329] border ${isModeDropdownOpen ? 'border-[#2a2f36]' : 'border-[#2a2f36]'} rounded px-3 py-2 text-white text-sm flex items-center justify-between hover:border-gray-500 transition-colors`}
+              className={`w-full bg-[#1e2329] border ${isModeDropdownOpen ? 'border-[#2a2f36]' : 'border-[#2a2f36]'} rounded px-3 py-2 text-white text-sm flex items-center justify-between hover:border-gray-500 transition-colors cursor-pointer`}
             >
               <span>{selectedMode}</span>
               {isModeDropdownOpen ? <ChevronUp size={16} className="text-gray-400" /> : <ChevronDown size={16} className="text-gray-400" />}
@@ -55,7 +55,7 @@ export default function OrderPanel() {
                       setSelectedMode(mode)
                       setIsModeDropdownOpen(false)
                     }}
-                    className={`w-full text-left px-3 py-2 text-sm text-[#c0c0c0] hover:bg-[#3b4148] hover:text-white transition-colors ${selectedMode === mode ? 'bg-[#3b4148] text-white' : ''}`}
+                    className={`w-full text-left px-3 py-2 text-sm text-[#c0c0c0] hover:bg-[#3b4148] hover:text-white transition-colors cursor-pointer ${selectedMode === mode ? 'bg-[#3b4148] text-white' : ''}`}
                   >
                     {mode}
                   </button>
@@ -70,7 +70,7 @@ export default function OrderPanel() {
           <div className="flex gap-1 mb-1 relative">
             {/* Sell Button */}
             <button 
-              className={`flex-1 rounded-l-md p-2 pb-4 flex flex-col items-start transition-colors relative overflow-hidden group ${
+              className={`flex-1 rounded-l-md p-2 pb-4 flex flex-col items-start transition-colors relative overflow-hidden group cursor-pointer ${
                 orderSide === 'sell' 
                   ? 'bg-[#ff444f] hover:bg-[#eb3b46]' 
                   : 'bg-transparent border border-[#ff444f] hover:bg-[#ff444f]/10'
@@ -88,7 +88,7 @@ export default function OrderPanel() {
 
             {/* Buy Button */}
               <button 
-                className={`flex-1 rounded-r-md p-2 pb-4 flex flex-col items-end transition-colors relative overflow-hidden group ${
+                className={`flex-1 rounded-r-md p-2 pb-4 flex flex-col items-end transition-colors relative overflow-hidden group cursor-pointer ${
                   orderSide === 'buy' 
                     ? 'bg-[#007bff] hover:bg-[#0069d9]' 
                     : 'bg-transparent border border-[#007bff] hover:bg-[#007bff]/10'
@@ -118,8 +118,8 @@ export default function OrderPanel() {
           {/* Sentiment Bar */}
           <div className="mt-1 mb-2">
             <div className="flex items-center justify-between mb-0.5">
-              <span className="text-[#ff444f] text-[9px] font-medium">29%</span>
-              <span className="text-[#007bff] text-[9px] font-medium">71%</span>
+              <span className="text-[#ff444f] text-[12px] font-medium">29%</span>
+              <span className="text-[#007bff] text-[12px] font-medium">71%</span>
             </div>
             <div className="h-0.5 w-full bg-[#2a2f36] rounded-full overflow-hidden flex">
               <div className="h-full bg-[#ff444f] w-[29%]"></div>
@@ -132,7 +132,7 @@ export default function OrderPanel() {
         <div className="px-3 mb-3 flex-shrink-0">
           <div className="bg-[#1e2329] p-1 rounded-md flex border border-[#2a2f36]">
             <button 
-              className={`flex-1 py-1.5 text-xs font-medium rounded transition-colors ${
+              className={`flex-1 py-1.5 text-xs font-medium rounded transition-colors cursor-pointer ${
                 !isPending ? 'bg-[#2a2f36] text-white shadow-sm' : 'text-gray-400 hover:text-white'
               }`}
               type="button"
@@ -141,7 +141,7 @@ export default function OrderPanel() {
               Market
             </button>
             <button 
-              className={`flex-1 py-1.5 text-xs font-medium rounded transition-colors ${
+              className={`flex-1 py-1.5 text-xs font-medium rounded transition-colors cursor-pointer ${
                 isPending ? 'bg-[#2a2f36] text-white shadow-sm' : 'text-gray-400 hover:text-white'
               }`}
               type="button"
@@ -173,10 +173,10 @@ export default function OrderPanel() {
                     <span className="bg-gray-700 text-[10px] px-1.5 py-0.5 rounded text-white">Stop</span>
                   </div>
                 </div>
-                <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors">
+                <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors cursor-pointer">
                   <Minus size={14} />
                 </button>
-                <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] rounded-r h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors">
+                <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] rounded-r h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors cursor-pointer">
                   <Plus size={14} />
                 </button>
               </div>
@@ -199,10 +199,10 @@ export default function OrderPanel() {
                 />
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs">Lots</span>
               </div>
-              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors">
+              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors cursor-pointer">
                 <Minus size={14} />
               </button>
-              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] rounded-r h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors">
+              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] rounded-r h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors cursor-pointer">
                 <Plus size={14} />
               </button>
             </div>
@@ -222,15 +222,15 @@ export default function OrderPanel() {
                   className="w-full bg-[#1e2329] border border-[#2a2f36] rounded-l px-3 py-2 text-white text-sm focus:border-gray-500 focus:outline-none transition-colors placeholder-gray-600"
                 />
                 <div className="absolute right-0 top-0 h-full flex items-center pr-2">
-                   <button className="text-gray-500 text-xs flex items-center gap-1 hover:text-white">
+                   <button className="text-gray-500 text-xs flex items-center gap-1 hover:text-white cursor-pointer">
                      Price <ChevronDown size={12} />
                    </button>
                 </div>
               </div>
-              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors">
+              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors cursor-pointer">
                 <Minus size={14} />
               </button>
-              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] rounded-r h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors">
+              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] rounded-r h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors cursor-pointer">
                 <Plus size={14} />
               </button>
             </div>
@@ -250,15 +250,15 @@ export default function OrderPanel() {
                   className="w-full bg-[#1e2329] border border-[#2a2f36] rounded-l px-3 py-2 text-white text-sm focus:border-gray-500 focus:outline-none transition-colors placeholder-gray-600"
                 />
                  <div className="absolute right-0 top-0 h-full flex items-center pr-2">
-                   <button className="text-gray-500 text-xs flex items-center gap-1 hover:text-white">
+                   <button className="text-gray-500 text-xs flex items-center gap-1 hover:text-white cursor-pointer">
                      Price <ChevronDown size={12} />
                    </button>
                 </div>
               </div>
-              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors">
+              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors cursor-pointer">
                 <Minus size={14} />
               </button>
-              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] rounded-r h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors">
+              <button type="button" className="bg-[#1e2329] border-y border-r border-[#2a2f36] rounded-r h-[38px] w-[38px] flex items-center justify-center hover:bg-[#2a2f36] transition-colors cursor-pointer">
                 <Plus size={14} />
               </button>
             </div>
@@ -269,7 +269,7 @@ export default function OrderPanel() {
         {/* Confirmation Button */}
         <div className="px-3 mt-3 flex-shrink-0">
           <button 
-            className={`w-full text-white font-medium py-2 rounded text-[13px] transition-colors shadow-lg ${
+            className={`w-full text-white font-medium py-2 rounded text-[13px] transition-colors shadow-lg cursor-pointer ${
               orderSide === 'sell' 
                 ? 'bg-[#ff444f] hover:bg-[#eb3b46] shadow-red-900/20' 
                 : 'bg-[#007bff] hover:bg-[#0069d9] shadow-blue-900/20'
@@ -280,7 +280,7 @@ export default function OrderPanel() {
           </button>
           
           <button 
-            className="w-full mt-2 py-1.5 text-[#c0c0c0] hover:text-white text-[11px] transition-colors bg-[#1e2329] border border-[#2a2f36] rounded hover:bg-[#2a2f36]"
+            className="w-full mt-2 py-1.5 text-[#c0c0c0] hover:text-white text-[11px] transition-colors bg-[#1e2329] border border-[#2a2f36] rounded hover:bg-[#2a2f36] cursor-pointer"
             type="button"
           >
             Cancel
@@ -307,7 +307,7 @@ export default function OrderPanel() {
             <span className="text-gray-500">Margin:</span>
             <span className="text-white">2.03 USD</span>
           </div>
-          <button className="text-gray-500 hover:text-white text-xs" type="button">
+          <button className="text-gray-500 hover:text-white text-xs cursor-pointer" type="button">
             More
           </button>
         </div>

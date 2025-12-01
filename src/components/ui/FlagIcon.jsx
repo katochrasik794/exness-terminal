@@ -109,4 +109,3 @@ export default function FlagIcon({ type, className = "" }) {
       return <div className={`${baseClass} bg-gray-600 rounded-full border border-gray-500`}></div>
   }
 }
-

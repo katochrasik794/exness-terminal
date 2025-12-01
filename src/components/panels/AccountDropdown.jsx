@@ -26,7 +26,7 @@ export default function AccountDropdown({ isOpen, onClose }) {
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
           <span className="text-gray-200 text-sm font-medium">Hide balance</span>
           <button 
-            className={`w-10 h-5 rounded-full relative transition-colors ${hideBalance ? 'bg-blue-600' : 'bg-gray-600'}`}
+            className={`w-10 h-5 rounded-full relative transition-colors cursor-pointer ${hideBalance ? 'bg-blue-600' : 'bg-gray-600'}`}
             onClick={() => setHideBalance(!hideBalance)}
           >
             <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-transform ${hideBalance ? 'left-6' : 'left-1'}`}></div>
@@ -66,7 +66,7 @@ export default function AccountDropdown({ isOpen, onClose }) {
             <FiHelpCircle className="text-gray-500" size={14} />
           </div>
 
-          <button className="w-full py-2 mt-4 bg-[#2d3a45] hover:bg-[#384652] text-white rounded text-sm font-medium transition-colors">
+          <button className="w-full py-2 mt-4 bg-[#2d3a45] hover:bg-[#384652] text-white rounded text-sm font-medium transition-colors cursor-pointer">
             Top Up
           </button>
         </div>
@@ -103,11 +103,11 @@ export default function AccountDropdown({ isOpen, onClose }) {
 
         {/* Footer Actions */}
         <div>
-          <button className="w-full flex items-center justify-between px-4 py-3 text-gray-300 hover:bg-[#2d3a45] hover:text-white transition-colors border-b border-gray-700">
+          <button className="w-full flex items-center justify-between px-4 py-3 text-gray-300 hover:bg-[#2d3a45] hover:text-white transition-colors border-b border-gray-700 cursor-pointer">
             <span className="text-sm">Manage Accounts</span>
             <FiChevronRight size={16} />
           </button>
-          <button className="w-full flex items-center justify-between px-4 py-3 text-gray-300 hover:bg-[#2d3a45] hover:text-white transition-colors">
+          <button className="w-full flex items-center justify-between px-4 py-3 text-gray-300 hover:bg-[#2d3a45] hover:text-white transition-colors cursor-pointer">
             <span className="text-sm">Download Trading Log</span>
             <FiChevronRight size={16} />
           </button>

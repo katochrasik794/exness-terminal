@@ -35,7 +35,7 @@ export default function ProfileDropdown({ isOpen, onClose }) {
 
         {/* Footer - Sign Out */}
         <div className="py-2">
-          <button className="w-full flex items-center gap-3 px-4 py-2 text-gray-300 hover:bg-[#2d3a45] hover:text-white transition-colors text-sm font-medium">
+          <button className="w-full flex items-center gap-3 px-4 py-2 text-gray-300 hover:bg-[#2d3a45] hover:text-white transition-colors text-sm font-medium cursor-pointer">
             <FiLogOut size={16} />
             Sign Out
           </button>

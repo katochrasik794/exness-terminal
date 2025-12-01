@@ -64,7 +64,7 @@ export default function EconomicCalendarPanel({ onClose }) {
       {/* Header */}
       <div className="flex items-center justify-between pt-4 px-4 flex-shrink-0">
         <h2 className="text-[#b2b5be] text-[13px] font-medium uppercase tracking-wider">ECONOMIC CALENDAR</h2>
-        <button className="text-[#b2b5be] hover:text-white transition-colors" onClick={onClose}>
+        <button className="text-[#b2b5be] hover:text-white transition-colors cursor-pointer" onClick={onClose}>
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
           </svg>

@@ -35,7 +35,7 @@ export default function BottomPanel() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`relative h-full px-5 text-[14px] font-medium transition-colors flex items-center gap-1.5 ${
+              className={`relative h-full px-5 text-[14px] font-medium transition-colors flex items-center gap-1.5 cursor-pointer ${
                 activeTab === tab
                   ? 'text-white after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white'
                   : 'text-[#8b9096] hover:text-white'
@@ -57,7 +57,7 @@ export default function BottomPanel() {
           <div className="flex items-center bg-[#1e252b] rounded p-0.5 mr-2">
             <button 
               onClick={() => setIsGrouped(true)}
-              className={`p-1.5 rounded ${isGrouped ? 'bg-[#2a3038] text-white' : 'text-[#8b9096] hover:text-white'}`}
+              className={`p-1.5 rounded cursor-pointer ${isGrouped ? 'bg-[#2a3038] text-white' : 'text-[#8b9096] hover:text-white'}`}
               title="Group positions"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -66,7 +66,7 @@ export default function BottomPanel() {
             </button>
             <button 
               onClick={() => setIsGrouped(false)}
-              className={`p-1.5 rounded ${!isGrouped ? 'bg-[#2a3038] text-white' : 'text-[#8b9096] hover:text-white'}`}
+              className={`p-1.5 rounded cursor-pointer ${!isGrouped ? 'bg-[#2a3038] text-white' : 'text-[#8b9096] hover:text-white'}`}
               title="Ungroup positions"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,12 +75,12 @@ export default function BottomPanel() {
             </button>
           </div>
 
-          <button className="p-2 text-[#8b9096] hover:text-white transition-colors" title="Settings">
+          <button className="p-2 text-[#8b9096] hover:text-white transition-colors cursor-pointer" title="Settings">
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
             </svg>
           </button>
-          <button className="p-2 text-[#8b9096] hover:text-white transition-colors" title="Hide panel">
+          <button className="p-2 text-[#8b9096] hover:text-white transition-colors cursor-pointer" title="Hide panel">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -135,12 +135,12 @@ export default function BottomPanel() {
                 <td className="px-4 py-3 text-right text-white whitespace-nowrap">{position.openPrice}</td>
                 <td className="px-4 py-3 text-right text-white whitespace-nowrap">{position.currentPrice}</td>
                 <td className="px-4 py-3 text-center whitespace-nowrap">
-                  <button className="text-[#8b9096] hover:text-[#0099ff] border-b border-dashed border-[#8b9096] hover:border-[#0099ff] leading-none pb-px">
+                  <button className="text-[#8b9096] hover:text-[#0099ff] border-b border-dashed border-[#8b9096] hover:border-[#0099ff] leading-none pb-px cursor-pointer">
                     {position.tp}
                   </button>
                 </td>
                 <td className="px-4 py-3 text-center whitespace-nowrap">
-                  <button className="text-[#8b9096] hover:text-[#0099ff] border-b border-dashed border-[#8b9096] hover:border-[#0099ff] leading-none pb-px">
+                  <button className="text-[#8b9096] hover:text-[#0099ff] border-b border-dashed border-[#8b9096] hover:border-[#0099ff] leading-none pb-px cursor-pointer">
                     {position.sl}
                   </button>
                 </td>
@@ -154,7 +154,7 @@ export default function BottomPanel() {
                   <span className={`font-medium ${position.plColor}`}>{position.pl}</span>
                 </td>
                 <td className="px-4 py-3 text-center whitespace-nowrap sticky right-0 bg-[#141d22] group-hover:bg-[#1c252f] z-20 border-b border-[#2a3038]">
-                  <button className="text-[#8b9096] hover:text-white transition-colors" title="Close position">
+                  <button className="text-[#8b9096] hover:text-white transition-colors cursor-pointer" title="Close position">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>

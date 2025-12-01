@@ -36,7 +36,7 @@ export default function SettingsPanel({ onClose }) {
       <div className="pt-4 px-4 flex-shrink-0">
         <div className="flex items-center justify-between">
           <h2 className="text-gray-400 font-medium uppercase text-[13px]">Settings</h2>
-          <button className="text-gray-400 hover:text-white" onClick={onClose}>
+          <button className="text-gray-400 hover:text-white cursor-pointer" onClick={onClose}>
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
@@ -84,7 +84,7 @@ export default function SettingsPanel({ onClose }) {
                       type="checkbox"
                       checked={settings.highImpact}
                       onChange={() => handleToggle('highImpact')}
-                      className="w-4 h-4 text-gray-500 bg-gray-700 border-gray-600 rounded focus:ring-gray-500"
+                      className="w-4 h-4 text-gray-500 bg-gray-700 border-gray-600 rounded focus:ring-gray-500 cursor-pointer"
                     />
                     <span className="text-gray-200 text-sm lg:text-base">High impact</span>
                   </div>
@@ -93,7 +93,7 @@ export default function SettingsPanel({ onClose }) {
                       type="checkbox"
                       checked={settings.middleImpact}
                       onChange={() => handleToggle('middleImpact')}
-                      className="w-4 h-4 text-gray-500 bg-gray-700 border-gray-600 rounded focus:ring-gray-500"
+                      className="w-4 h-4 text-gray-500 bg-gray-700 border-gray-600 rounded focus:ring-gray-500 cursor-pointer"
                     />
                     <span className="text-gray-200 text-sm lg:text-base">Middle impact</span>
                   </div>
@@ -102,7 +102,7 @@ export default function SettingsPanel({ onClose }) {
                       type="checkbox"
                       checked={settings.lowImpact}
                       onChange={() => handleToggle('lowImpact')}
-                      className="w-4 h-4 text-gray-500 bg-gray-700 border-gray-600 rounded focus:ring-gray-500"
+                      className="w-4 h-4 text-gray-500 bg-gray-700 border-gray-600 rounded focus:ring-gray-500 cursor-pointer"
                     />
                     <span className="text-gray-200 text-sm lg:text-base">Low impact</span>
                   </div>
@@ -111,7 +111,7 @@ export default function SettingsPanel({ onClose }) {
                       type="checkbox"
                       checked={settings.lowestImpact}
                       onChange={() => handleToggle('lowestImpact')}
-                      className="w-4 h-4 text-gray-500 bg-gray-700 border-gray-600 rounded focus:ring-gray-500"
+                      className="w-4 h-4 text-gray-500 bg-gray-700 border-gray-600 rounded focus:ring-gray-500 cursor-pointer"
                     />
                     <span className="text-gray-200 text-sm lg:text-base">Lowest impact</span>
                   </div>
@@ -151,7 +151,7 @@ export default function SettingsPanel({ onClose }) {
           <select
             value={settings.orderMode}
             onChange={(e) => handleSelect('orderMode', e.target.value)}
-            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm lg:text-base text-gray-200"
+            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm lg:text-base text-gray-200 cursor-pointer"
           >
             <option value="regular">Regular form</option>
             <option value="quick">Quick form</option>
@@ -164,7 +164,7 @@ export default function SettingsPanel({ onClose }) {
           <select
             value={settings.priceSource}
             onChange={(e) => handleSelect('priceSource', e.target.value)}
-            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm lg:text-base text-gray-200"
+            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm lg:text-base text-gray-200 cursor-pointer"
           >
             <option value="bid">Bid</option>
             <option value="ask">Ask</option>
@@ -178,7 +178,7 @@ export default function SettingsPanel({ onClose }) {
           <select
             value={settings.theme}
             onChange={(e) => handleSelect('theme', e.target.value)}
-            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm lg:text-base text-gray-200"
+            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm lg:text-base text-gray-200 cursor-pointer"
           >
             <option value="dark">Always dark</option>
             <option value="light">Always light</option>
@@ -192,7 +192,7 @@ export default function SettingsPanel({ onClose }) {
           <select
             value={settings.timezone}
             onChange={(e) => handleSelect('timezone', e.target.value)}
-            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm lg:text-base text-gray-200"
+            className="w-full bg-[#2a3441] border border-gray-600 rounded px-3 py-2 text-sm lg:text-base text-gray-200 cursor-pointer"
           >
             <option value="Etc/UTC">UTC</option>
             <option value="America/New_York">New York</option>
