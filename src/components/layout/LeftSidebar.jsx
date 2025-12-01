@@ -26,13 +26,14 @@ export default function LeftSidebar({ onPanelStateChange }) {
   }, [hasActivePanel, onPanelStateChange])
 
   return (
-    <div className={`flex h-full overflow-hidden min-h-0 bg-[#141d22] ${!hasActivePanel ? 'border-r-4 border-gray-600' : ''}`}>
-      <aside className={`w-[48px] flex flex-col items-center py-3 gap-4 flex-shrink-0 h-full ${hasActivePanel ? 'border-r-4 border-gray-600' : 'pr-4'}`}>
+    <div className={`flex h-full overflow-hidden min-h-0 gap-1`}>
+      {/* ${!hasActivePanel ? 'border-r-4 border-gray-600' : ''} */}
+      <aside className={`w-[48px] flex flex-col items-center py-3 gap-4 flex-shrink-0 h-full bg-[#141d22] rounded-md`}>
         {/* Instruments Button */}
         <div>
           <button 
             className={`cursor-pointer w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white rounded-md transition-all duration-200 ${
-              activePanel === 'instruments' ? 'bg-gray-800 border-2 border-gray-400 text-white' : 'hover:bg-gray-800 hover:border-2 hover:border-gray-400 border-2 border-transparent'
+              activePanel === 'instruments' ? 'bg-gray-800 border border-gray-400 text-white' : 'hover:bg-gray-800 hover:border hover:border-gray-400 border-2 border-transparent'
             }`}
             type="button"
             data-test="aside-panel-watchlist-button"
@@ -47,7 +48,7 @@ export default function LeftSidebar({ onPanelStateChange }) {
         <div>
           <button 
             className={`cursor-pointer w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white rounded-md transition-all duration-200 ${
-              activePanel === 'calendar' ? 'bg-gray-800 border-2 border-gray-400 text-white' : 'hover:bg-gray-800 hover:border-2 hover:border-gray-400 border-2 border-transparent'
+              activePanel === 'calendar' ? 'bg-gray-800 border border-gray-400 text-white' : 'hover:bg-gray-800 hover:border hover:border-gray-400 border-2 border-transparent'
             }`}
             type="button"
             data-test="aside-panel-calendar-events-button"
@@ -62,7 +63,7 @@ export default function LeftSidebar({ onPanelStateChange }) {
         <div>
           <button 
             className={`cursor-pointer w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white rounded-md transition-all duration-200 ${
-              activePanel === 'settings' ? 'bg-gray-800 border-2 border-gray-400 text-white' : 'hover:bg-gray-800 hover:border-2 hover:border-gray-400 border-2 border-transparent'
+              activePanel === 'settings' ? 'bg-gray-800 border border-gray-400 text-white' : 'hover:bg-gray-800 hover:border hover:border-gray-400 border-2 border-transparent'
             }`}
             type="button"
             data-test="aside-panel-settings-button"
@@ -78,17 +79,17 @@ export default function LeftSidebar({ onPanelStateChange }) {
       {hasActivePanel && (
         <>
           {activePanel === 'instruments' && (
-            <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden flex-1">
+            <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden flex-1 rounded-md">
               <WatchlistPanel onClose={closePanel} />
             </div>
           )}
           {activePanel === 'calendar' && (
-            <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden flex-1">
+            <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden flex-1 rounded-md">
               <EconomicCalendarPanel onClose={closePanel} />
             </div>
           )}
           {activePanel === 'settings' && (
-            <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden flex-1">
+            <div className="bg-[#1a1f26] border-r border-gray-700 flex flex-col h-full min-h-0 overflow-hidden flex-1 rounded-md">
               <SettingsPanel onClose={closePanel} />
             </div>
           )}

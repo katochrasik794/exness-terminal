@@ -24,6 +24,7 @@ html:lang(uz), body:lang(uz) {
 html, body, #root {
   height: 100%;
   overflow: hidden;
+  background-color: #000000; /* Ensure gaps are visible as black */
 }
 
 /* Custom scrollbar styles */

@@ -26,7 +26,7 @@ export default function BottomPanel() {
   ]
 
   return (
-    <div className="h-full bg-[#141d22] flex flex-col overflow-hidden font-sans">
+    <div className="h-full bg-[#141d22] flex flex-col overflow-hidden font-sans rounded-md">
       {/* Header Section */}
       <div className="flex items-center justify-between px-1 border-b border-[#2a3038] bg-[#141d22] h-[40px] min-h-[40px]">
         {/* Tabs */}
@@ -35,7 +35,7 @@ export default function BottomPanel() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`relative h-full px-5 text-[14px] font-medium transition-colors flex items-center gap-1.5 cursor-pointer ${
+              className={`relative h-full px-5 text-[14px] font-medium transition-colors flex items-center gap-1 cursor-pointer ${
                 activeTab === tab
                   ? 'text-white after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white'
                   : 'text-[#8b9096] hover:text-white'

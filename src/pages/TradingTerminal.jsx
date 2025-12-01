@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import LeftSidebar from '../components/layout/LeftSidebar'
 import ChartSection from '../components/layout/ChartSection'
 import OrderPanel from '../components/trading/OrderPanel'
@@ -6,20 +6,19 @@ import BottomPanel from '../components/panels/BottomPanel'
 import StatusBar from '../components/layout/StatusBar'
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '../components/ui/resizable'
 
-export default function TradingTerminal() {
-  const [isPanelExpanded, setIsPanelExpanded] = useState(false)
+export default function TradingTerminal({ isSidebarExpanded, onSidebarStateChange }) {
   const leftPanelRef = useRef(null)
 
   // Resize the left panel when it expands or collapses
   useEffect(() => {
     if (leftPanelRef.current) {
-      if (isPanelExpanded) {
+      if (isSidebarExpanded) {
         leftPanelRef.current.resize(22) // 15% ≈ 290px on 1920px screen
       } else {
         leftPanelRef.current.resize(3)
       }
     }
-  }, [isPanelExpanded])
+  }, [isSidebarExpanded])
 
   return (
     <ResizablePanelGroup direction="horizontal" className="flex-1 overflow-hidden min-h-0">
@@ -32,16 +31,16 @@ export default function TradingTerminal() {
         className="min-h-0 h-full"
         collapsible={false}
       >
-        <LeftSidebar onPanelStateChange={setIsPanelExpanded} />
+        <LeftSidebar onPanelStateChange={onSidebarStateChange} />
       </ResizablePanel>
       
-      {/* Horizontal resize handle - only show when panel is expanded */}
-      {isPanelExpanded && <ResizableHandle withHandle />}
+      {/* Horizontal resize handle */}
+      <ResizableHandle />
       
       {/* Main content area with status bar */}
-      <ResizablePanel defaultSize={97} className="flex flex-col h-full">
+      <ResizablePanel defaultSize={97} className="flex flex-col h-full gap-1">
         {/* Top content area */}
-        <div className="flex flex-1 overflow-hidden">
+        <div className="flex flex-1 overflow-hidden gap-1">
           {/* Center resizable area with vertical panels */}
           <ResizablePanelGroup direction="vertical" className="flex-1">
             {/* Chart section */}

@@ -1,7 +1,7 @@
 import { GiNetworkBars } from "react-icons/gi";
 export default function StatusBar() {
   return (
-    <div className="bg-[#141d22] border-t-4 border-gray-600 flex items-center justify-between px-4 py-2 text-xs text-gray-400 font-medium">
+    <div className="bg-[#141d22] flex items-center justify-between px-4 py-2 text-xs text-gray-400 font-medium">
       {/* Left section - Account info */}
       <div className="flex items-center gap-6">
         <span>Equity: <span className="text-gray-200 font-mono">1,284.14 USD</span></span>

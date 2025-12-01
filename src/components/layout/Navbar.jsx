@@ -54,7 +54,7 @@ const InstrumentTab = ({ tab, isActive, onClick, onClose }) => {
   )
 }
 
-export default function Navbar() {
+export default function Navbar({ isSidebarExpanded }) {
   const [tabs, setTabs] = useState([
     { id: '1', symbol: 'XAU/USD', flagType: 'xauusd', isActive: true },
     { id: '2', symbol: 'US500', flagType: 'us500', isActive: false },
@@ -118,13 +118,17 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-[#141d22] border-b-4 border-gray-600 flex-shrink-0">
+    <nav className="bg-[#141d22] flex-shrink-0">
       <div className="flex items-center h-16 py-2 ">
         {/* Logo */}
         <div className="px-4">
           <div className='flex items-center'>
             <div className="text-yellow-300 font-semi-bold">
-              <img src="/public/logo_yellow.svg" className='h-10' alt="" />
+              <img 
+                src={isSidebarExpanded ? "/public/logo_yellow.svg" : "/public/logo_small_yellow.svg"} 
+                className='h-10' 
+                alt="Exness" 
+              />
             </div>
           </div>
         </div>

@@ -1,15 +1,21 @@
+import { useState } from 'react'
 import './App.css'
 import Navbar from './components/layout/Navbar'
 // import LeftSidebar from './components/layout/LeftSidebar'
 import TradingTerminal from './pages/TradingTerminal'
 
 function App() {
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false)
+
   return (
-    <div className="h-screen flex flex-col bg-[#0f1419] overflow-hidden">
-      <Navbar />
+    <div className="h-screen flex flex-col bg-[#3f474b] overflow-hidden gap-1">
+      <Navbar isSidebarExpanded={isSidebarExpanded} />
       <div className="flex flex-1 min-h-0 overflow-hidden">
         {/* <LeftSidebar /> */}
-        <TradingTerminal />
+        <TradingTerminal 
+          isSidebarExpanded={isSidebarExpanded} 
+          onSidebarStateChange={setIsSidebarExpanded}
+        />
       </div>
     </div>
   )
