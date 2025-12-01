@@ -1,29 +1,31 @@
 import { GiNetworkBars } from "react-icons/gi";
 export default function StatusBar() {
   return (
-    <div className="bg-[#141d22] border-t-4  border-gray-600 flex items-center justify-between px-4 py-2 text-[11px] text-gray-400">
+    <div className="bg-[#141d22] border-t-4 border-gray-600 flex items-center justify-between px-4 py-2 text-xs text-gray-400 font-medium">
       {/* Left section - Account info */}
       <div className="flex items-center gap-6">
-        <span>Equity: <span className="text-white font-mono">952.29 USD</span></span>
-        <span>Free Margin: <span className="text-white font-mono">950.25 USD</span></span>
-        <span>Balance: <span className="text-white font-mono">991.62 USD</span></span>
-        <span>Margin: <span className="text-white font-mono">2.04 USD</span></span>
+        <span>Equity: <span className="text-gray-200 font-mono">1,284.14 USD</span></span>
+        <span>Free Margin: <span className="text-gray-200 font-mono">1,273.73 USD</span></span>
+        <span>Balance: <span className="text-gray-200 font-mono">978.14 USD</span></span>
+        <span>Margin: <span className="text-gray-200 font-mono">10.41 USD</span></span>
+        <span>Margin level: <span className="text-gray-200 font-mono">12,335.64%</span></span>
       </div>
       
-      {/* Center section - P/L and Close all */}
+      {/* Right section - P/L, Close all, Connection */}
       <div className="flex items-center gap-4">
-        <span>Total P/L, USD: <span className="text-red-400 font-mono font-medium">-39.33</span></span>
-        <button className="px-3 py-1 border border-gray-600 hover:border-gray-500 text-white rounded text-[11px] flex items-center gap-1">
+        <span>Total P/L, USD: <span className="text-emerald-400 font-mono">+306.00</span></span>
+        
+        <button className="px-3 mr-20 py-1 bg-[#2a3038] hover:bg-[#363c45] text-gray-200 rounded text-sm flex items-center gap-2 transition-colors">
           Close all
-          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+          <svg className="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </button>
-      </div>
-      
-      {/* Right section - Connection status */}
-      <div className="flex items-center" title="Internet connection is stable">
-        <GiNetworkBars size={15} className="text-green-400" />
+
+        <div className="flex items-end gap-1 ml-2" title="Internet connection is stable">
+          <GiNetworkBars size={14} className="text-emerald-500" />
+          <span className="text-[10px] text-gray-500 font-mono leading-none mb-0">3.7.3</span>
+        </div>
       </div>
     </div>
   )

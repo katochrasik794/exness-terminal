@@ -87,22 +87,22 @@ export default function OrderPanel() {
             </button>
 
             {/* Buy Button */}
-            <button 
-              className={`flex-1 rounded-r-md p-2 pb-4 flex flex-col items-end transition-colors relative overflow-hidden group ${
-                orderSide === 'buy' 
-                  ? 'bg-[#007bff] hover:bg-[#0069d9]' 
-                  : 'bg-transparent border border-[#007bff] hover:bg-[#007bff]/10'
-              }`}
-              type="button"
-              onClick={() => setOrderSide('buy')}
-            >
-              <span className={`text-[10px] font-medium mb-0.5 ${orderSide === 'buy' ? 'text-blue-100 opacity-90' : 'text-[#007bff]'}`}>Buy</span>
-              <div className={`flex items-baseline ${orderSide === 'buy' ? 'text-white' : 'text-[#007bff]'}`}>
-                <span className="text-sm">4,172.</span>
-                <span className="text-lg font-bold">61</span>
-                <span className="text-[9px] align-top ml-0.5 -mt-1">5</span>
-              </div>
-            </button>
+              <button 
+                className={`flex-1 rounded-r-md p-2 pb-4 flex flex-col items-end transition-colors relative overflow-hidden group ${
+                  orderSide === 'buy' 
+                    ? 'bg-[#007bff] hover:bg-[#0069d9]' 
+                    : 'bg-transparent border border-[#007bff] hover:bg-[#007bff]/10'
+                }`}
+                type="button"
+                onClick={() => setOrderSide('buy')}
+              >
+                <span className={`text-[10px] font-medium mb-0.5 ${orderSide === 'buy' ? 'text-blue-100 opacity-90' : 'text-[#007bff]'}`}>Buy</span>
+                <div className={`flex items-baseline ${orderSide === 'buy' ? 'text-white' : 'text-[#007bff]'}`}>
+                  <span className="text-sm">4,172.</span>
+                  <span className="text-lg font-bold">61</span>
+                  <span className="text-[9px] align-top ml-0.5 -mt-1">5</span>
+                </div>
+              </button>
 
             {/* Spread Badge - Absolute positioned to overlap */}
             <div className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-10">
