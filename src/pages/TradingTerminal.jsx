@@ -13,7 +13,7 @@ export default function TradingTerminal({ isSidebarExpanded, onSidebarStateChang
   useEffect(() => {
     if (leftPanelRef.current) {
       if (isSidebarExpanded) {
-        leftPanelRef.current.resize(22) // 15% ≈ 290px on 1920px screen
+        leftPanelRef.current.resize(23) // 15% ≈ 290px on 1920px screen
       } else {
         leftPanelRef.current.resize(3)
       }

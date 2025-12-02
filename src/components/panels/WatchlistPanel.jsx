@@ -46,7 +46,7 @@ export default function WatchlistPanel({ onClose }) {
       pl: '-',
       favorite: true,
       flag: 'aapl',
-      marketClosed: true,
+      marketClosed: false,
       chartData: []
     },
     {
@@ -181,7 +181,7 @@ export default function WatchlistPanel({ onClose }) {
     <div className="flex flex-col h-full overflow-hidden bg-[#141d22] text-[#b2b5be] font-sans">
       {/* Header */}
       <header className="flex items-center justify-between px-4 pt-1 flex-shrink-0 min-h-[40px]">
-        <h2 className="text-[13px] font-medium text-[#b2b5be] uppercase tracking-wide">Instruments</h2>
+        <h2 className="text-[12px] font-medium text-[#b2b5be] uppercase tracking-wide">Instruments</h2>
         <div className="flex items-center gap-1">
           <button className="p-1 text-[#b2b5be] hover:text-white transition-colors cursor-pointer">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -237,17 +237,17 @@ export default function WatchlistPanel({ onClose }) {
       </div>
 
       {/* Table Container */}
-      <div className="flex-1 min-h-0 px-[10px] pb-5">
+      <div className="flex-1 min-h-0 px-[14px] pb-5">
         <div className="h-full overflow-auto custom-scrollbar">
-          <table className="w-full min-w-[500px] text-[12px] border-collapse">
+          <table className="w-full min-w-[500px] text-[13px] border-collapse">
             <thead className="sticky top-0 bg-[#141d22] z-20">
               <tr className="text-[#6e757c] border-b border-gray-600 h-[32px]">
-                <th className="px-2 text-gray-400 py-2 text-left font-medium w-[182px] sticky left-0 bg-[#141d22] z-30">Symbol</th>
+                <th className="px text-gray-400 py-2 text-left font-medium w-[182px] sticky left-0 bg-[#141d22] z-30">Symbol</th>
                 <th className="px-1 text-gray-400 py-2 text-center font-medium w-[50px]">Signal</th>
-                <th className="px-1 text-gray-400 py-2 text-right font-medium w-[70px]">Bid</th>
-                <th className="px-1 text-gray-400 py-2 text-right font-medium w-[70px]">Ask</th>
-                <th className="px-1 text-gray-400 py-2 text-center font-medium w-[100px]">1D change</th>
-                <th className="px-1 text-gray-400 py-2 text-right font-medium w-[70px]">P/L, USD</th>
+                <th className="px-1 text-gray-400 py-2 text-left font-medium w-[70px]">Bid</th>
+                <th className="px-1 text-gray-400 py-2 text-left font-medium w-[70px]">Ask</th>
+                <th className="px-1 text-gray-400 py-2 text-left font-medium w-[100px]">1D change</th>
+                <th className="px-1 text-gray-400 py-2 text-left font-medium w-[90px]">P/L, USD</th>
                 <th className="px-1 text-gray-400 py-2 text-center font-normal w-[30px]"></th>
               </tr>
             </thead>
@@ -263,10 +263,10 @@ export default function WatchlistPanel({ onClose }) {
                   className="border-b border-gray-600 hover:bg-[#1c252f] cursor-pointer group transition-colors py-0 h-[32px]"
                 >
                   {/* Symbol */}
-                  <td className="px-2 sticky left-0 bg-[#141d22] group-hover:bg-[#1c252f] z-10 border-r border-gray-600">
-                    <div className="flex items-center gap-2">
-                      <div className="text-[#2a3038] group-hover:text-[#6e757c] cursor-grab active:cursor-grabbing">
-                        <svg width="10" height="14" viewBox="0 0 10 14" fill="currentColor">
+                  <td className="px-1 sticky left-0 bg-[#141d22] group-hover:bg-[#1c252f] z-10 border-r border-gray-600">
+                    <div className="flex items-center gap-4">
+                      <div className="text-gray-500 cursor-grab active:cursor-grabbing">
+                        <svg width="9" height="14" viewBox="0 0 10 14" fill="currentColor">
                            <circle cx="2" cy="2" r="1.5" />
                            <circle cx="2" cy="7" r="1.5" />
                            <circle cx="2" cy="12" r="1.5" />
@@ -275,12 +275,12 @@ export default function WatchlistPanel({ onClose }) {
                            <circle cx="8" cy="12" r="1.5" />
                         </svg>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1">
                         <div className="w-4 h-4 overflow-hidden rounded-sm flex-shrink-0">
                            <FlagIcon type={item.flag} />
                         </div>
                         <div className="flex flex-col">
-                          <span className="text-white font-medium text-[13px] leading-none">{item.symbol}</span>
+                          <span className="text-white font-medium text-[14px] leading-none">{item.symbol}</span>
                           {item.marketClosed && (
                             <span className="text-[#ef5350] text-[10px] mt-0.5 flex items-center gap-0.5">
                                <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
@@ -297,16 +297,16 @@ export default function WatchlistPanel({ onClose }) {
                   {/* Signal */}
                   <td className="px-1 text-center">
                     {item.signal === 'up' && (
-                      <button className="w-5 h-5 bg-[#2ebd85] rounded flex items-center justify-center mx-auto transition-colors cursor-pointer">
-                        <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+                      <button className="w-5 h-5 bg-[#2ebd85] rounded-xs flex items-center justify-center mx-1 transition-colors cursor-pointer">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                           <line x1="12" y1="19" x2="12" y2="5" />
                           <polyline points="5 12 12 5 19 12" />
                         </svg>
                       </button>
                     )}
                     {item.signal === 'down' && (
-                      <button className="w-5 h-5 bg-[#f6465d] rounded flex items-center justify-center mx-auto transition-colors cursor-pointer">
-                        <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+                      <button className="w-5 h-5 bg-[#f6465d] rounded-xs flex items-center justify-center mx-1 transition-colors cursor-pointer">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                           <line x1="12" y1="5" x2="12" y2="19" />
                           <polyline points="19 12 12 19 5 12" />
                         </svg>
@@ -316,8 +316,8 @@ export default function WatchlistPanel({ onClose }) {
                   </td>
                   
                   {/* Bid */}
-                  <td className="px-1 text-right">
-                    <span className={`font-mono text-[13px] px-1 rounded-sm ${
+                  <td className="px-1 text-left">
+                    <span className={`font-mono text-[13px] px-1  rounded-sm ${
                       item.symbol === 'EUR/USD' || item.symbol === 'GBP/USD' 
                         ? 'bg-[#2e4c48] text-white' 
                         : item.symbol === 'USD/JPY' 

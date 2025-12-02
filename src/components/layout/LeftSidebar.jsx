@@ -28,49 +28,49 @@ export default function LeftSidebar({ onPanelStateChange }) {
   return (
     <div className={`flex h-full overflow-hidden min-h-0 gap-1`}>
       {/* ${!hasActivePanel ? 'border-r-4 border-gray-600' : ''} */}
-      <aside className={`w-[48px] flex flex-col items-center py-3 gap-4 flex-shrink-0 h-full bg-[#141d22] rounded-md`}>
+      <aside className={`w-[48px] flex flex-col items-center py-3 gap-4 flex-shrink-0 h-full bg-[#141d22] rounded-r-md`}>
         {/* Instruments Button */}
         <div>
           <button 
-            className={`cursor-pointer w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white rounded-md transition-all duration-200 ${
-              activePanel === 'instruments' ? 'bg-gray-800 border border-gray-400 text-white' : 'hover:bg-gray-800 hover:border hover:border-gray-400 border-2 border-transparent'
+            className={`cursor-pointer w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-200 rounded-sm transition-all duration-200 ${
+              activePanel === 'instruments' ? 'bg-[#263239] border border-gray-400 text-gray-200' : 'hover:bg-[#263239] hover:border hover:border-gray-400 border-2 border-transparent'
             }`}
             type="button"
             data-test="aside-panel-watchlist-button"
             aria-label="Instruments"
             onClick={() => togglePanel('instruments')}
           >
-            <LuList size={16} className={activePanel === 'instruments' ? 'text-white' : 'text-gray-300'} />
+            <LuList size={15} className={activePanel === 'instruments' ? 'text-gray-200' : 'text-gray-300'} />
           </button>
         </div>
 
         {/* Economic Calendar Button */}
         <div>
           <button 
-            className={`cursor-pointer w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white rounded-md transition-all duration-200 ${
-              activePanel === 'calendar' ? 'bg-gray-800 border border-gray-400 text-white' : 'hover:bg-gray-800 hover:border hover:border-gray-400 border-2 border-transparent'
+            className={`cursor-pointer w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-200 rounded-sm transition-all duration-200 ${
+              activePanel === 'calendar' ? 'bg-[#263239] border border-gray-400 text-gray-200' : 'hover:bg-[#263239] hover:border hover:border-gray-400 border-2 border-transparent'
             }`}
             type="button"
             data-test="aside-panel-calendar-events-button"
             aria-label="Economic calendar"
             onClick={() => togglePanel('calendar')}
           >
-            <LuCalendar size={16} className={activePanel === 'calendar' ? 'text-white' : 'text-gray-300'} />
+            <LuCalendar size={14} className={activePanel === 'calendar' ? 'text-white' : 'text-gray-300'} />
           </button>
         </div>
 
         {/* Settings Button */}
         <div>
           <button 
-            className={`cursor-pointer w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white rounded-md transition-all duration-200 ${
-              activePanel === 'settings' ? 'bg-gray-800 border border-gray-400 text-white' : 'hover:bg-gray-800 hover:border hover:border-gray-400 border-2 border-transparent'
+            className={`cursor-pointer w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white rounded-sm transition-all duration-200 ${
+              activePanel === 'settings' ? 'bg-[#263239] border border-gray-400 text-gray-200' : 'hover:bg-[#263239] hover:border hover:border-gray-400 border-2 border-transparent'
             }`}
             type="button"
             data-test="aside-panel-settings-button"
             aria-label="Settings"
             onClick={() => togglePanel('settings')}
           >
-            <LuSettings size={16} className={activePanel === 'settings' ? 'text-white' : 'text-gray-300'} />
+            <LuSettings size={14} className={activePanel === 'settings' ? 'text-white' : 'text-gray-300'} />
           </button>
         </div>
       </aside>

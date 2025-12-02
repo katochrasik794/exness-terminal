@@ -9,7 +9,7 @@ export default function OrderPanel() {
   const [selectedMode, setSelectedMode] = useState('Regular form')
 
   return (
-    <div className="bg-[#141d22] flex flex-col h-full w-full overflow-hidden text-[#c0c0c0] font-sans rounded-md">
+    <div className="bg-[#141d22] flex flex-col h-full w-full overflow-hidden text-[#c0c0c0] font-sans rounded-l-md">
       <form className="flex flex-col h-full overflow-y-auto overflow-x-hidden custom-scrollbar" onSubmit={(e) => e.preventDefault()}>
         
         {/* Header */}

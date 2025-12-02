@@ -1,77 +1,83 @@
 import React from 'react'
 
-// Flag Icon Component - realistic flag representations
+// Flag Icon Component - using flagsapi.com
 export default function FlagIcon({ type, className = "" }) {
   const baseClass = `relative w-full h-full ${className}`
+  const flagUrl = (code) => `https://flagsapi.com/${code}/flat/64.png`
+
+  // Helper for rendering a single flag image
+  const FlagImage = ({ code }) => (
+    <img 
+      src={flagUrl(code)} 
+      alt={code} 
+      className="w-full h-full object-cover scale-175"
+    />
+  )
 
   switch (type) {
     case 'xauusd':
       return (
         <div className={baseClass}>
-          <div className="absolute top-0 left-0 w-[70%] h-[70%] rounded-full bg-yellow-400 border border-yellow-300 z-10 flex items-center justify-center">
-            <div className="w-[50%] h-[50%] bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-full"></div>
+          {/* Gold Icon (Custom) */}
+          <div className="absolute top-0 left-0 w-[70%] h-[70%] rounded-full bg-[#e8d3a3] z-10 flex items-center justify-center overflow-hidden">
+             <svg width="18" height="18" viewBox="0 0 24 24" fill="#8b6c42">
+               {/* Top Bar */}
+               <path d="M8 8h8l-2-6h-5z" />
+               {/* Bottom Left Bar */}
+               <path d="M3 16h8l-2-6h-5z" />
+               {/* Bottom Right Bar */}
+               <path d="M13 16h8l-2-6h-5z" />
+             </svg>
           </div>
-          <div className="absolute bottom-0 right-0 w-[70%] h-[70%] rounded-full bg-blue-600 border border-blue-500 z-20 flex items-center justify-center">
-            <div className="w-[40%] h-[40%] bg-blue-700 rounded-full"></div>
+          {/* US Flag */}
+          <div className="absolute bottom-0 right-0 w-[70%] h-[70%] rounded-full z-20 overflow-hidden bg-[#141d22] ring-0 ring-[#141d22]">
+             <FlagImage code="US" />
           </div>
         </div>
       )
     case 'eurusd':
       return (
         <div className={baseClass}>
-           {/* EU Flag (left/top) */}
-          <div className="absolute top-0 left-0 w-[70%] h-[70%] rounded-full bg-blue-700 border border-blue-600 z-10 flex items-center justify-center text-[6px] text-yellow-400">
-            ★
+           {/* EU Flag */}
+          <div className="absolute top-0 left-0 w-[70%] h-[70%] rounded-full z-10 overflow-hidden bg-[#141d22]">
+            <FlagImage code="EU" />
           </div>
-          {/* US Flag (right/bottom) */}
-          <div className="absolute bottom-0 right-0 w-[70%] h-[70%] rounded-full bg-red-600 border border-red-500 z-20 overflow-hidden">
-             <div className="absolute inset-0 bg-[repeating-linear-gradient(180deg,transparent_0,transparent_1px,#fff_1px,#fff_2px)]"></div>
-             <div className="absolute top-0 left-0 w-[50%] h-[50%] bg-blue-800"></div>
+          {/* US Flag */}
+          <div className="absolute bottom-0 right-0 w-[70%] h-[70%] rounded-full z-20 overflow-hidden bg-[#141d22] ring-0 ring-[#141d22]">
+             <FlagImage code="US" />
           </div>
         </div>
       )
     case 'gbpusd':
       return (
         <div className={baseClass}>
-           {/* UK Flag (left/top) */}
-          <div className="absolute top-0 left-0 w-[70%] h-[70%] rounded-full bg-blue-800 border border-blue-700 z-10 overflow-hidden">
-            <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-full h-[20%] bg-white absolute rotate-45"></div>
-                <div className="w-full h-[20%] bg-white absolute -rotate-45"></div>
-                <div className="w-[20%] h-full bg-white absolute"></div>
-                <div className="w-full h-[20%] bg-white absolute"></div>
-                <div className="w-[10%] h-full bg-red-600 absolute"></div>
-                <div className="w-full h-[10%] bg-red-600 absolute"></div>
-            </div>
+           {/* UK Flag */}
+          <div className="absolute top-0 left-0 w-[70%] h-[70%] rounded-full z-10 overflow-hidden bg-[#141d22]">
+            <FlagImage code="GB" />
           </div>
-          {/* US Flag (right/bottom) */}
-          <div className="absolute bottom-0 right-0 w-[70%] h-[70%] rounded-full bg-red-600 border border-red-500 z-20 overflow-hidden">
-             <div className="absolute inset-0 bg-[repeating-linear-gradient(180deg,transparent_0,transparent_1px,#fff_1px,#fff_2px)]"></div>
-             <div className="absolute top-0 left-0 w-[50%] h-[50%] bg-blue-800"></div>
+          {/* US Flag */}
+          <div className="absolute bottom-0 right-0 w-[70%] h-[70%] rounded-full z-20 overflow-hidden bg-[#141d22] ring-0 ring-[#141d22]">
+             <FlagImage code="US" />
           </div>
         </div>
       )
     case 'usdjpy':
       return (
         <div className={baseClass}>
-          {/* US Flag (left) */}
-          <div className="absolute top-0 left-0 w-[70%] h-[70%] rounded-full bg-blue-900 border border-blue-800 overflow-hidden z-10">
-            <div className="absolute inset-0 bg-[repeating-linear-gradient(180deg,#dc2626_0,#dc2626_1px,#ffffff_1px,#ffffff_2.5px)]"></div>
-            <div className="absolute top-0 left-0 w-[40%] h-[40%] bg-blue-700 rounded-tl-full"></div>
+          {/* US Flag */}
+          <div className="absolute top-0 left-0 w-[70%] h-[70%] rounded-full z-10 overflow-hidden bg-[#141d22]">
+            <FlagImage code="US" />
           </div>
-          {/* JPY Flag (right) */}
-          <div className="absolute bottom-0 right-0 w-[70%] h-[70%] rounded-full bg-white border border-gray-300 z-20 flex items-center justify-center">
-            <div className="w-[40%] h-[40%] bg-red-600 rounded-full"></div>
+          {/* JPY Flag */}
+          <div className="absolute bottom-0 right-0 w-[70%] h-[70%] rounded-full z-20 overflow-hidden bg-[#141d22] ring-0 ring-[#141d22]">
+            <FlagImage code="JP" />
           </div>
         </div>
       )
     case 'us500':
       return (
-        <div className={`${baseClass} rounded-full overflow-hidden border border-gray-600`}>
-           <div className="absolute inset-0 bg-[repeating-linear-gradient(180deg,#dc2626_0,#dc2626_2px,#ffffff_2px,#ffffff_4px)]"></div>
-           <div className="absolute top-0 left-0 w-[50%] h-[50%] bg-blue-800 flex items-center justify-center">
-             <div className="text-[4px] text-white">★</div>
-           </div>
+        <div className={`${baseClass} rounded-full overflow-hidden`}>
+           <FlagImage code="US" />
         </div>
       )
     case 'btc':
@@ -90,11 +96,8 @@ export default function FlagIcon({ type, className = "" }) {
       )
     case 'ustec':
        return (
-        <div className={`${baseClass} rounded-full overflow-hidden border border-gray-600`}>
-           <div className="absolute inset-0 bg-[repeating-linear-gradient(180deg,#dc2626_0,#dc2626_2px,#ffffff_2px,#ffffff_4px)]"></div>
-           <div className="absolute top-0 left-0 w-[50%] h-[50%] bg-blue-800 flex items-center justify-center">
-             <div className="text-[4px] text-white">★</div>
-           </div>
+        <div className={`${baseClass} rounded-full overflow-hidden`}>
+           <FlagImage code="US" />
         </div>
       )
     case 'usoil':
