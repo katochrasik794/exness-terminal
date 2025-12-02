@@ -152,7 +152,7 @@ export default function Navbar({ isSidebarExpanded }) {
               {/* Add Tab Button */}
               <div className="flex items-center h-full relative">
                 <button 
-                  className="cursor-pointer px-[10px] py-[20px] text-gray-400 hover:text-white hover:bg-gray-800 rounded-md transition-colors mx-2 flex items-center justify-center h-8 hover:border hover:border-gray-400 "
+                  className="cursor-pointer px-[10px] py-[20px] text-gray-400 hover:text-white hover:bg-gray-800 rounded-md transition-colors mx-2 flex items-center justify-center h-8 border border-transparent hover:border-gray-400 "
                   data-test="add-tab-button"
                   type="button"
                   onClick={handleAddTab}
@@ -177,7 +177,7 @@ export default function Navbar({ isSidebarExpanded }) {
           {/* Account Button */}
           <div className="relative">
             <button 
-              className="cursor-pointer flex h-12 gap-0 items-center p-[13px] hover:bg-gray-800 hover:border hover:border-gray-400 rounded"
+              className="cursor-pointer flex h-12 gap-0 items-center p-[13px] hover:bg-gray-800 border border-transparent hover:border-gray-400 rounded"
               data-test="account-button-83067517"
               type="button"
               onClick={() => setIsAccountDropdownOpen(!isAccountDropdownOpen)}
@@ -230,7 +230,7 @@ export default function Navbar({ isSidebarExpanded }) {
           {/* Alert Button */}
           <div data-test="alerts-header-button" className="relative">
             <button 
-              className="cursor-pointer p-[13px] text-white hover:border hover:border-gray-400 hover:bg-gray-800 rounded-md transition-colors"
+              className="cursor-pointer p-[13px] text-white border border-transparent hover:border-gray-400 hover:bg-gray-800 rounded-md transition-colors"
               type="button"
               title="Alerts"
               onClick={() => setIsPriceAlertsOpen(!isPriceAlertsOpen)}
@@ -248,7 +248,7 @@ export default function Navbar({ isSidebarExpanded }) {
           {/* Apps Button */}
           <div data-test="apps-header-button" className="relative ">
             <button 
-              className="cursor-pointer p-[13px] text-white hover:border hover:border-gray-400 hover:bg-gray-800 rounded-md transition-colors"
+              className="cursor-pointer p-[13px] text-white border border-transparent hover:border-gray-400 hover:bg-gray-800 rounded-md transition-colors"
               type="button"
               title="Applications"
               onClick={() => setIsAppsDropdownOpen(!isAppsDropdownOpen)}
@@ -266,7 +266,7 @@ export default function Navbar({ isSidebarExpanded }) {
           {/* User Button */}
           <div data-test="apps-menu-button" className="relative">
             <button 
-              className="cursor-pointer p-[13px] text-white hover:border hover:border-gray-400 hover:bg-gray-800 rounded-md transition-colors"
+              className="cursor-pointer p-[13px] text-white border border-transparent hover:border-gray-400 hover:bg-gray-800 rounded-md transition-colors"
               type="button"
               title="Account Menu"
               onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
@@ -284,7 +284,7 @@ export default function Navbar({ isSidebarExpanded }) {
           {/* Deposit Button */}
           <div>
             <button 
-              className="cursor-pointer flex items-center gap-2 px-17 py-2 text-white hover:border hover:border-gray-400 bg-[#222d35] rounded transition-colors"
+              className="cursor-pointer flex items-center gap-2 px-17 py-2 text-white border border-transparent hover:border-gray-400 bg-[#222d35] rounded transition-colors"
               data-test="deposit-button"
               type="button"
               onClick={() => setIsDepositPopupOpen(true)}

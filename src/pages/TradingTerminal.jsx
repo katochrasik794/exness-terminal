@@ -58,7 +58,7 @@ export default function TradingTerminal({ isSidebarExpanded, onSidebarStateChang
           </ResizablePanelGroup>
           
           {/* Right sidebar - Order Panel with full height */}
-          <div className="w-[270px] h-full flex-shrink-0 overflow-hidden">
+          <div className="w-[260px] h-full flex-shrink-0 overflow-hidden">
             <OrderPanel />
           </div>
         </div>

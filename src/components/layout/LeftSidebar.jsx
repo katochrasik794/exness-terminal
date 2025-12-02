@@ -28,7 +28,7 @@ export default function LeftSidebar({ onPanelStateChange }) {
   return (
     <div className={`flex h-full overflow-hidden min-h-0 gap-1`}>
       {/* ${!hasActivePanel ? 'border-r-4 border-gray-600' : ''} */}
-      <aside className={`w-[48px] flex flex-col items-center py-3 gap-4 flex-shrink-0 h-full bg-[#141d22] rounded-r-md`}>
+      <aside className={`w-[48px] flex flex-col items-center py-3 gap-4 flex-shrink-0 h-full bg-[#141d22] rounded-tr-md`}>
         {/* Instruments Button */}
         <div>
           <button 
