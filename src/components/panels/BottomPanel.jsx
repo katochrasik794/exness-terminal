@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+﻿import { useState, useRef } from 'react'
 import FlagIcon from '../ui/FlagIcon'
 import IconButton from '../ui/IconButton'
 import Tooltip from '../ui/Tooltip'
@@ -26,6 +26,11 @@ export default function BottomPanel() {
     commission: true,
     marketCloses: false
   })
+
+  // Initial order matching the default view
+  const [columnOrder, setColumnOrder] = useState([
+    'type', 'volume', 'openPrice', 'currentPrice', 'tp', 'sl', 'ticket', 'openTime', 'swap', 'commission', 'marketCloses'
+  ])
 
   const toggleColumn = (id) => {
     setVisibleColumns(prev => ({
@@ -162,7 +167,7 @@ export default function BottomPanel() {
     swap: group.totalSwap.toFixed(2),
     commission: group.totalCommission.toFixed(2),
     // Use approximation for open price in group view
-    openPrice: `≈ ${group.positions[0].openPrice}` 
+    openPrice: `â‰ˆ ${group.positions[0].openPrice}` 
   }))
 
   const toggleGroup = (symbol) => {
@@ -287,6 +292,55 @@ export default function BottomPanel() {
     }
   ]
 
+  // Column Definitions
+  const columnDefs = {
+    type: { label: 'Type', align: 'left' },
+    volume: { label: 'Volume', align: 'right' },
+    openPrice: { label: 'Open Price', align: 'right' },
+    currentPrice: { label: 'Current Price', align: 'right' },
+    tp: { label: 'Take Profit', align: 'center' },
+    sl: { label: 'Stop Loss', align: 'center' },
+    ticket: { label: 'Position', align: 'left' },
+    openTime: { label: 'Time', align: 'left' },
+    swap: { label: 'Swap', align: 'right' },
+    commission: { label: 'Commission', align: 'right' },
+    marketCloses: { label: 'Market Closes', align: 'left' }
+  }
+
+  const renderCell = (colId, position, isGroupedView) => {
+    switch (colId) {
+      case 'type':
+        return (
+          <div className="flex items-center gap-1.5">
+            <div className={`w-2 h-2 rounded-full ${position.type === 'Buy' ? 'bg-[#0099ff]' : 'bg-[#f6465d]'}`}></div>
+            <span className="text-white">{position.type}</span>
+          </div>
+        )
+      case 'volume':
+        return <span className="text-white border-b border-dashed border-gray-500">{position.volume}</span>
+      case 'openPrice':
+        return <span className="text-white">{position.openPrice}</span>
+      case 'currentPrice':
+        return <span className="text-white">{position.currentPrice || (position.closePrice) || '-'}</span>
+      case 'tp':
+        return <span className="text-[#8b9096]">{position.tp || 'Add'}</span>
+      case 'sl':
+        return <span className="text-[#8b9096]">{position.sl || 'Add'}</span>
+      case 'ticket':
+        return <span className="text-white">{!isGroupedView ? position.ticket : ''}</span>
+      case 'openTime':
+        return <span className="text-white">{position.openTime || position.time}</span>
+      case 'swap':
+        return <span className="text-white">{position.swap || '0'}</span>
+      case 'commission':
+        return <span className="text-white">{position.commission || '0'}</span>
+      case 'marketCloses':
+        return <span className="text-white">-</span>
+      default:
+        return null
+    }
+  }
+
   return (
     <div className="h-full bg-[#141d22] flex flex-col overflow-hidden font-sans rounded-md min-h-0">
       {/* Header Section */}
@@ -364,19 +418,16 @@ export default function BottomPanel() {
       <div className="flex-1 overflow-auto bg-[#141d22] min-h-0">
         <table className="w-full text-[14px] border-collapse min-w-max">
           <thead className="sticky top-0 bg-[#141d22] z-40">
-            {/* Unified Header for both Grouped and Ungrouped views to match the image */}
             <tr className="text-[12px] text-gray-400 border-b border-[#2a3038]">
+              {/* Symbol is fixed */}
               <th className="px-4 py-[4px] text-left font-normal whitespace-nowrap">Symbol</th>
-              {visibleColumns.type && <th className="px-4 py-[4px] text-left font-normal whitespace-nowrap">Type</th>}
-              {visibleColumns.volume && <th className="px-4 py-[4px] text-right font-normal whitespace-nowrap">Volume</th>}
-              {visibleColumns.openPrice && <th className="px-4 py-[4px] text-right font-normal whitespace-nowrap">Open Price</th>}
-              {visibleColumns.currentPrice && <th className="px-4 py-[4px] text-right font-normal whitespace-nowrap">Current Price</th>}
-              {visibleColumns.tp && <th className="px-4 py-[4px] text-center font-normal whitespace-nowrap">Take Profit</th>}
-              {visibleColumns.sl && <th className="px-4 py-[4px] text-center font-normal whitespace-nowrap">Stop Loss</th>}
-              {visibleColumns.ticket && <th className="px-4 py-[4px] text-left font-normal whitespace-nowrap">Position</th>}
-              {visibleColumns.openTime && <th className="px-4 py-[4px] text-left font-normal whitespace-nowrap">Time</th>}
-              {visibleColumns.swap && <th className="px-4 py-[4px] text-right font-normal whitespace-nowrap">Swap</th>}
-              {visibleColumns.commission && <th className="px-4 py-[4px] text-right font-normal whitespace-nowrap">Commission</th>}
+              
+              {/* Dynamic Columns */}
+              {columnOrder.map(colId => visibleColumns[colId] && (
+                <th key={colId} className={`px-4 py-[4px] font-normal whitespace-nowrap text-${columnDefs[colId].align}`}>
+                  {columnDefs[colId].label}
+                </th>
+              ))}
               
               {/* Sticky Columns Header */}
               <th className="px-4 text-right font-normal whitespace-nowrap sticky right-[90px] bg-[#141d22] z-50 shadow-[-10px_0_10px_-5px_rgba(0,0,0,0.3)] border-b border-[#2a3038]">P/L</th>
@@ -403,31 +454,13 @@ export default function BottomPanel() {
                       )}
                     </div>
                   </td>
-                  {visibleColumns.type && (
-                    <td className="px-4 py-3 whitespace-nowrap">
-                      <div className="flex items-center gap-1.5">
-                        <div className={`w-2 h-2 rounded-full ${position.type === 'Buy' ? 'bg-[#0099ff]' : 'bg-[#f6465d]'}`}></div>
-                        <span className="text-white">{position.type}</span>
-                      </div>
+                  
+                  {/* Dynamic Columns */}
+                  {columnOrder.map(colId => visibleColumns[colId] && (
+                    <td key={colId} className={`px-4 py-3 whitespace-nowrap text-${columnDefs[colId].align}`}>
+                      {renderCell(colId, position, isGrouped)}
                     </td>
-                  )}
-                  {visibleColumns.volume && (
-                    <td className="px-4 py-3 text-right whitespace-nowrap">
-                      <span className="text-white border-b border-dashed border-gray-500">{position.volume}</span>
-                    </td>
-                  )}
-                  {visibleColumns.openPrice && <td className="px-4 py-3 text-right text-white whitespace-nowrap">{position.openPrice}</td>}
-                  {visibleColumns.currentPrice && <td className="px-4 py-3 text-right text-white whitespace-nowrap">{position.currentPrice || '-'}</td>}
-                  {visibleColumns.tp && <td className="px-4 py-3 text-center text-[#8b9096] whitespace-nowrap">{position.tp || 'Add'}</td>}
-                  {visibleColumns.sl && <td className="px-4 py-3 text-center text-[#8b9096] whitespace-nowrap">{position.sl || 'Add'}</td>}
-                  {visibleColumns.ticket && (
-                    <td className="px-4 py-3 text-left text-white whitespace-nowrap">
-                      {!isGrouped && position.ticket}
-                    </td>
-                  )}
-                  {visibleColumns.openTime && <td className="px-4 py-3 text-left text-white whitespace-nowrap">{position.openTime}</td>}
-                  {visibleColumns.swap && <td className="px-4 py-3 text-right text-white whitespace-nowrap">{position.swap || '0'}</td>}
-                  {visibleColumns.commission && <td className="px-4 py-3 text-right text-white whitespace-nowrap">{position.commission || '0'}</td>}
+                  ))}
                   
                   {/* Sticky Columns Data */}
                   <td className="px-4 py-3 text-right whitespace-nowrap sticky right-[90px] bg-[#141d22] group-hover:bg-[#1c252f] z-20 shadow-[-10px_0_10px_-5px_rgba(0,0,0,0.3)] border-b border-[#2a3038]">
@@ -476,27 +509,13 @@ export default function BottomPanel() {
                     <td className="px-4 py-3 whitespace-nowrap pl-8"> {/* Indent symbol */}
                       <span className="text-white font-medium">{subPos.symbol}</span>
                     </td>
-                    {visibleColumns.type && (
-                      <td className="px-4 py-3 whitespace-nowrap">
-                        <div className="flex items-center gap-1.5">
-                          <div className={`w-2 h-2 rounded-full ${subPos.type === 'Buy' ? 'bg-[#0099ff]' : 'bg-[#f6465d]'}`}></div>
-                          <span className="text-white">{subPos.type}</span>
-                        </div>
+                    
+                    {/* Dynamic Columns */}
+                    {columnOrder.map(colId => visibleColumns[colId] && (
+                      <td key={colId} className={`px-4 py-3 whitespace-nowrap text-${columnDefs[colId].align}`}>
+                        {renderCell(colId, subPos, false)}
                       </td>
-                    )}
-                    {visibleColumns.volume && (
-                      <td className="px-4 py-3 text-right whitespace-nowrap">
-                        <span className="text-white border-b border-dashed border-gray-500">{subPos.volume}</span>
-                      </td>
-                    )}
-                    {visibleColumns.openPrice && <td className="px-4 py-3 text-right text-white whitespace-nowrap">{subPos.openPrice}</td>}
-                    {visibleColumns.currentPrice && <td className="px-4 py-3 text-right text-white whitespace-nowrap">{subPos.currentPrice || '-'}</td>}
-                    {visibleColumns.tp && <td className="px-4 py-3 text-center text-[#8b9096] whitespace-nowrap">{subPos.tp || 'Add'}</td>}
-                    {visibleColumns.sl && <td className="px-4 py-3 text-center text-[#8b9096] whitespace-nowrap">{subPos.sl || 'Add'}</td>}
-                    {visibleColumns.ticket && <td className="px-4 py-3 text-left text-white whitespace-nowrap">{subPos.ticket}</td>}
-                    {visibleColumns.openTime && <td className="px-4 py-3 text-left text-white whitespace-nowrap">{subPos.openTime}</td>}
-                    {visibleColumns.swap && <td className="px-4 py-3 text-right text-white whitespace-nowrap">{subPos.swap}</td>}
-                    {visibleColumns.commission && <td className="px-4 py-3 text-right text-white whitespace-nowrap">{subPos.commission}</td>}
+                    ))}
                     
                     {/* Sticky Columns Data */}
                     <td className="px-4 py-3 text-right whitespace-nowrap sticky right-[90px] bg-[#141d22] group-hover:bg-[#1c252f] z-20 shadow-[-10px_0_10px_-5px_rgba(0,0,0,0.3)] border-b border-[#2a3038]">
@@ -528,13 +547,11 @@ export default function BottomPanel() {
                 ))}
               </>
             ))}
-
             {activeTab === 'Closed' && closedPositions.map((position, idx) => (
               <tr
                 key={idx}
                 className="border-b border-[#2a3038] hover:bg-[#1c252f] group"
               >
-                {/* Closed positions always show full details for now, or match grouped view */}
                 <td className="px-4 py-3 whitespace-nowrap">
                   <div className="flex items-center gap-2">
                     <div className="w-6 h-6 relative">
@@ -543,23 +560,13 @@ export default function BottomPanel() {
                     <span className="text-white font-medium">{position.symbol}</span>
                   </div>
                 </td>
-                {visibleColumns.type && (
-                  <td className="px-4 py-3 whitespace-nowrap">
-                    <div className="flex items-center gap-1.5">
-                      <div className={`w-2 h-2 rounded-full ${position.type === 'Buy' ? 'bg-[#0099ff]' : 'bg-[#f6465d]'}`}></div>
-                      <span className="text-white">{position.type}</span>
-                    </div>
+                
+                {/* Dynamic Columns */}
+                {columnOrder.map(colId => visibleColumns[colId] && (
+                  <td key={colId} className={`px-4 py-3 whitespace-nowrap text-${columnDefs[colId].align}`}>
+                    {renderCell(colId, position, false)}
                   </td>
-                )}
-                {visibleColumns.volume && <td className="px-4 py-3 text-right text-white whitespace-nowrap">{position.volume}</td>}
-                {visibleColumns.openPrice && <td className="px-4 py-3 text-right text-white whitespace-nowrap">{position.openPrice}</td>}
-                {visibleColumns.currentPrice && <td className="px-4 py-3 text-right text-white whitespace-nowrap">{position.closePrice}</td>}
-                {visibleColumns.tp && <td className="px-4 py-3 text-center whitespace-nowrap"><span className="text-[#8b9096]">{position.tp}</span></td>}
-                {visibleColumns.sl && <td className="px-4 py-3 text-center whitespace-nowrap"><span className="text-[#8b9096]">{position.sl}</span></td>}
-                {visibleColumns.ticket && <td className="px-4 py-3 text-left text-white whitespace-nowrap">{position.ticket}</td>}
-                {visibleColumns.openTime && <td className="px-4 py-3 text-left text-white whitespace-nowrap">{position.time}</td>}
-                {visibleColumns.swap && <td className="px-4 py-3 text-left text-white whitespace-nowrap">{position.swap}</td>}
-                {visibleColumns.commission && <td className="px-4 py-3 text-left text-white whitespace-nowrap">{position.commission}</td>}
+                ))}
                 
                 {/* Sticky Columns Data */}
                 <td className="px-4 py-3 text-right whitespace-nowrap sticky right-[60px] bg-[#141d22] group-hover:bg-[#1c252f] z-20 shadow-[-10px_0_10px_-5px_rgba(0,0,0,0.3)] border-b border-[#2a3038]">
@@ -593,6 +600,9 @@ export default function BottomPanel() {
         visibleColumns={visibleColumns}
         toggleColumn={toggleColumn}
         anchorRef={settingsButtonRef}
+        columnOrder={columnOrder}
+        setColumnOrder={setColumnOrder}
+        columns={columnDefs}
       />
     </div>
   )
