@@ -74,7 +74,7 @@ export default function BottomPanel({ openPositions, onClosePosition, onCloseGro
     swap: group.totalSwap.toFixed(2),
     commission: group.totalCommission.toFixed(2),
     // Use approximation for open price in group view
-    openPrice: `â‰ˆ ${group.positions[0].openPrice}` 
+    openPrice: group.positions[0].openPrice 
   }))
 
   const toggleGroup = (symbol) => {

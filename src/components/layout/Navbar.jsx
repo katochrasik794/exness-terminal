@@ -125,9 +125,9 @@ export default function Navbar({ isSidebarExpanded }) {
           <div className='flex items-center'>
             <div className="text-yellow-300 font-semi-bold">
               <img 
-                src={isSidebarExpanded ? "/public/logo_yellow.svg" : "/public/logo_small_yellow.svg"} 
+                src={isSidebarExpanded ? "/FinCRM-logo-light.png" : "/finCRM-logo-small.png"} 
                 className='h-10' 
-                alt="Exness" 
+                alt="FINCRM" 
               />
             </div>
           </div>
