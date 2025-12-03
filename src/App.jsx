@@ -9,7 +9,11 @@ function App() {
 
   return (
     <div className="h-screen flex flex-col bg-[#3f474b] overflow-hidden gap-1">
-      <Navbar isSidebarExpanded={isSidebarExpanded} />
+      <Navbar 
+        isSidebarExpanded={isSidebarExpanded} 
+        logoLarge="/FinCRM-logo-light.png" 
+        logoSmall="/finCRM-logo-small.png" 
+      />
       <div className="flex flex-1 min-h-0 overflow-hidden">
         {/* <LeftSidebar /> */}
         <TradingTerminal 

@@ -54,7 +54,7 @@ const InstrumentTab = ({ tab, isActive, onClick, onClose }) => {
   )
 }
 
-export default function Navbar({ isSidebarExpanded }) {
+export default function Navbar({ isSidebarExpanded, logoLarge, logoSmall }) {
   const [tabs, setTabs] = useState([
     { id: '1', symbol: 'XAU/USD', flagType: 'xauusd', isActive: true },
     { id: '2', symbol: 'US500', flagType: 'us500', isActive: false },
@@ -125,7 +125,7 @@ export default function Navbar({ isSidebarExpanded }) {
           <div className='flex items-center'>
             <div className="text-yellow-300 font-semi-bold">
               <img 
-                src={isSidebarExpanded ? "/FinCRM-logo-light.png" : "/finCRM-logo-small.png"} 
+                src={isSidebarExpanded ? logoLarge : logoSmall} 
                 className='h-10' 
                 alt="FINCRM" 
               />
