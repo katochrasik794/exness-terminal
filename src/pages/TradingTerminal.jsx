@@ -35,7 +35,7 @@ export default function TradingTerminal({ isSidebarExpanded, onSidebarStateChang
       </ResizablePanel>
       
       {/* Horizontal resize handle */}
-      <ResizableHandle />
+      <ResizableHandle disabled={!isSidebarExpanded} className={!isSidebarExpanded ? "pointer-events-none" : ""} />
       
       {/* Main content area with status bar */}
       <ResizablePanel defaultSize={97} className="flex flex-col h-full gap-1">
@@ -58,7 +58,7 @@ export default function TradingTerminal({ isSidebarExpanded, onSidebarStateChang
           </ResizablePanelGroup>
           
           {/* Right sidebar - Order Panel with full height */}
-          <div className="w-[260px] h-full flex-shrink-0 overflow-hidden">
+          <div className="w-[270px] h-full flex-shrink-0 overflow-hidden">
             <OrderPanel />
           </div>
         </div>

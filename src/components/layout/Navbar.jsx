@@ -156,7 +156,6 @@ export default function Navbar({ isSidebarExpanded }) {
                   data-test="add-tab-button"
                   type="button"
                   onClick={handleAddTab}
-                  title="Add New Instrument"
                 >
                   <FiPlus size={22} className="stroke-current fill-white text-white cursor-pointer" />
                 </button>
@@ -232,7 +231,6 @@ export default function Navbar({ isSidebarExpanded }) {
             <button 
               className="cursor-pointer p-[13px] text-white border border-transparent hover:border-gray-400 hover:bg-gray-800 rounded-md transition-colors"
               type="button"
-              title="Alerts"
               onClick={() => setIsPriceAlertsOpen(!isPriceAlertsOpen)}
             >
               <MdOutlineAccessAlarms size={22} />
@@ -250,7 +248,6 @@ export default function Navbar({ isSidebarExpanded }) {
             <button 
               className="cursor-pointer p-[13px] text-white border border-transparent hover:border-gray-400 hover:bg-gray-800 rounded-md transition-colors"
               type="button"
-              title="Applications"
               onClick={() => setIsAppsDropdownOpen(!isAppsDropdownOpen)}
             >
               <MdApps size={22} />
@@ -268,7 +265,6 @@ export default function Navbar({ isSidebarExpanded }) {
             <button 
               className="cursor-pointer p-[13px] text-white border border-transparent hover:border-gray-400 hover:bg-gray-800 rounded-md transition-colors"
               type="button"
-              title="Account Menu"
               onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
             >
               <BiUserCircle size={22} />

@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import FlagIcon from '../ui/FlagIcon'
+import IconButton from '../ui/IconButton'
 
 export default function WatchlistPanel({ onClose }) {
   const [searchTerm, setSearchTerm] = useState('')
@@ -183,19 +184,19 @@ export default function WatchlistPanel({ onClose }) {
       <header className="flex items-center justify-between px-4 pt-1 flex-shrink-0 min-h-[40px]">
         <h2 className="text-[12px] font-medium text-[#b2b5be] uppercase tracking-wide">Instruments</h2>
         <div className="flex items-center gap-1">
-          <button className="p-1 text-[#b2b5be] hover:text-white transition-colors cursor-pointer">
+          <IconButton tooltip="Menu">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="1" />
               <circle cx="12" cy="5" r="1" />
               <circle cx="12" cy="19" r="1" />
             </svg>
-          </button>
-          <button className="p-1 text-[#b2b5be] hover:text-white transition-colors cursor-pointer" onClick={onClose}>
+          </IconButton>
+          <IconButton onClick={onClose} tooltip="Hide panel">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
-          </button>
+          </IconButton>
         </div>
       </header>
 

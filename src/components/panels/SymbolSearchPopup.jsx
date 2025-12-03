@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { FiSearch } from 'react-icons/fi'
+import FlagIcon from '../ui/FlagIcon'
 
 export default function SymbolSearchPopup({ isOpen, onClose, onSelectSymbol }) {
   const [searchTerm, setSearchTerm] = useState('')
@@ -9,58 +10,50 @@ export default function SymbolSearchPopup({ isOpen, onClose, onSelectSymbol }) {
     {
       symbol: 'BTC',
       name: 'Bitcoin vs US Dollar',
-      icon: '₿',
-      iconBg: '#f7931a',
+      flag: 'btc',
       favorite: true
     },
     {
       symbol: 'XAU/USD',
       name: 'Gold vs US Dollar',
-      icon: '🥇',
-      iconBg: '#ffd700',
+      flag: 'xauusd',
       favorite: true
     },
     {
       symbol: 'AAPL',
       name: 'Apple Inc.',
-      icon: '🍎',
-      iconBg: '#000000',
+      flag: 'aapl',
       favorite: true,
       marketClosed: true
     },
     {
       symbol: 'EUR/USD',
       name: 'Euro vs US Dollar',
-      icon: '🇪🇺',
-      iconBg: '#003399',
+      flag: 'eurusd',
       favorite: true
     },
     {
       symbol: 'GBP/USD',
       name: 'Great Britain Pound vs US Dollar',
-      icon: '🇬🇧',
-      iconBg: '#012169',
+      flag: 'gbpusd',
       favorite: true
     },
     {
       symbol: 'USD/JPY',
       name: 'US Dollar vs Japanese Yen',
-      icon: '🇯🇵',
-      iconBg: '#bc002d',
+      flag: 'usdjpy',
       favorite: true
     },
     {
       symbol: 'USTEC',
       name: 'US Tech 100 Index',
-      icon: '📈',
-      iconBg: '#0066cc',
+      flag: 'ustec',
       favorite: true
     },
     {
       symbol: 'USOIL',
       name: 'Crude Oil',
-      icon: '🛢️',
-      iconBg: '#000000',
+      flag: 'usoil',
       favorite: true
     }
   ]
@@ -140,11 +133,8 @@ export default function SymbolSearchPopup({ isOpen, onClose, onSelectSymbol }) {
                 >
                   <td className="px-4 py-2.5">
                     <div className="flex items-center gap-3">
-                      <div 
-                        className="w-6 h-6 rounded-full flex items-center justify-center text-xs shadow-sm"
-                        style={{ backgroundColor: item.iconBg }}
-                      >
-                        {item.icon}
+                      <div className="w-6 h-6 rounded-full overflow-hidden flex-shrink-0">
+                        <FlagIcon type={item.flag} />
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="text-white font-medium text-sm group-hover:text-blue-400 transition-colors">{item.symbol}</span>

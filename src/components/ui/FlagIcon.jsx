@@ -1,4 +1,6 @@
 import React from 'react'
+import eurusdIcon from '../../assets/eurusd.png'
+import btcIcon from '../../assets/btc.png'
 
 // Flag Icon Component - using flagsapi.com
 export default function FlagIcon({ type, className = "" }) {
@@ -37,15 +39,8 @@ export default function FlagIcon({ type, className = "" }) {
       )
     case 'eurusd':
       return (
-        <div className={baseClass}>
-           {/* EU Flag */}
-          <div className="absolute top-0 left-0 w-[70%] h-[70%] rounded-full z-10 overflow-hidden bg-[#141d22]">
-            <FlagImage code="EU" />
-          </div>
-          {/* US Flag */}
-          <div className="absolute bottom-0 right-0 w-[70%] h-[70%] rounded-full z-20 overflow-hidden bg-[#141d22] ring-0 ring-[#141d22]">
-             <FlagImage code="US" />
-          </div>
+        <div className={`${baseClass} overflow-hidden`}>
+          <img src={eurusdIcon} alt="EUR/USD" className="w-full h-full object-cover scale-150" />
         </div>
       )
     case 'gbpusd':
@@ -82,8 +77,8 @@ export default function FlagIcon({ type, className = "" }) {
       )
     case 'btc':
       return (
-        <div className={`${baseClass} rounded-full bg-[#f7931a] flex items-center justify-center text-white font-bold text-[10px]`}>
-          ₿
+        <div className={`${baseClass} rounded-full overflow-hidden`}>
+          <img src={btcIcon} alt="Bitcoin" className="w-full h-full object-cover scale-[1.75]" />
         </div>
       )
     case 'aapl':
