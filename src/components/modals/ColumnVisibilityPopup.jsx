@@ -115,7 +115,7 @@ const ColumnVisibilityPopup = ({
                     checked={visibleColumns[colId]}
                     onChange={() => toggleColumn(colId)}
                   />
-                  <div className="w-9 h-5 bg-[#4b5563] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#0099ff]"></div>
+                  <div className="w-9 h-5 bg-[#545b64] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#7f8792]"></div>
                 </label>
               </div>
             );

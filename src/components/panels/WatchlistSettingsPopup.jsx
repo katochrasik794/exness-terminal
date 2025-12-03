@@ -33,7 +33,7 @@ export default function WatchlistSettingsPopup({
               <button
                 onClick={() => onToggleColumn(col.id)}
                 className={`w-9 h-5 rounded-full relative transition-colors duration-200 ease-in-out ${
-                  col.visible ? 'bg-[#2962ff]' : 'bg-[#565c66]'
+                  col.visible ? 'bg-[#7f8792]' : 'bg-[#545b64]'
                 }`}
               >
                 <span
@@ -56,7 +56,7 @@ export default function WatchlistSettingsPopup({
           <button
             onClick={onTogglePriceHighlight}
             className={`w-9 h-5 rounded-full relative transition-colors duration-200 ease-in-out ${
-              showPriceHighlight ? 'bg-[#2962ff]' : 'bg-[#565c66]'
+              showPriceHighlight ? 'bg-[#7f8792]' : 'bg-[#545b64]'
             }`}
           >
             <span

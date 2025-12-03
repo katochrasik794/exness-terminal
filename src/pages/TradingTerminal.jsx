@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
+import { ChevronLeft } from 'lucide-react'
 import LeftSidebar from '../components/layout/LeftSidebar'
 import ChartSection from '../components/layout/ChartSection'
 import OrderPanel from '../components/trading/OrderPanel'
@@ -10,6 +11,7 @@ import CloseAllPositionsDropdown from "../components/modals/CloseAllPositionsDro
 export default function TradingTerminal({ isSidebarExpanded, onSidebarStateChange }) {
   const leftPanelRef = useRef(null)
   const [closedToast, setClosedToast] = useState(null)
+  const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(true)
 
   const [openPositions, setOpenPositions] = useState([
     {
@@ -167,7 +169,7 @@ export default function TradingTerminal({ isSidebarExpanded, onSidebarStateChang
       {/* Main content area with status bar */}
       <ResizablePanel defaultSize={97} className="flex flex-col h-full gap-1">
         {/* Top content area */}
-        <div className="flex flex-1 overflow-hidden gap-1">
+        <div className="relative flex flex-1 overflow-hidden gap-1">
           {/* Center resizable area with vertical panels */}
           <ResizablePanelGroup direction="vertical" className="flex-1">
             {/* Chart section */}
@@ -192,9 +194,22 @@ export default function TradingTerminal({ isSidebarExpanded, onSidebarStateChang
           </ResizablePanelGroup>
           
           {/* Right sidebar - Order Panel with full height */}
-          <div className="w-[270px] h-full flex-shrink-0 overflow-hidden">
-            <OrderPanel />
-          </div>
+          {isRightSidebarOpen && (
+            <div className="w-[260px] h-full flex-shrink-0 overflow-hidden">
+              <OrderPanel onClose={() => setIsRightSidebarOpen(false)} />
+            </div>
+          )}
+
+          {/* Floating Open Button */}
+          {!isRightSidebarOpen && (
+             <button 
+               onClick={() => setIsRightSidebarOpen(true)}
+               className="absolute right-0 top-4 z-50 bg-[#141d22] border border-[#2a2f36] border-r-0 text-gray-400 hover:text-white transition-colors p-1.5 rounded-l-md shadow-lg cursor-pointer"
+               title="Open Order Panel"
+             >
+               <ChevronLeft size={18} />
+             </button>
+          )}
         </div>
         
         {/* Status bar only for center and right areas */}

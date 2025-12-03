@@ -1,14 +1,34 @@
 import { useState } from 'react'
 import { ChevronDown, X, Minus, Plus, HelpCircle } from 'lucide-react'
 import FlagIcon from '../ui/FlagIcon'
+import OrderModeModal from '../modals/OrderModeModal'
 
-export default function OrderPanel() {
+export default function OrderPanel({ onClose }) {
   const [isPending, setIsPending] = useState(false)
   const [orderSide, setOrderSide] = useState(null)
   const [volume, setVolume] = useState('0.01')
   const [isModeDropdownOpen, setIsModeDropdownOpen] = useState(false)
   const [selectedMode, setSelectedMode] = useState('Regular form')
   const [isDetailsExpanded, setIsDetailsExpanded] = useState(false)
+  const [showModeModal, setShowModeModal] = useState(false)
+  const [pendingMode, setPendingMode] = useState(null)
+
+  const handleModeSelect = (mode) => {
+    setIsModeDropdownOpen(false)
+    if (mode === 'Regular form') {
+      setSelectedMode(mode)
+    } else {
+      setPendingMode(mode)
+      setShowModeModal(true)
+    }
+  }
+
+  const handleModeConfirm = (dontShowAgain) => {
+    setSelectedMode(pendingMode)
+    setShowModeModal(false)
+    setPendingMode(null)
+    // Here you could save dontShowAgain preference to local storage
+  }
 
   return (
     <div className="bg-[#141d22] flex flex-col h-full w-full overflow-hidden text-[#c0c0c0] font-sans border-l border-[#2a2f36] rounded-l-md">
@@ -24,7 +44,11 @@ export default function OrderPanel() {
               XAU/USD
             </div>
           </div>
-          <button className="text-gray-400 hover:text-white transition-colors cursor-pointer" type="button">
+          <button 
+            className="text-gray-400 hover:text-white transition-colors cursor-pointer" 
+            type="button"
+            onClick={onClose}
+          >
             <X size={18} />
           </button>
         </div>
@@ -47,10 +71,7 @@ export default function OrderPanel() {
                   <button
                     key={mode}
                     type="button"
-                    onClick={() => {
-                      setSelectedMode(mode)
-                      setIsModeDropdownOpen(false)
-                    }}
+                    onClick={() => handleModeSelect(mode)}
                     className={`w-full text-left px-3 py-2 text-[14px] text-[#c0c0c0] hover:bg-[#3b4148] hover:text-gray-200 transition-colors cursor-pointer ${selectedMode === mode ? 'bg-[#3b4148] text-gray-200' : ''}`}
                   >
                     {mode}
@@ -345,6 +366,16 @@ export default function OrderPanel() {
         )}
 
       </form>
+
+      <OrderModeModal 
+        isOpen={showModeModal}
+        onClose={() => {
+          setShowModeModal(false)
+          setPendingMode(null)
+        }}
+        onConfirm={handleModeConfirm}
+        mode={pendingMode}
+      />
     </div>
   )
 }
