@@ -1,5 +1,8 @@
 import { GiNetworkBars } from "react-icons/gi";
-export default function StatusBar() {
+
+export default function StatusBar({ openPositions = [], onOpenCloseAllModal }) {
+  const totalPL = openPositions.reduce((sum, pos) => sum + parseFloat(pos.pl.replace('+', '')), 0)
+
   return (
     <div className="bg-[#141d22] flex items-center justify-between px-4 py-2 text-xs text-gray-400 font-medium rounded-tl-md">
       {/* Left section - Account info */}
@@ -13,9 +16,19 @@ export default function StatusBar() {
       
       {/* Right section - P/L, Close all, Connection */}
       <div className="flex items-center gap-4">
-        <span>Total P/L, USD: <span className="text-emerald-400 font-mono">+306.00</span></span>
+        <span>Total P/L, USD: <span className={`font-mono ${totalPL >= 0 ? 'text-[#2ebd85]' : 'text-[#f6465d]'}`}>
+          {totalPL >= 0 ? '+' : ''}{totalPL.toFixed(2)}
+        </span></span>
         
-        <button className="px-3 mr-20 py-1 bg-[#2a3038] hover:bg-[#363c45] text-gray-200 rounded text-sm flex items-center gap-2 transition-colors cursor-pointer">
+        <button 
+          onClick={onOpenCloseAllModal}
+          disabled={openPositions.length === 0}
+          className={`px-3 mr-20 py-1 rounded text-sm flex items-center gap-2 transition-colors ${
+            openPositions.length === 0 
+              ? 'bg-[#2a3038] text-[#565c66] cursor-not-allowed' 
+              : 'bg-[#2a3038] hover:bg-[#363c45] text-gray-200 cursor-pointer'
+          }`}
+        >
           Close all
           <svg className="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />

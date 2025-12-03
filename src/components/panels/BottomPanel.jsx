@@ -4,13 +4,17 @@ import IconButton from '../ui/IconButton'
 import Tooltip from '../ui/Tooltip'
 import ModifyPositionModal from '../modals/ModifyPositionModal'
 import ColumnVisibilityPopup from '../modals/ColumnVisibilityPopup'
+import PositionClosedToast from '../ui/PositionClosedToast'
+import ConfirmationModal from '../modals/ConfirmationModal'
 
-export default function BottomPanel() {
+export default function BottomPanel({ openPositions, onClosePosition, onCloseGroup, closedToast, setClosedToast }) {
   const [activeTab, setActiveTab] = useState('Open')
   const [isGrouped, setIsGrouped] = useState(true)
   const [expandedGroups, setExpandedGroups] = useState({})
   const [editingPosition, setEditingPosition] = useState(null)
   const [isColumnPopupOpen, setIsColumnPopupOpen] = useState(false)
+
+  const [confirmationModal, setConfirmationModal] = useState({ isOpen: false, symbol: null })
   const settingsButtonRef = useRef(null)
 
   const [visibleColumns, setVisibleColumns] = useState({
@@ -41,104 +45,7 @@ export default function BottomPanel() {
 
   const tabs = ['Open', 'Pending', 'Closed']
 
-  const openPositions = [
-    {
-      symbol: 'XAU/USD',
-      type: 'Buy',
-      volume: '0.01',
-      openPrice: '4,174.936',
-      currentPrice: '4,174.225',
-      tp: 'Add',
-      sl: 'Add',
-      ticket: '70439011',
-      openTime: 'Nov 28, 1:38:30 PM',
-      swap: '0',
-      commission: '-0.33',
-      pl: '+34.65',
-      plColor: 'text-[#00ffaa]',
-      flag: 'xauusd'
-    },
-    {
-      symbol: 'XAU/USD',
-      type: 'Buy',
-      volume: '0.01',
-      openPrice: '4,175.347',
-      currentPrice: '4,174.225',
-      tp: 'Add',
-      sl: 'Add',
-      ticket: '70438984',
-      openTime: 'Nov 28, 1:38:27 PM',
-      swap: '0',
-      commission: '-0.33',
-      pl: '+34.23',
-      plColor: 'text-[#00ffaa]',
-      flag: 'xauusd'
-    },
-    {
-      symbol: 'XAU/USD',
-      type: 'Buy',
-      volume: '0.01',
-      openPrice: '4,153.111',
-      currentPrice: '4,174.225',
-      tp: 'Add',
-      sl: 'Add',
-      ticket: '69992609',
-      openTime: 'Nov 26, 12:52:01 PM',
-      swap: '0',
-      commission: '-0.33',
-      pl: '+56.47',
-      plColor: 'text-[#00ffaa]',
-      flag: 'xauusd'
-    },
-    {
-      symbol: 'XAU/USD',
-      type: 'Buy',
-      volume: '0.01',
-      openPrice: '4,160.565',
-      currentPrice: '4,174.225',
-      tp: 'Add',
-      sl: 'Add',
-      ticket: '69975898',
-      openTime: 'Nov 26, 11:04:44 AM',
-      swap: '0',
-      commission: '-0.33',
-      pl: '+49.02',
-      plColor: 'text-[#00ffaa]',
-      flag: 'xauusd'
-    },
-    {
-      symbol: 'XAU/USD',
-      type: 'Buy',
-      volume: '0.01',
-      openPrice: '4,160.256',
-      currentPrice: '4,174.225',
-      tp: 'Add',
-      sl: 'Add',
-      ticket: '69975877',
-      openTime: 'Nov 26, 11:04:32 AM',
-      swap: '0',
-      commission: '-0.33',
-      pl: '+49.32',
-      plColor: 'text-[#00ffaa]',
-      flag: 'xauusd'
-    },
-    {
-      symbol: 'BTC',
-      type: 'Buy',
-      volume: '0.01',
-      openPrice: '91,250.00',
-      currentPrice: '91,419.25',
-      tp: '95,000.00',
-      sl: '89,000.00',
-      ticket: '12345679',
-      openTime: 'Nov 26, 12:30:15 PM',
-      swap: '-0.50',
-      commission: '-0.10',
-      pl: '+169.25',
-      plColor: 'text-[#00ffaa]',
-      flag: 'btc'
-    }
-  ]
+
 
   // Group positions by symbol
   const groupedPositions = Object.values(openPositions.reduce((acc, pos) => {
@@ -176,6 +83,8 @@ export default function BottomPanel() {
       [symbol]: !prev[symbol]
     }))
   }
+
+
 
   const closedPositions = [
     {
@@ -341,6 +250,20 @@ export default function BottomPanel() {
     }
   }
 
+  const handleCloseGroup = (e, symbol) => {
+    e.stopPropagation()
+    setConfirmationModal({ isOpen: true, symbol })
+  }
+
+  const confirmCloseGroup = () => {
+    if (confirmationModal.symbol) {
+      onCloseGroup(confirmationModal.symbol)
+    }
+    setConfirmationModal({ isOpen: false, symbol: null })
+  }
+
+
+
   return (
     <div className="h-full bg-[#141d22] flex flex-col overflow-hidden font-sans rounded-md min-h-0">
       {/* Header Section */}
@@ -483,14 +406,27 @@ export default function BottomPanel() {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                             </svg>
                           </IconButton>
-                          <IconButton tooltip="Close position" placement="left" className="text-[#8b9096]">
+                          <IconButton 
+                            tooltip="Close position" 
+                            placement="left" 
+                            className="text-[#8b9096]"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              onClosePosition(position)
+                            }}
+                          >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                           </IconButton>
                         </>
                       ) : (
-                         <IconButton tooltip="Close all positions" placement="left" className="text-[#8b9096]">
+                         <IconButton 
+                           tooltip="Close all positions" 
+                           placement="left" 
+                           className="text-[#8b9096]"
+                           onClick={(e) => handleCloseGroup(e, position.symbol)}
+                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -536,7 +472,15 @@ export default function BottomPanel() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                           </svg>
                         </IconButton>
-                        <IconButton tooltip="Close position" placement="left" className="text-[#8b9096]">
+                        <IconButton 
+                          tooltip="Close position" 
+                          placement="left" 
+                          className="text-[#8b9096]"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            onClosePosition(subPos)
+                          }}
+                        >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
@@ -603,6 +547,21 @@ export default function BottomPanel() {
         columnOrder={columnOrder}
         setColumnOrder={setColumnOrder}
         columns={columnDefs}
+      />
+      
+      <PositionClosedToast 
+        position={closedToast} 
+        onClose={() => setClosedToast(null)} 
+      />
+      
+      <ConfirmationModal
+        isOpen={confirmationModal.isOpen}
+        onClose={() => setConfirmationModal({ isOpen: false, symbol: null })}
+        onConfirm={confirmCloseGroup}
+        title="Close All Positions"
+        message={`Are you sure you want to close all ${confirmationModal.symbol} positions? This action cannot be undone.`}
+        confirmText="Close All"
+        cancelText="Cancel"
       />
     </div>
   )
