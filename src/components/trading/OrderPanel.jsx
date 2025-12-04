@@ -45,7 +45,7 @@ export default function OrderPanel({ onClose }) {
             </div>
           </div>
           <button 
-            className="text-gray-400 hover:text-white transition-colors cursor-pointer" 
+            className="text-gray-400 hover:text-white transition-colors cursor-pointer p-1 hover:bg-gray-800 rounded-md" 
             type="button"
             onClick={onClose}
           >

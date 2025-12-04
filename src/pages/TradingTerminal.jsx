@@ -210,10 +210,10 @@ export default function TradingTerminal({ isSidebarExpanded, onSidebarStateChang
           {!isRightSidebarOpen && (
              <button 
                onClick={() => setIsRightSidebarOpen(true)}
-               className="absolute right-0 top-4 z-50 bg-[#141d22] border border-[#2a2f36] border-r-0 text-gray-400 hover:text-white transition-colors p-1.5 rounded-l-md shadow-lg cursor-pointer"
+               className="absolute right-0 top-2 z-50 bg-[#141d22] border border-[#2a2f36] border-r-0 text-gray-400 hover:text-white transition-colors p-1.5 rounded-l-md shadow-lg cursor-pointer"
                title="Open Order Panel"
              >
-               <ChevronLeft size={18} />
+               <ChevronLeft size={20} />
              </button>
           )}
         </div>
