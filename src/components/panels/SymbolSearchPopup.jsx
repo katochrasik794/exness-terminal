@@ -1,9 +1,20 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FiSearch } from 'react-icons/fi'
 import FlagIcon from '../ui/FlagIcon'
 
-export default function SymbolSearchPopup({ isOpen, onClose, onSelectSymbol }) {
+export default function SymbolSearchPopup({ isOpen, onClose, onSelectSymbol, triggerRef }) {
   const [searchTerm, setSearchTerm] = useState('')
+  const [position, setPosition] = useState({ top: 0, left: 0 })
+
+  useEffect(() => {
+    if (isOpen && triggerRef?.current) {
+      const rect = triggerRef.current.getBoundingClientRect()
+      setPosition({
+        top: rect.bottom + 8,
+        left: rect.left
+      })
+    }
+  }, [isOpen, triggerRef])
 
   // Sample instruments data
   const instruments = [
@@ -83,7 +94,10 @@ export default function SymbolSearchPopup({ isOpen, onClose, onSelectSymbol }) {
       />
       
       {/* Dropdown Popup */}
-      <div className="absolute top-full left-0 mt-2 w-[400px] bg-[#1a2329] border border-gray-700 rounded-lg shadow-2xl z-50">
+      <div 
+        className={`${triggerRef ? 'fixed' : 'absolute top-full left-0 mt-2'} w-[400px] bg-[#1a2329] border border-gray-700 rounded-lg shadow-2xl z-50`}
+        style={triggerRef ? { top: position.top, left: position.left } : {}}
+      >
         {/* Search Bar */}
         <div className="p-3 border-b border-gray-700">
           <div className="relative">

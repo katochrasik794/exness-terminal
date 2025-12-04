@@ -5,7 +5,7 @@ import Tooltip from '../ui/Tooltip'
 import ModifyPositionModal from '../modals/ModifyPositionModal'
 import ColumnVisibilityPopup from '../modals/ColumnVisibilityPopup'
 import PositionClosedToast from '../ui/PositionClosedToast'
-import ConfirmationModal from '../modals/ConfirmationModal'
+import GroupClosePopup from './GroupClosePopup'
 
 export default function BottomPanel({ openPositions, onClosePosition, onCloseGroup, closedToast, setClosedToast }) {
   const [activeTab, setActiveTab] = useState('Open')
@@ -14,7 +14,7 @@ export default function BottomPanel({ openPositions, onClosePosition, onCloseGro
   const [editingPosition, setEditingPosition] = useState(null)
   const [isColumnPopupOpen, setIsColumnPopupOpen] = useState(false)
 
-  const [confirmationModal, setConfirmationModal] = useState({ isOpen: false, symbol: null })
+  const [groupPopup, setGroupPopup] = useState({ isOpen: false, symbol: null, position: null })
   const settingsButtonRef = useRef(null)
 
   const [visibleColumns, setVisibleColumns] = useState({
@@ -252,20 +252,28 @@ export default function BottomPanel({ openPositions, onClosePosition, onCloseGro
 
   const handleCloseGroup = (e, symbol) => {
     e.stopPropagation()
-    setConfirmationModal({ isOpen: true, symbol })
+    const rect = e.currentTarget.getBoundingClientRect()
+    setGroupPopup({ 
+      isOpen: true, 
+      symbol,
+      position: {
+        top: rect.top - 8, // Position above the button with some gap
+        left: rect.right - 160 // Align right edge approximately, width is auto but ~160px covers buttons
+      }
+    })
   }
 
   const confirmCloseGroup = () => {
-    if (confirmationModal.symbol) {
-      onCloseGroup(confirmationModal.symbol)
+    if (groupPopup.symbol) {
+      onCloseGroup(groupPopup.symbol)
     }
-    setConfirmationModal({ isOpen: false, symbol: null })
+    setGroupPopup({ isOpen: false, symbol: null, position: null })
   }
 
 
 
   return (
-    <div className="h-full bg-[#141d22] flex flex-col overflow-hidden font-sans rounded-md min-h-0">
+    <div className="h-full bg-[#141d22] flex flex-col overflow-hidden font-sans rounded-md min-h-0 relative">
       {/* Header Section */}
       <div className="flex items-center justify-between px-1 border-b border-[#2a3038] bg-[#141d22] h-[40px] min-h-[40px]">
         {/* Tabs */}
@@ -554,14 +562,11 @@ export default function BottomPanel({ openPositions, onClosePosition, onCloseGro
         onClose={() => setClosedToast(null)} 
       />
       
-      <ConfirmationModal
-        isOpen={confirmationModal.isOpen}
-        onClose={() => setConfirmationModal({ isOpen: false, symbol: null })}
+      <GroupClosePopup
+        isOpen={groupPopup.isOpen}
+        onClose={() => setGroupPopup({ ...groupPopup, isOpen: false })}
         onConfirm={confirmCloseGroup}
-        title="Close All Positions"
-        message={`Are you sure you want to close all ${confirmationModal.symbol} positions? This action cannot be undone.`}
-        confirmText="Close All"
-        cancelText="Cancel"
+        position={groupPopup.position}
       />
     </div>
   )

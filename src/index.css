@@ -105,6 +105,20 @@ html, body, #root {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%23C0C8D4'%3E%3Cpath d='M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z'/%3E%3C/svg%3E");
 }
 
+/* Navbar specific scrollbar */
+.navbar-scrollbar::-webkit-scrollbar {
+  height: 6px; /* Thinner scrollbar height */
+}
+
+.navbar-scrollbar::-webkit-scrollbar-thumb {
+  border: 1px solid #20232A; /* Smaller border for thinner scrollbar */
+  border-radius: 3px;
+}
+
+.navbar-scrollbar::-webkit-scrollbar-button {
+  display: none; /* Hide buttons for cleaner look on navbar */
+}
+
 /* Smooth resize handle styles */
 .resize-handle {
   transition: background-color 0.15s ease-in-out;

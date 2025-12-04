@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { 
   FiX, 
   FiPlus, 
@@ -75,6 +75,7 @@ export default function Navbar({ isSidebarExpanded, logoLarge, logoSmall }) {
   const [isAppsDropdownOpen, setIsAppsDropdownOpen] = useState(false)
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false)
   const [isDepositPopupOpen, setIsDepositPopupOpen] = useState(false)
+  const addTabButtonRef = useRef(null)
 
   const handleTabClick = (tabId) => {
     setTabs(prevTabs => 
@@ -104,6 +105,13 @@ export default function Navbar({ isSidebarExpanded, logoLarge, logoSmall }) {
   }
 
   const handleSelectSymbol = (symbolData) => {
+    const existingTab = tabs.find(tab => tab.symbol === symbolData.symbol)
+    
+    if (existingTab) {
+      handleTabClick(existingTab.id)
+      return
+    }
+
     const newId = Date.now().toString()
     const newTab = {
       id: newId,
@@ -121,7 +129,7 @@ export default function Navbar({ isSidebarExpanded, logoLarge, logoSmall }) {
     <nav className="bg-[#141d22] flex-shrink-0">
       <div className="flex items-center h-16 py-2 ">
         {/* Logo */}
-        <div className="px-4">
+        <div className="px-4 flex-shrink-0">
           <div className='flex items-center'>
             <div className="text-yellow-300 font-semi-bold">
               <img 
@@ -134,8 +142,8 @@ export default function Navbar({ isSidebarExpanded, logoLarge, logoSmall }) {
         </div>
 
         {/* Instrument Tabs */}
-        <div className="flex-1 ml-2">
-          <div className="flex items-center">
+        <div className="flex-1 ml-2 min-w-0 overflow-x-auto navbar-scrollbar">
+          <div className="flex items-center min-w-max">
             <div className="flex items-center ">
               <div className="flex gap-0">
                 {tabs.map((tab) => (
@@ -152,6 +160,7 @@ export default function Navbar({ isSidebarExpanded, logoLarge, logoSmall }) {
               {/* Add Tab Button */}
               <div className="flex items-center h-full relative">
                 <button 
+                  ref={addTabButtonRef}
                   className="cursor-pointer px-[10px] py-[20px] text-gray-400 hover:text-white hover:bg-gray-800 rounded-md transition-colors mx-2 flex items-center justify-center h-8 border border-transparent hover:border-gray-400 "
                   data-test="add-tab-button"
                   type="button"
@@ -165,6 +174,7 @@ export default function Navbar({ isSidebarExpanded, logoLarge, logoSmall }) {
                   isOpen={isSymbolSearchOpen}
                   onClose={() => setIsSymbolSearchOpen(false)}
                   onSelectSymbol={handleSelectSymbol}
+                  triggerRef={addTabButtonRef}
                 />
               </div>
             </div>
@@ -172,7 +182,7 @@ export default function Navbar({ isSidebarExpanded, logoLarge, logoSmall }) {
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center gap-2 pr-4">
+        <div className="flex items-center gap-2 pr-4 flex-shrink-0">
           {/* Account Button */}
           <div className="relative">
             <button 

@@ -1,6 +1,16 @@
 import { useEffect, useRef } from 'react'
 
-export default function ConfirmationModal({ isOpen, onClose, onConfirm, title, message, confirmText = 'Confirm', cancelText = 'Cancel' }) {
+export default function ConfirmationModal({ 
+  isOpen, 
+  onClose, 
+  onConfirm, 
+  title, 
+  message, 
+  confirmText = 'Confirm', 
+  cancelText = 'Cancel',
+  useAbsolutePosition = false,
+  width = 'w-[400px]'
+}) {
   const modalRef = useRef(null)
 
   useEffect(() => {
@@ -18,10 +28,10 @@ export default function ConfirmationModal({ isOpen, onClose, onConfirm, title, m
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className={`${useAbsolutePosition ? 'absolute' : 'fixed'} inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200`}>
       <div 
         ref={modalRef}
-        className="bg-[#2a3038] rounded-lg shadow-2xl w-[400px] border border-[#363c47] overflow-hidden transform transition-all scale-100"
+        className={`bg-[#2a3038] rounded-lg shadow-2xl ${width} border border-[#363c47] overflow-hidden transform transition-all scale-100`}
       >
         {/* Header */}
         <div className="px-6 py-4 border-b border-[#363c47] flex items-center justify-between">

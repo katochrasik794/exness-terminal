@@ -144,7 +144,7 @@ export default function TradingTerminal({ isSidebarExpanded, onSidebarStateChang
       if (isSidebarExpanded) {
         leftPanelRef.current.resize(23) // 15% ≈ 290px on 1920px screen
       } else {
-        leftPanelRef.current.resize(3)
+        leftPanelRef.current.resize(0)
       }
     }
   }, [isSidebarExpanded])
@@ -154,17 +154,23 @@ export default function TradingTerminal({ isSidebarExpanded, onSidebarStateChang
       {/* Left sidebar with panels */}
       <ResizablePanel 
         ref={leftPanelRef}
-        defaultSize={3}
-        minSize={3}
+        defaultSize={4}
+        minSize={8}
         maxSize={40}
-        className="min-h-0 h-full"
-        collapsible={false}
+        className={`min-h-0 h-full ${!isSidebarExpanded ? "!min-w-[48px] !max-w-[48px] !flex-none" : ""}`}
+        collapsedSize={0}
+        collapsible={true}
+        onCollapse={() => onSidebarStateChange(false)}
+        onExpand={() => onSidebarStateChange(true)}
       >
-        <LeftSidebar onPanelStateChange={onSidebarStateChange} />
+        <LeftSidebar 
+          onPanelStateChange={onSidebarStateChange} 
+          isExpanded={isSidebarExpanded}
+        />
       </ResizablePanel>
       
       {/* Horizontal resize handle */}
-      <ResizableHandle disabled={!isSidebarExpanded} className={!isSidebarExpanded ? "pointer-events-none" : ""} />
+      <ResizableHandle disabled={!isSidebarExpanded} className={!isSidebarExpanded ? "pointer-events-none w-0" : ""} />
       
       {/* Main content area with status bar */}
       <ResizablePanel defaultSize={97} className="flex flex-col h-full gap-1">
@@ -204,10 +210,10 @@ export default function TradingTerminal({ isSidebarExpanded, onSidebarStateChang
           {!isRightSidebarOpen && (
              <button 
                onClick={() => setIsRightSidebarOpen(true)}
-               className="absolute right-0 top-4 z-50 bg-[#141d22] border border-[#2a2f36] border-r-0 text-gray-400 hover:text-white transition-colors p-1.5 rounded-l-md shadow-lg cursor-pointer"
+               className="absolute right-0 top-2 z-50 bg-[#141d22] border border-[#2a2f36] border-r-0 text-gray-400 hover:text-white transition-colors p-1.5 rounded-l-md shadow-lg cursor-pointer"
                title="Open Order Panel"
              >
-               <ChevronLeft size={18} />
+               <ChevronLeft size={20} />
              </button>
           )}
         </div>

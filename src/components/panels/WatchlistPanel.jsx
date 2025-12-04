@@ -280,8 +280,8 @@ export default function WatchlistPanel({ onClose }) {
                 {isVisible('bid') && <th className="px-1 text-gray-400 py-2 text-left font-medium w-[70px]">Bid</th>}
                 {isVisible('spread') && <th className="px-1 text-gray-400 py-2 text-center font-medium w-[60px]">Spread</th>}
                 {isVisible('ask') && <th className="px-1 text-gray-400 py-2 text-left font-medium w-[70px]">Ask</th>}
-                {isVisible('change') && <th className="px-1 text-gray-400 py-2 text-left font-medium w-[100px]">1D change</th>}
-                {isVisible('pl') && <th className="px-1 text-gray-400 py-2 text-left font-medium w-[90px]">P/L, USD</th>}
+                {isVisible('change') && <th className="px-1 text-gray-400 py-2 text-left text-[10px] font-medium w-[120px]">1D change</th>}
+                {isVisible('pl') && <th className="px-1 text-gray-400 py-2 text-left text-[10px] font-medium w-[90px]">P/L, USD</th>}
                 <th className="px-1 text-gray-400 py-2 text-center font-normal w-[30px]"></th>
               </tr>
             </thead>
