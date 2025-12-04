@@ -6,7 +6,7 @@ import ResizablePanel from '../panels/ResizablePanel'
 import { LuList, LuCalendar, LuSettings } from 'react-icons/lu'
 import Tooltip from '../ui/Tooltip'
 
-export default function LeftSidebar({ onPanelStateChange }) {
+export default function LeftSidebar({ onPanelStateChange, isExpanded }) {
   const [activePanel, setActivePanel] = useState(null)
 
   const togglePanel = (panel) => {
@@ -18,6 +18,13 @@ export default function LeftSidebar({ onPanelStateChange }) {
   }
 
   const hasActivePanel = activePanel !== null
+
+  // Reset active panel when sidebar is collapsed externally
+  useEffect(() => {
+    if (!isExpanded) {
+      setActivePanel(null)
+    }
+  }, [isExpanded])
 
   // Notify parent component about panel state changes
   useEffect(() => {

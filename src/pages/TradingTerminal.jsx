@@ -144,7 +144,7 @@ export default function TradingTerminal({ isSidebarExpanded, onSidebarStateChang
       if (isSidebarExpanded) {
         leftPanelRef.current.resize(23) // 15% ≈ 290px on 1920px screen
       } else {
-        leftPanelRef.current.resize(3)
+        leftPanelRef.current.resize(0)
       }
     }
   }, [isSidebarExpanded])
@@ -154,17 +154,23 @@ export default function TradingTerminal({ isSidebarExpanded, onSidebarStateChang
       {/* Left sidebar with panels */}
       <ResizablePanel 
         ref={leftPanelRef}
-        defaultSize={3}
-        minSize={3}
+        defaultSize={4}
+        minSize={8}
         maxSize={40}
-        className="min-h-0 h-full"
-        collapsible={false}
+        className={`min-h-0 h-full ${!isSidebarExpanded ? "!min-w-[48px] !max-w-[48px] !flex-none" : ""}`}
+        collapsedSize={0}
+        collapsible={true}
+        onCollapse={() => onSidebarStateChange(false)}
+        onExpand={() => onSidebarStateChange(true)}
       >
-        <LeftSidebar onPanelStateChange={onSidebarStateChange} />
+        <LeftSidebar 
+          onPanelStateChange={onSidebarStateChange} 
+          isExpanded={isSidebarExpanded}
+        />
       </ResizablePanel>
       
       {/* Horizontal resize handle */}
-      <ResizableHandle disabled={!isSidebarExpanded} className={!isSidebarExpanded ? "pointer-events-none" : ""} />
+      <ResizableHandle disabled={!isSidebarExpanded} className={!isSidebarExpanded ? "pointer-events-none w-0" : ""} />
       
       {/* Main content area with status bar */}
       <ResizablePanel defaultSize={97} className="flex flex-col h-full gap-1">
