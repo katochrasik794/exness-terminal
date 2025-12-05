@@ -11,8 +11,8 @@ function App() {
     <div className="h-screen flex flex-col bg-[#3f474b] overflow-hidden gap-1">
       <Navbar 
         isSidebarExpanded={isSidebarExpanded} 
-        logoLarge="/FinCRM-logo-light.png" 
-        logoSmall="/finCRM-logo-small.png" 
+        logoLarge="/new-logo.png" 
+        logoSmall="/new-small-logo-dark.png" 
       />
       <div className="flex flex-1 min-h-0 overflow-hidden">
         {/* <LeftSidebar /> */}

@@ -258,7 +258,7 @@ export default function BottomPanel({ openPositions, onClosePosition, onCloseGro
       symbol,
       position: {
         top: rect.top - 8, // Position above the button with some gap
-        left: rect.right - 160 // Align right edge approximately, width is auto but ~160px covers buttons
+        left: rect.right - 320 // Align right edge of popup (320px wide) with right edge of button
       }
     })
   }
@@ -567,6 +567,7 @@ export default function BottomPanel({ openPositions, onClosePosition, onCloseGro
         onClose={() => setGroupPopup({ ...groupPopup, isOpen: false })}
         onConfirm={confirmCloseGroup}
         position={groupPopup.position}
+        symbol={groupPopup.symbol}
       />
     </div>
   )
